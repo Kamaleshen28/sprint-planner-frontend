@@ -8,3 +8,4 @@ export { default as Tile } from './Tile';
 export { default as TopBar } from './TopBar';
 export { default as InputForm } from './InputForm';
 export { default as Title } from './Title';
+export { default as StartDateInput } from './StartDateInput';

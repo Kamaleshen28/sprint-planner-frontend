@@ -1,15 +1,17 @@
 import React from 'react';
 
-// import { Topbar, Title, InputForm } from '../../Components';
-import { TopBar, Title, InputForm, Header } from '../../Components';
+import { Title, InputForm, Header, StartDateInput } from '../../Components';
 
 function InputPage() {
   const [value, setValue] = React.useState();
+  const [startDate, setStartDate] = React.useState();
   return (
     <>
-      {/* <TopBar /> */}
       <Header value={value} setValue={setValue} />
       <Title value={value} setValue={setValue} />
+      <div className="common-input-section">
+        <StartDateInput value={startDate} setValue={setStartDate} />
+      </div>
       <InputForm />
     </>
   );
