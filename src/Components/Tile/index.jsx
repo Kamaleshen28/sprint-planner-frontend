@@ -32,7 +32,7 @@ const Tile = ({ handleOpen, children }) => (
 
 Tile.propTypes = {
   handleOpen: PropTypes.func.isRequired,
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
 };
 
 export default Tile;
