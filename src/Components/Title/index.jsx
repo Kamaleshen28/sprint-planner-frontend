@@ -61,8 +61,8 @@ const InlineEdit = ({ value, setValue, isActive, setIsActive }) => {
   );
 };
 
-export default function Title() {
-  const [value, setValue] = useState();
+export default function Title({ value, setValue }) {
+  // const [value, setValue] = useState();
   const [isActive, setIsActive] = useState(false);
   const handleClick = () => {
     setIsActive(true);
@@ -74,10 +74,11 @@ export default function Title() {
       display="flex"
       sx={{ mt: 2 }}
       width={400}
-      height={60}
+      height={40}
       bgcolor={isActive ? 'lightblue' : 'transparent'}
       justifyContent={'space-between'}
       alignItems={'center'}
+      borderRadius={2}
     >
       <InlineEdit
         value={value}
@@ -102,4 +103,9 @@ InlineEdit.propTypes = {
   setValue: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   setIsActive: PropTypes.func.isRequired,
+};
+
+Title.propTypes = {
+  value: PropTypes.string.isRequired,
+  setValue: PropTypes.func.isRequired,
 };

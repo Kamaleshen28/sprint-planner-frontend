@@ -5,3 +5,6 @@ export { default as Sprint } from './SprintOutput';
 export { default as Developer } from './DeveloperOutput';
 export { default as Story } from './StoryOutput';
 export { default as Tile } from './Tile';
+export { default as TopBar } from './TopBar';
+export { default as InputForm } from './InputForm';
+export { default as Title } from './Title';
