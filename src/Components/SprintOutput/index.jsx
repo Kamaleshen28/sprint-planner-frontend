@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Story from '../StoryOutput/Story';
-import Tile from '../Tile/Tile';
+import Story from '../StoryOutput';
+import Tile from '../Tile';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
@@ -49,7 +49,7 @@ export default function Sprint({ content, index }) {
           width={2 / 3}
           p={3}
           sx={{ ...style, overflow: 'auto', borderRadius: 5 }}
-          maxHeight={200}
+          maxHeight={300}
         >
           <Box
             display="flex"
@@ -61,7 +61,6 @@ export default function Sprint({ content, index }) {
               borderBottomLeftRadius: 0,
               borderBottomRightRadius: 0,
               borderBottom: '5px solid white',
-              // borderTopRightRadius: 5,
               height: 50,
             }}
           >
@@ -74,6 +73,7 @@ export default function Sprint({ content, index }) {
               return (
                 <Grid key={index} item xs={12}>
                   <Story
+                    title={story.title}
                     id={story.id}
                     dependencies={story.dependencies}
                     startDay={story.startDay}

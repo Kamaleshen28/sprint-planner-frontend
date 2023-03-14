@@ -17,6 +17,11 @@ const Tile = ({ handleOpen, children }) => (
       bgcolor: 'white',
       color: 'black',
       fontWeight: 500,
+      textOverflow: 'ellipsis',
+      whiteSpace: 'nowrap',
+      overflow: 'hidden',
+      textAlign: 'left',
+      display: 'block',
     }}
     variant="outlined"
     onClick={handleOpen}
@@ -28,6 +33,7 @@ const Tile = ({ handleOpen, children }) => (
 
 Tile.propTypes = {
   handleOpen: PropTypes.func.isRequired,
-  children: PropTypes.node.isRequired,
+  children: PropTypes.string.isRequired,
 };
+
 export default Tile;

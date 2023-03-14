@@ -1,18 +1,20 @@
 import React, { useContext } from 'react';
-import Header from '../Components/Header';
-import ListView from '../Components/ListView/ListView';
-import { DataContext } from '../Contexts/DataContext';
+import { Header, ListView } from '../../Components';
+import { DataContext } from '../../Contexts/DataContext';
+import './OutputList.css';
 
 export default function OutputList() {
   const { sprints } = useContext(DataContext);
   return (
-    <div>
+    <>
       {sprints.length ? (
         <React.Fragment>
           <Header />
-          <ListView />
+          <div className="list-view">
+            <ListView />
+          </div>
         </React.Fragment>
       ) : null}
-    </div>
+    </>
   );
 }

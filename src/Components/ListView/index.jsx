@@ -1,17 +1,14 @@
 import React, { useContext } from 'react';
 import Box from '@mui/material/Box';
-import Developer from '../DeveloperOutput/Developer.jsx';
-import Sprint from '../SprintOutput/Sprint.jsx';
-import List from '../List/List.jsx';
+import Developer from '../DeveloperOutput';
+import Sprint from '../SprintOutput';
+import List from '../List';
 import { DataContext } from '../../Contexts/DataContext';
 
 const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
   width: '75%',
-  height: '75%',
+  height: '60vh',
+  minHeight: 400,
   bgcolor: '#fafafa',
   border: '2px solid lightgrey',
   boxShadow: 4,
@@ -41,6 +38,7 @@ const ListView = () => {
         ...style,
         display: 'flex',
         justifyContent: 'space-around',
+        rowGap: 10,
         borderRadius: 10,
       }}
     >

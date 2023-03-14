@@ -2,10 +2,10 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
-import Story from '../StoryOutput/Story';
+import Story from '../StoryOutput';
 import { Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
-import Tile from '../Tile/Tile';
+import Tile from '../Tile';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 const Developer = (props) => {
@@ -45,7 +45,12 @@ const Developer = (props) => {
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Box width={2 / 3} p={3} sx={{ ...style, borderRadius: 2 }}>
+        <Box
+          width={2 / 3}
+          p={3}
+          sx={{ ...style, overflow: 'auto', borderRadius: 5 }}
+          maxHeight={300}
+        >
           <Box
             display="flex"
             sx={{
@@ -68,6 +73,7 @@ const Developer = (props) => {
             {content.map((story, index) => (
               <Grid item xs={12} key={index}>
                 <Story
+                  title={story.title}
                   id={story.id}
                   dependencies={story.dependencies}
                   startDay={story.startDay}

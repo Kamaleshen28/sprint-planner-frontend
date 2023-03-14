@@ -6,9 +6,9 @@ import CardHeader from '@mui/material/CardHeader';
 import Avatar from '@mui/material/Avatar';
 import { red } from '@mui/material/colors';
 import Divider from '@mui/material/Divider';
-import Tile from '../Tile/Tile';
+import Tile from '../Tile';
 
-const Story = ({ id, dependencies, startDay, endDay, developers }) => {
+const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -34,7 +34,7 @@ const Story = ({ id, dependencies, startDay, endDay, developers }) => {
   };
   return (
     <React.Fragment>
-      <Tile handleOpen={handleOpen}>STORY {id}</Tile>
+      <Tile handleOpen={handleOpen}>STORY ({title})</Tile>
       <Modal
         open={open}
         onClose={handleClose}
@@ -82,6 +82,7 @@ const Story = ({ id, dependencies, startDay, endDay, developers }) => {
   );
 };
 Story.propTypes = {
+  title: PropTypes.string.isRequired,
   id: PropTypes.number.isRequired,
   dependencies: PropTypes.array.isRequired,
   startDay: PropTypes.number.isRequired,

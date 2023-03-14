@@ -24,7 +24,7 @@ export default function List({
   });
   theme = responsiveFontSizes(theme);
   return (
-    <Box width={2 / 3} sx={{ ...style, borderRadius: 5 }}>
+    <Box width={2 / 3} sx={{ ...style, borderRadius: 5, ml: 2 }}>
       <Box
         display="flex"
         sx={{
@@ -35,35 +35,46 @@ export default function List({
           borderBottomLeftRadius: 0,
           borderBottomRightRadius: 0,
           borderBottom: '5px solid white',
-          height: 50,
+          height: '10%',
+          minHeight: 50,
         }}
       >
         <Typography variant="h4" theme={theme} m="auto">
           {heading}
         </Typography>
       </Box>
-      <Grid container spacing={2} padding={2}>
-        {contents.map((content, index) => {
-          let props = {};
-          if (heading === 'Sprints') {
-            props = {
-              content,
-              index,
-            };
-          } else {
-            props = {
-              content,
-              developerName: developerIdMapping[index],
-            };
-          }
+      <div style={{ height: '85%', overflowY: 'scroll' }}>
+        <Grid
+          container
+          spacing={2}
+          padding={2}
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          {contents.map((content, index) => {
+            let props = {};
+            if (heading === 'Sprints') {
+              props = {
+                content,
+                index,
+              };
+            } else {
+              props = {
+                content,
+                developerName: developerIdMapping[index],
+              };
+            }
 
-          return (
-            <Grid key={index} item xs={12}>
-              {React.cloneElement(children, { ...props })}
-            </Grid>
-          );
-        })}
-      </Grid>
+            return (
+              <Grid key={index} item xs={12}>
+                {React.cloneElement(children, { ...props })}
+              </Grid>
+            );
+          })}
+        </Grid>
+      </div>
     </Box>
   );
 }

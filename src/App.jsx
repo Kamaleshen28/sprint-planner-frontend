@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import OutputList from './Pages/outputList';
+import OutputList from './Pages/OutputList';
 import DataProvider from './Contexts/DataContext';
 import './App.css';
 import Home from './Pages/InputPage';
