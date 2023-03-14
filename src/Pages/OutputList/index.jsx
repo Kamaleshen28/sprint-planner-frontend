@@ -9,9 +9,9 @@ export default function OutputList() {
     <>
       {sprints.length ? (
         <React.Fragment>
-          <Header heading={apiResponse.title} />
+          <Header />
           <div className="list-view">
-            <ListView />
+            <ListView heading={apiResponse.title} />
           </div>
         </React.Fragment>
       ) : null}

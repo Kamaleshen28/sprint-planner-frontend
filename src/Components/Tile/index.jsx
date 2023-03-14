@@ -2,7 +2,7 @@ import Button from '@mui/material/Button';
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Tile = ({ handleOpen, children }) => (
+const Tile = ({ handleOpen, children, leftalign }) => (
   <Button
     sx={{
       ':hover': {
@@ -21,6 +21,7 @@ const Tile = ({ handleOpen, children }) => (
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       display: 'block',
+      textAlign: leftalign ? 'left' : 'center',
     }}
     variant="outlined"
     onClick={handleOpen}
@@ -33,6 +34,7 @@ const Tile = ({ handleOpen, children }) => (
 Tile.propTypes = {
   handleOpen: PropTypes.func.isRequired,
   children: PropTypes.node.isRequired,
+  leftalign: PropTypes.bool,
 };
 
 export default Tile;

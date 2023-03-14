@@ -38,7 +38,7 @@ const Developer = (props) => {
   theme = responsiveFontSizes(theme);
   return (
     <React.Fragment>
-      <Tile handleOpen={handleOpen}> Developer ({developerName})</Tile>
+      <Tile handleOpen={handleOpen}> {developerName}</Tile>
       <Modal
         open={open}
         onClose={handleClose}
@@ -66,7 +66,7 @@ const Developer = (props) => {
             }}
           >
             <Typography variant="h4" theme={theme} m="auto">
-              DEVELOPER ({developerName})
+              {developerName}
             </Typography>
           </Box>
           <Grid container spacing={2}>

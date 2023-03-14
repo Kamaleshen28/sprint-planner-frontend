@@ -46,7 +46,9 @@ const Story = ({
   };
   return (
     <React.Fragment>
-      <Tile handleOpen={handleOpen}>STORY ({title})</Tile>
+      <Tile leftalign={true} handleOpen={handleOpen}>
+        {id}: {title}
+      </Tile>
       <Modal
         open={open}
         onClose={handleClose}
@@ -74,6 +76,7 @@ const Story = ({
           <Divider variant="middle" />
 
           <p>Story ID: {id}</p>
+          <p>Title: {title}</p>
           <p>
             Dependencies:{' '}
             {dependencies.map((dependency, index) => (

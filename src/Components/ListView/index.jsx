@@ -3,18 +3,20 @@ import Box from '@mui/material/Box';
 import Developer from '../DeveloperOutput';
 import Sprint from '../SprintOutput';
 import List from '../List';
+import PropTypes from 'prop-types';
 import { DataContext } from '../../Contexts/DataContext';
+import './ListView.css';
 
 const style = {
-  width: '75%',
-  height: '60vh',
+  width: '100%',
+  height: '70vh',
   minHeight: 400,
   bgcolor: '#fafafa',
   border: '2px solid lightgrey',
   boxShadow: 4,
 };
 
-const ListView = () => {
+const ListView = ({ heading }) => {
   const { sprints } = useContext(DataContext);
   const developerIdMapping = {};
   const storiesPerDeveloper = sprints.reduce((acc, sprint) => {
@@ -32,33 +34,49 @@ const ListView = () => {
   }, []);
 
   return (
-    <Box
-      p={5}
-      sx={{
-        ...style,
+    <div
+      style={{
+        height: '90vh',
         display: 'flex',
-        justifyContent: 'space-around',
-        rowGap: 10,
-        borderRadius: 10,
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        width: '80%',
+        margin: '0 auto ',
       }}
     >
-      <List
-        heading="Sprints"
-        contents={sprints}
-        developerIdMapping={developerIdMapping}
+      <h1 className="project-title">{heading}</h1>
+      <Box
+        p={5}
+        sx={{
+          ...style,
+          display: 'flex',
+          boxSizing: 'border-box',
+          justifyContent: 'space-around',
+          rowGap: 10,
+          borderRadius: 10,
+        }}
       >
-        <Sprint />
-      </List>
+        <List
+          heading="Sprints"
+          contents={sprints}
+          developerIdMapping={developerIdMapping}
+        >
+          <Sprint />
+        </List>
 
-      <List
-        heading="Developers"
-        contents={storiesPerDeveloper}
-        developerIdMapping={developerIdMapping}
-      >
-        <Developer />
-      </List>
-    </Box>
+        <List
+          heading="Developers"
+          contents={storiesPerDeveloper}
+          developerIdMapping={developerIdMapping}
+        >
+          <Developer />
+        </List>
+      </Box>
+    </div>
   );
 };
 
+ListView.propTypes = {
+  heading: PropTypes.string.isRequired,
+};
 export default ListView;
