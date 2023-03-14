@@ -1,10 +1,39 @@
 import { Button, Box, Fab, Modal, Tooltip, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import { useTheme } from '@mui/material/styles';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Chip from '@mui/material/Chip';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import Checkbox from '@mui/material/Checkbox';
+import ListItemText from '@mui/material/ListItemText';
+
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import './StoryInput.css';
 import { Edit } from '@mui/icons-material';
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
+function getStyles(name, personName, theme) {
+  return {
+    fontWeight:
+      personName.indexOf(name) === -1
+        ? theme.typography.fontWeightRegular
+        : theme.typography.fontWeightMedium,
+  };
+}
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -41,7 +70,8 @@ Item.propTypes = {
   ]),
 };
 
-export default function StoryInput({ storyList, setStoryList }) {
+export default function StoryInput({ storyList, setStoryList, developerList }) {
+  const theme = useTheme();
   const [id, setId] = useState(storyList.length + 1);
   const [stories, setStories] = useState('');
   const [dependencies, setDependencies] = useState([]);
@@ -101,19 +131,45 @@ export default function StoryInput({ storyList, setStoryList }) {
     setStoryList(newStoryList);
     handlePopupClose();
   };
+  const handleDeveloperChange = (event) => {
+    const { value } = event.target;
+    if (value === ' ') {
+      setDeveloper([]);
+    } else {
+      setDeveloper([value]);
+    }
+  };
+  const handledependencyChange = (event) => {
+    const { value } = event.target;
+    setDependencies(value);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(storyList);
     if (id && stories && storyPoints) {
       const newStory = { id, stories, dependencies, developer, storyPoints };
-      const myArray = newStory.dependencies.split(',');
-      const myNewArray = myArray.map((item) => {
-        return parseInt(item);
-      });
-      newStory.dependencies = myNewArray;
       setStoryList([...storyList, newStory]);
       setId(id + 1);
+      setStories('');
+      setDependencies([]);
+      setDeveloper([]);
+      setStoryPoints(0);
     }
+  };
+
+  const getDeveloperAssigned = (id) => {
+    if (!id || id.length === 0 || id === ' ') return [];
+    const developerassigned = developerList.find((dev) => dev.id === id[0]);
+    return developerassigned.developer;
+  };
+
+  const getDependencies = (id) => {
+    if (!id) return [];
+    const depArray = id.map((i) => {
+      const dependency = storyList.find((dep) => dep.id === i);
+      return dependency.stories;
+    });
+    return depArray;
   };
   return (
     <>
@@ -158,9 +214,11 @@ export default function StoryInput({ storyList, setStoryList }) {
                         <Item sx={{ width: '70%' }}>{id}</Item>
                         <Item sx={{ width: '70%' }}>{stories}</Item>
                         <Item sx={{ width: '70%' }}>
-                          {dependencies.toString()}
+                          {getDependencies(dependencies).toString()}
                         </Item>
-                        <Item sx={{ width: '70%' }}>{developer}</Item>
+                        <Item sx={{ width: '70%' }}>
+                          {getDeveloperAssigned(developer).toString()}
+                        </Item>
                         <Item sx={{ width: '70%' }}>{storyPoints}</Item>
                         {deleteCheck(id) ? (
                           <Tooltip title="Delete">
@@ -218,29 +276,68 @@ export default function StoryInput({ storyList, setStoryList }) {
                   onChange={(e) => setStories(e.target.value)}
                 />
               </Item>
-              <Item>
-                <TextValidator
-                  type="text"
-                  name="dependencies"
+              <FormControl sx={{ m: 1, width: 300 }}>
+                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                  Story Dependecy
+                </InputLabel>
+                <Select
+                  labelId="demo-multiple-name-label"
+                  id="demo-multiple-name"
+                  multiple
                   value={dependencies}
-                  placeholder="Enter Dependencies"
-                  onChange={(e) => setDependencies(e.target.value)}
-                />
-              </Item>
-              <Item>
-                <TextValidator
-                  type="text"
-                  name="developers"
+                  onChange={handledependencyChange}
+                  input={
+                    <OutlinedInput id="select-multiple-chip" label="Chip" />
+                  }
+                  renderValue={(selected) => (
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                      {selected.map((dependencyId) => (
+                        <Chip
+                          key={dependencyId}
+                          label={
+                            storyList?.find((e) => e.id === dependencyId)
+                              .stories
+                          }
+                        />
+                      ))}
+                    </Box>
+                  )}
+                  MenuProps={MenuProps}
+                >
+                  {storyList.map((story) => (
+                    <MenuItem key={story.id} value={story.id}>
+                      <Checkbox checked={dependencies.includes(story.id)} />
+                      <ListItemText primary={story.stories} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl sx={{ m: 1, width: 300 }}>
+                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+                  Preassign Developer
+                </InputLabel>
+                <Select
                   value={developer}
-                  placeholder="Enter Developer"
-                  validators={['isNumber', 'minNumber:0']}
-                  errorMessages={[
-                    'It should be number',
-                    'Number should be positive',
-                  ]}
-                  onChange={(e) => setDeveloper(e.target.value)}
-                />
-              </Item>
+                  onChange={handleDeveloperChange}
+                  input={<OutlinedInput />}
+                  renderValue={(selected) => {
+                    const obj = developerList?.find(
+                      (e) => e.id === selected[0],
+                    );
+                    return obj?.developer;
+                  }}
+                  MenuProps={MenuProps}
+                >
+                  <MenuItem value=" ">
+                    <em>None</em>
+                  </MenuItem>
+                  {developerList.map((developer) => (
+                    <MenuItem key={developer.id} value={developer.id}>
+                      {developer.developer}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
               <Item>
                 <TextValidator
                   type="text"
@@ -280,4 +377,5 @@ export default function StoryInput({ storyList, setStoryList }) {
 StoryInput.propTypes = {
   storyList: PropTypes.array,
   setStoryList: PropTypes.func,
+  developerList: PropTypes.array,
 };
