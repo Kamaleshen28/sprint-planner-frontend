@@ -79,6 +79,7 @@ const Developer = (props) => {
                   startDay={story.startDay}
                   endDay={story.endDay}
                   developers={story.developers}
+                  assignedDeveloperId={story.assignedDeveloperId}
                 />
               </Grid>
             ))}

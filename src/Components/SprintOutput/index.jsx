@@ -79,6 +79,7 @@ export default function Sprint({ content, index }) {
                     startDay={story.startDay}
                     endDay={story.endDay}
                     developers={story.developers}
+                    assignedDeveloperId={story.assignedDeveloperId}
                   />
                 </Grid>
               );

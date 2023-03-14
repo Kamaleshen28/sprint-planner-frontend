@@ -20,7 +20,6 @@ const Tile = ({ handleOpen, children }) => (
       textOverflow: 'ellipsis',
       whiteSpace: 'nowrap',
       overflow: 'hidden',
-      textAlign: 'left',
       display: 'block',
     }}
     variant="outlined"

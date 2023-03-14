@@ -8,7 +8,21 @@ import { red } from '@mui/material/colors';
 import Divider from '@mui/material/Divider';
 import Tile from '../Tile';
 
-const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
+const Story = ({
+  id,
+  dependencies,
+  startDay,
+  endDay,
+  developers,
+  title,
+  assignedDeveloperId,
+}) => {
+  const date = Date.now();
+  const startDate = new Date(date);
+  const endDate = new Date(date);
+  startDate.setDate(startDate.getDate() + startDay);
+  endDate.setDate(endDate.getDate() + endDay);
+
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
     setOpen(true);
@@ -16,9 +30,7 @@ const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  // const theme = {
-  //   spacing: [0, 2, 3, 5, 8],
-  // };
+
   const style = {
     position: 'absolute',
     top: '50%',
@@ -68,13 +80,19 @@ const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
               <li key={index}>{dependency}</li>
             ))}
           </p>
-          <p>Start Day: {startDay}</p>
-          <p>End Day: {endDay}</p>
+          <p>Start Day: {startDate.toLocaleDateString()}</p>
+          <p>End Day: {endDate.toLocaleDateString()}</p>
           <p>
             All Developers:
-            {developers.map((developers, index) => (
-              <li key={index}>{developers.name}</li>
-            ))}
+            {developers.map((developer, index) =>
+              developer.id === assignedDeveloperId ? (
+                <li key={index}>
+                  <b>{developer.name}</b> (Assigned)
+                </li>
+              ) : (
+                <li key={index}>{developer.name}</li>
+              ),
+            )}
           </p>
         </Card>
       </Modal>
@@ -88,5 +106,6 @@ Story.propTypes = {
   startDay: PropTypes.number.isRequired,
   endDay: PropTypes.number.isRequired,
   developers: PropTypes.array.isRequired,
+  assignedDeveloperId: PropTypes.number.isRequired,
 };
 export default Story;
