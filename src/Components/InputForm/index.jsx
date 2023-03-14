@@ -45,7 +45,7 @@ function TabPanel(props) {
   );
 }
 
-TabPanel.propTypes = {
+TabPanel.proptypes = {
   props: PropTypes.shape({
     children: PropTypes.node,
     index: PropTypes.number.isRequired,
@@ -63,7 +63,7 @@ function a11yProps(index) {
 export default function InputForm() {
   const [storyList, setStoryList] = useState(storiesData);
   const [developerList, setDeveloperList] = useState(developersData);
-  const [value, setValue] = useState(1);
+  const [value, setValue] = useState(0);
 
   const deleteCheck = (id) => {
     // return true if stories.developer does not contain id

@@ -1,15 +1,15 @@
 import React from 'react';
-import Title from '../../Components/Title';
-import Header from '../../Components/Header';
-import InputForm from '../../Components/InputForm';
 
-export default function Home() {
+import { Topbar, Title, InputForm } from '../../Components';
+
+function InputPage() {
   return (
     <>
-      {/* <Topbar /> */}
-      <Header />
+      <Topbar />
       <Title />
       <InputForm />
     </>
   );
 }
+
+export default InputPage;

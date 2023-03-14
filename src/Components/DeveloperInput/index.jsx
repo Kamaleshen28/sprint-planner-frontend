@@ -1,4 +1,4 @@
-import { Box, Input, Fab, Tooltip } from '@mui/material';
+import { Box, Input, Fab, Tooltip, Modal, Button } from '@mui/material';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import DeveloperEntry from '../DeveloperEntry';
@@ -46,7 +46,9 @@ export default function DeveloperInput({
   deleteCheck,
 }) {
   const [id, setId] = useState(
-    developerList[developerList.length - 1].id + 1 || 0,
+    developerList.length > 0
+      ? developerList[developerList.length - 1].id + 1
+      : 0,
   );
   const [developer, setDeveloper] = useState('');
   const [sprintCapacity, setSprintCapacity] = useState(null);
@@ -69,7 +71,7 @@ export default function DeveloperInput({
       setDeveloper('');
     }
   };
-  console.log(developerList.length);
+  //   console.log(developerList.length);
   return (
     <div className="dev-container">
       <div>
@@ -119,7 +121,8 @@ export default function DeveloperInput({
             bgcolor: '#345eeb40',
             borderRadius: 6,
             boxShadow: 1,
-            alignContent: 'center',
+            alignItems: 'center',
+            height: '100%',
           }}
         >
           <Item>

@@ -1,7 +1,7 @@
-import { Box, Tooltip, IconButton } from '@mui/material';
+import { Box, Tooltip, IconButton, Modal, Button } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 import './DeveloperEntry.css';
 
 function Item(props) {
@@ -46,8 +46,49 @@ export default function DeveloperEntry({
   deleteCheck,
 }) {
   const { id, developer, sprintCapacity, capacity } = developerInfo;
+  const [isOpen, setIsOpen] = useState({ open: false, id: null });
+
+  const handlePopupOpen = (id) => {
+    setIsOpen({ open: true, id });
+  };
+  const handlePopupClose = () => {
+    setIsOpen({ open: false, id: null });
+  };
+
+  const deleteConfirmationPopup = (
+    <Modal
+      open={isOpen.open}
+      onClose={handlePopupClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          borderRadius: 2,
+          p: 4,
+        }}
+      >
+        <h2 id="modal-modal-title">Are you sure you want to delete?</h2>
+        <p id="modal-modal-description">
+          This action cannot be undone. Please confirm.
+        </p>
+        <Button onClick={handlePopupClose}>Cancel</Button>
+        <Button color="error" onClick={() => removeItem(isOpen.id)}>
+          Delete
+        </Button>
+      </Box>
+    </Modal>
+  );
   return (
     <div className="list-item">
+      {deleteConfirmationPopup}
       <Box
         sx={{
           display: 'grid',
@@ -68,7 +109,7 @@ export default function DeveloperEntry({
         {/* <Button onClick={() => removeItem(index)}>==</Button> */}
         {deleteCheck(id) ? (
           <Tooltip title="Delete">
-            <IconButton color="primary" onClick={() => removeItem(id)}>
+            <IconButton color="primary" onClick={() => handlePopupOpen(id)}>
               <DeleteIcon />
             </IconButton>
           </Tooltip>
