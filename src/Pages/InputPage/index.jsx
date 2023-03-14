@@ -1,10 +1,20 @@
 import React from 'react';
+import './InputPage.css';
 
-import { Title, InputForm, Header, StartDateInput } from '../../Components';
+import {
+  Title,
+  InputForm,
+  Header,
+  StartDateInput,
+  TotalDurationInput,
+  SprintDurationInput,
+} from '../../Components';
 
 function InputPage() {
   const [value, setValue] = React.useState();
   const [startDate, setStartDate] = React.useState();
+  const [totalDuration, setTotalDuration] = React.useState();
+  const [sprintDuration, setSprintDuration] = React.useState();
   return (
     <>
       {/* <TopBar /> */}
@@ -12,6 +22,11 @@ function InputPage() {
       <Title value={value} setValue={setValue} />
       <div className="common-input-section">
         <StartDateInput value={startDate} setValue={setStartDate} />
+        <TotalDurationInput value={totalDuration} setValue={setTotalDuration} />
+        <SprintDurationInput
+          value={sprintDuration}
+          setValue={setSprintDuration}
+        />
       </div>
       <InputForm />
     </>

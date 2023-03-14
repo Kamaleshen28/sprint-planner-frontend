@@ -93,8 +93,8 @@ export default function DeveloperInput({
           >
             <Item sx={{ width: '80%', mx: 'auto' }}>Id</Item>
             <Item sx={{ width: '80%', mx: 'auto' }}>Developers</Item>
-            <Item sx={{ width: '80%', mx: 'auto' }}>Sprint Capacity</Item>
-            <Item sx={{ width: '80%', mx: 'auto' }}>Capacity</Item>
+            <Item sx={{ width: '80%', mx: 'auto' }}>Sprint Capacity(days)</Item>
+            <Item sx={{ width: '80%', mx: 'auto' }}>Capacity(days)</Item>
           </Box>
           <div className="dev-list">
             {developerList.length === 0 ? (
