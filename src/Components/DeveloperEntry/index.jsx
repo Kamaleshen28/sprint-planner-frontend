@@ -87,25 +87,31 @@ export default function DeveloperEntry({
     </Modal>
   );
   return (
-    <div className="list-item">
+    // <div className="list-item">
+    <>
       {deleteConfirmationPopup}
       <Box
         sx={{
           display: 'grid',
           gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
-          // p: 1,
-          m: 0.5,
-          justifyContent: 'space-between',
-          bgcolor: 'background.white',
-          borderRadius: 1,
-          gap: '0 2rem',
-          width: '70vw',
+          backgroundColor: 'white',
+          borderRadius: '10px',
+          ml: 6,
+          mt: 1,
+          p: 1,
+          // width: '100%',
+          // m: 0.5,
+          // justifyContent: 'space-between',
+          // bgcolor: 'background.white',
+          // borderRadius: 1,
+          // gap: '0 2rem',
+          // width: '70vw',
         }}
       >
-        <Item sx={{ width: '90%' }}>{id}</Item>
-        <Item sx={{ width: '90%' }}>{developer.toString()}</Item>
-        <Item sx={{ width: '90%' }}>{sprintCapacity}</Item>
-        <Item sx={{ width: '90%' }}>{capacity}</Item>
+        <Item sx={{ width: '80%', mx: 'auto' }}>{id}</Item>
+        <Item sx={{ width: '80%', mx: 'auto' }}>{developer.toString()}</Item>
+        <Item sx={{ width: '80%', mx: 'auto' }}>{sprintCapacity}</Item>
+        <Item sx={{ width: '80%', mx: 'auto' }}>{capacity}</Item>
         {/* <Button onClick={() => removeItem(index)}>==</Button> */}
         {deleteCheck(id) ? (
           <Tooltip title="Delete">
@@ -121,7 +127,8 @@ export default function DeveloperEntry({
           </Tooltip>
         )}
       </Box>
-    </div>
+    </>
+    // </div>
   );
 }
 

@@ -1,4 +1,5 @@
 import { Box, Input, Fab, Tooltip, Modal, Button } from '@mui/material';
+import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import DeveloperEntry from '../DeveloperEntry';
@@ -23,7 +24,7 @@ function Item(props) {
         fontSize: '0.875rem',
         fontWeight: '700',
         ...sx,
-        alignSelf: 'center',
+        // alignSelf: 'center',
       }}
       {...other}
     />
@@ -74,111 +75,130 @@ export default function DeveloperInput({
   //   console.log(developerList.length);
   return (
     <div className="dev-container">
-      <div>
-        <Box
-          sx={{
-            display: 'grid',
-            gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
-            p: 1,
-            m: 1,
-            justifyContent: 'space-between',
-            textAlign: 'center',
-            bgcolor: 'background.white',
-            borderRadius: 1,
-            gap: '0 1rem',
-          }}
-        >
-          <Item sx={{ width: '95%' }}>Id</Item>
-          <Item sx={{ width: '95%' }}>Developers</Item>
-          <Item sx={{ width: '95%' }}>Sprint Capacity</Item>
-          <Item sx={{ width: '95%' }}>Capacity</Item>
-        </Box>
-        <div className="dev-list">
-          {developerList.length === 0 ? (
-            <h1>No Developers</h1>
-          ) : (
-            developerList.map((developerInfo) => {
-              return (
-                <DeveloperEntry
-                  key={developerInfo.id}
-                  developerInfo={developerInfo}
-                  removeItem={removeItem}
-                  deleteCheck={deleteCheck}
-                />
-              );
-            })
-          )}
+      <Box mx="auto">
+        <div>
+          <Box
+            sx={{
+              display: 'grid',
+              gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
+              p: 1,
+              ml: 6,
+              // m: 1,
+              // justifyContent: 'space-between',
+              // textAlign: 'center',
+              // bgcolor: 'background.white',
+              // borderRadius: 1,
+              // gap: '0 1rem',
+            }}
+          >
+            <Item sx={{ width: '80%', mx: 'auto' }}>Id</Item>
+            <Item sx={{ width: '80%', mx: 'auto' }}>Developers</Item>
+            <Item sx={{ width: '80%', mx: 'auto' }}>Sprint Capacity</Item>
+            <Item sx={{ width: '80%', mx: 'auto' }}>Capacity</Item>
+          </Box>
+          <div className="dev-list">
+            {developerList.length === 0 ? (
+              <h1>No Developers</h1>
+            ) : (
+              developerList.map((developerInfo) => {
+                return (
+                  <DeveloperEntry
+                    key={developerInfo.id}
+                    developerInfo={developerInfo}
+                    removeItem={removeItem}
+                    deleteCheck={deleteCheck}
+                  />
+                );
+              })
+            )}
+          </div>
         </div>
-      </div>
-      <form onSubmit={handleSubmit}>
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: 'row',
-            p: '0 2',
-            m: '0 4',
-            justifyContent: 'space-around',
-            bgcolor: '#345eeb40',
-            borderRadius: 6,
-            boxShadow: 1,
-            alignItems: 'center',
-            height: '100%',
-          }}
+        {/* <form onSubmit={handleSubmit}> */}
+        <ValidatorForm
+          onSubmit={handleSubmit}
+          onError={(errors) => console.log(errors)}
         >
-          <Item>
-            <Input
-              placeholder="Id"
-              type="number"
-              name="id"
-              // defaultValue={id}
-              value={id}
-              // onChange={(e) => setDeveloper(e.target.value)}
-            />
-          </Item>
-          <Item>
-            <Input
-              placeholder="Developer Name"
-              type="text"
-              name="developer"
-              defaultValue="Disabled"
-              value={developer}
-              onChange={(e) => setDeveloper(e.target.value)}
-            />
-          </Item>
-          <Item>
-            <Input
-              placeholder="Sprint Capacity"
-              type="number"
-              name="sprintCapacity"
-              value={sprintCapacity}
-              onChange={(e) => setSprintCapacity(e.target.value)}
-            />
-          </Item>
-          <Item>
-            <Input
-              placeholder="capacity"
-              type="number"
-              name="capacity"
-              value={capacity}
-              onChange={(e) => setCapacity(e.target.value)}
-            />
-          </Item>
-          <Tooltip title="Add Developer" aria-label="add">
-            <Fab color="primary" type="submit" aria-label="add">
-              +
-            </Fab>
-          </Tooltip>
-        </Box>
-
-        {/* <Button
-          sx={{ borderRadius: 6, m: 0 }}
-          variant='contained'
-          style={{ margin: '0 auto', display: 'flex' }}
-          type='submit'
-        >
-          Add Developer
-        </Button> */}
-      </form>
+          <Box
+            sx={{
+              // display: 'flex',
+              // flexDirection: 'row',
+              display: 'grid',
+              gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
+              pl: 6,
+              // ml: 6,
+              // p: 1,
+              // p: '0 2',
+              // m: '0 4',
+              // justifyContent: 'space-around',
+              bgcolor: '#345eeb40',
+              borderRadius: 6,
+              height: '100px',
+              // boxShadow: 1,
+              alignItems: 'center',
+              // height: '100%',
+            }}
+          >
+            <Item sx={{ width: '80%', mx: 'auto' }}>
+              <TextValidator
+                placeholder="Id"
+                type="number"
+                name="id"
+                disabled
+                value={id}
+              />
+            </Item>
+            <Item sx={{ width: '80%', mx: 'auto' }}>
+              <TextValidator
+                style={{ width: '100%' }}
+                placeholder="Enter Developer Name"
+                type="text"
+                name="developer"
+                defaultValue="Disabled"
+                value={developer}
+                validators={['required', 'matchRegexp:^[a-zA-Z ]*$']}
+                errorMessages={['this field is required', 'Not a valid name']}
+                onChange={(e) => setDeveloper(e.target.value)}
+              />
+            </Item>
+            <Item sx={{ width: '80%', mx: 'auto' }}>
+              <TextValidator
+                placeholder="Enter Sprint Capacity"
+                type="number"
+                name="sprintCapacity"
+                value={sprintCapacity}
+                validators={['required', 'isNumber', 'minNumber:0']}
+                errorMessages={[
+                  'this field is required',
+                  'Not a number',
+                  'Should be positive',
+                ]}
+                onChange={(e) => setSprintCapacity(e.target.value)}
+              />
+            </Item>
+            <Item sx={{ width: '80%', mx: 'auto' }}>
+              <TextValidator
+                placeholder="Enter capacity"
+                type="number"
+                name="capacity"
+                value={capacity}
+                validators={['required', 'isNumber', 'minNumber:0']}
+                errorMessages={[
+                  'this field is required',
+                  'Not a number',
+                  'Should be positive',
+                ]}
+                onChange={(e) => setCapacity(e.target.value)}
+              />
+            </Item>
+            <Tooltip sx={{ mx: 'auto' }} title="Add Developer" aria-label="add">
+              <Fab color="primary" type="submit" aria-label="add">
+                +
+              </Fab>
+            </Tooltip>
+          </Box>
+        </ValidatorForm>
+        {/* </form> */}
+      </Box>
     </div>
   );
 }
