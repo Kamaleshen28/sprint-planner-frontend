@@ -1,10 +1,11 @@
-import { Button, Box, Input, Fab } from '@mui/material';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { Button, Box, Fab, Modal, Tooltip, IconButton } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import './StoryInput.css';
+import { Edit } from '@mui/icons-material';
+
 function Item(props) {
   const { sx, ...other } = props;
   return (
@@ -46,9 +47,59 @@ export default function StoryInput({ storyList, setStoryList }) {
   const [dependencies, setDependencies] = useState([]);
   const [developer, setDeveloper] = useState([]);
   const [storyPoints, setStoryPoints] = useState(0);
+  const [isOpen, setIsOpen] = useState({ open: false, id: null });
+
+  const handlePopupOpen = (id) => {
+    setIsOpen({ open: true, id });
+  };
+  const handlePopupClose = () => {
+    setIsOpen({ open: false, id: null });
+  };
+
+  const deleteCheck = (id) => {
+    let check = true;
+    storyList.forEach((story) => {
+      if (story.dependencies.includes(id)) check = false;
+    });
+    return check;
+  };
+
+  const deleteConfirmationPopup = (
+    <Modal
+      open={isOpen.open}
+      onClose={handlePopupClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          borderRadius: 2,
+          p: 4,
+        }}
+      >
+        <h2 id="modal-modal-title">Are you sure you want to delete?</h2>
+        <p id="modal-modal-description">
+          This action cannot be undone. Please confirm.
+        </p>
+        <Button onClick={handlePopupClose}>Cancel</Button>
+        <Button color="error" onClick={() => removeItem(isOpen.id)}>
+          Delete
+        </Button>
+      </Box>
+    </Modal>
+  );
+
   const removeItem = (id) => {
     let newStoryList = storyList.filter((story) => story.id !== id);
     setStoryList(newStoryList);
+    handlePopupClose();
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -84,6 +135,7 @@ export default function StoryInput({ storyList, setStoryList }) {
               <Item sx={{ width: '70%' }}>Story Points</Item>
             </Box>
             <div className="story-list">
+              {deleteConfirmationPopup}
               {storyList.length === 0 ? (
                 <h1>No Stories</h1>
               ) : (
@@ -110,17 +162,30 @@ export default function StoryInput({ storyList, setStoryList }) {
                         </Item>
                         <Item sx={{ width: '70%' }}>{developer}</Item>
                         <Item sx={{ width: '70%' }}>{storyPoints}</Item>
-                        <Fab
-                          color="primary"
-                          onClick={() => removeItem(id)}
-                          aria-label="add"
-                        >
-                          <FontAwesomeIcon icon={faTrash} />
-                        </Fab>
-                        <Fab>
+                        {deleteCheck(id) ? (
+                          <Tooltip title="Delete">
+                            <IconButton
+                              color="primary"
+                              onClick={() => handlePopupOpen(id)}
+                            >
+                              <DeleteIcon />
+                            </IconButton>
+                          </Tooltip>
+                        ) : (
+                          <Tooltip title="Remove or Edit Dependent stories">
+                            <IconButton disableTouchRipple disableFocusRipple>
+                              <DeleteIcon style={{ color: 'red' }} />
+                            </IconButton>
+                          </Tooltip>
+                        )}
+                        <Tooltip title="Edit">
+                          <IconButton color="disabled">
+                            <Edit />
+                          </IconButton>
+                        </Tooltip>
+                        {/* <Fab>
                           <FontAwesomeIcon icon={faEdit} />
-                        </Fab>
-                        {/* // <Button  onClick={() => removeItem(id)}>Remove</Button> */}
+                        </Fab> */}
                       </Box>
                     </>
                   );
