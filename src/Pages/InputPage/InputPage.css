@@ -1,0 +1,9 @@
+.common-input-section {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-around;
+  /* background-color: yellowgreen; */
+  /* height: 100px; */
+  align-items: center;
+  align-content: center;
+}

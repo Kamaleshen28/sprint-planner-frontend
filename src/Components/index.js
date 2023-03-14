@@ -9,3 +9,5 @@ export { default as TopBar } from './TopBar';
 export { default as InputForm } from './InputForm';
 export { default as Title } from './Title';
 export { default as StartDateInput } from './StartDateInput';
+export { default as TotalDurationInput } from './TotalDurationInput';
+export { default as SprintDurationInput } from './SprintDurationInput';
