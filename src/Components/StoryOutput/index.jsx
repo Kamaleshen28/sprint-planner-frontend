@@ -18,10 +18,25 @@ const Story = ({
   assignedDeveloperId,
 }) => {
   const date = Date.now();
-  const startDate = new Date(date);
-  const endDate = new Date(date);
-  startDate.setDate(startDate.getDate() + startDay);
-  endDate.setDate(endDate.getDate() + endDay);
+  let startDate = new Date(date);
+  let endDate = new Date(date);
+  let count = 0;
+  while (count < startDay) {
+    startDate = new Date(startDate.setDate(startDate.getDate() + 1));
+    if (startDate.getDay() != 0 && endDate.getDay() != 6) {
+      //Date.getDay() gives weekday starting from 0(Sunday) to 6(Saturday)
+      count++;
+    }
+  }
+
+  count = 0;
+  while (count < endDay) {
+    endDate = new Date(endDate.setDate(endDate.getDate() + 1));
+    if (endDate.getDay() != 0 && endDate.getDay() != 6) {
+      //Date.getDay() gives weekday starting from 0(Sunday) to 6(Saturday)
+      count++;
+    }
+  }
 
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => {
