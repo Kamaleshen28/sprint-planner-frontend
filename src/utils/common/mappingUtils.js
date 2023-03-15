@@ -57,16 +57,18 @@ const mapStoryIds = (stories) => {
   return storyIdMapper;
 };
 
-const developerIdMapper = mapDeveloperIds(developersData);
-const storyIdMapper = mapStoryIds(storiesData);
+// const developerIdMapper = mapDeveloperIds(developersData);
+// const storyIdMapper = mapStoryIds(storiesData);
 
 const updateDevelopers = (developers) => {
   const developerIdMapper = mapDeveloperIds(developers);
   const updatedDevelopers = [];
   developers.forEach((developer) => {
     updatedDevelopers.push({
-      ...developer,
+      // ...developer,
       id: developerIdMapper[developer.id],
+      name: developer.developer,
+      capacity: developer.capacity,
     });
   });
   return updatedDevelopers;
@@ -83,17 +85,25 @@ const updateStories = (stories, developers) => {
     const newDevelopers = story.developer.map(
       (developer) => developerIdMapper[developer],
     );
-    updatedStories.push({
-      ...story,
+    const newStory = {
+      // ...story,
       id: storyIdMapper[story.id],
+      title: story.stories,
+      description: 'Description',
       dependencies: newDependencies,
-      developer: newDevelopers,
-    });
+      storyPoints: story.storyPoints,
+      // preAssignedDeveloperId: newDevelopers[0],
+      // developer: newDevelopers,
+    };
+    if (newDevelopers.length > 0) {
+      newStory.preAssignedDeveloperId = newDevelopers[0];
+    }
+    updatedStories.push(newStory);
   });
   return updatedStories;
 };
 
-export default { updateDevelopers, updateStories };
+export { updateDevelopers, updateStories };
 
 // console.log(updateDevelopers(developersData));
 // console.log(updateStories(storiesData, developersData));

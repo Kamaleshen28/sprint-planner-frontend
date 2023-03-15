@@ -3,4 +3,4 @@ const defaultFormatToUnix = (date) => {
   return newDate.getTime();
 };
 
-export default { defaultFormatToUnix };
+export default defaultFormatToUnix;

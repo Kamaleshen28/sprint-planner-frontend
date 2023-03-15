@@ -12,8 +12,8 @@ import DependencyGraph from './Pages/DependencyGraph';
 function App() {
   return (
     <div className="App">
-      <DataProvider>
-        <Router>
+      <Router>
+        <DataProvider>
           <Routes>
             <Route path="/" element={<OutputList />} />
             {/* <Route path="/create" element={<Home />} /> */}
@@ -22,8 +22,8 @@ function App() {
             <Route path="/graph" element={<DependencyGraph />} />
             <Route path="error/:errorCode?" element={<ErrorScreen />} />
           </Routes>
-        </Router>
-      </DataProvider>
+        </DataProvider>
+      </Router>
     </div>
   );
 }
