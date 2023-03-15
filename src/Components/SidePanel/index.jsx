@@ -35,7 +35,10 @@ export default function SidePanel() {
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton onClick={() => navigate('/create')}>
+          <ListItemButton
+            onClick={() => navigate('/create')}
+            data-testid="create-project-text"
+          >
             <ListItemText primary="Create Project" />
           </ListItemButton>
         </ListItem>
@@ -43,7 +46,10 @@ export default function SidePanel() {
       <Divider />
       <List>
         <ListItem disablePadding>
-          <ListItemButton onClick={() => navigate('/')}>
+          <ListItemButton
+            onClick={() => navigate('/')}
+            data-testid="list-view-button"
+          >
             <ListItemText primary="List View" />
           </ListItemButton>
         </ListItem>
@@ -51,7 +57,10 @@ export default function SidePanel() {
 
       <List>
         <ListItem disablePadding>
-          <ListItemButton onClick={() => navigate('/graph')}>
+          <ListItemButton
+            onClick={() => navigate('/graph')}
+            data-testid="dependency-graph-button"
+          >
             <ListItemText primary="Dependency Graph" />
           </ListItemButton>
         </ListItem>
@@ -69,7 +78,7 @@ export default function SidePanel() {
   return (
     <div>
       <React.Fragment>
-        <Button onClick={toggleDrawer(true)}>
+        <Button onClick={toggleDrawer(true)} data-testid="menu-icon">
           <MenuIcon />
         </Button>
         <Drawer anchor={'left'} open={state} onClose={toggleDrawer(false)}>
