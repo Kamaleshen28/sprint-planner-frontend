@@ -1,13 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import Graph from 'react-vis-network-graph';
 import './DependencyGraph.css';
 import { nanoid } from 'nanoid';
 import { DataContext } from '../../Contexts/DataContext';
 import { Header } from '../../Components';
+import Switch from '@mui/material/Switch';
 
 export default function DependencyGraph() {
   const { developers } = useContext(DataContext);
   const { stories } = useContext(DataContext);
+
+  const [isZoomView, setIsZoomView] = useState(true);
+
+  const handleZoomToggleClick = () => {
+    setIsZoomView((previousValue) => !previousValue);
+  };
 
   const findDeveloperById = (id) => {
     const developer = developers.filter(
@@ -73,7 +80,7 @@ export default function DependencyGraph() {
     },
     interaction: {
       hover: true,
-      zoomView: true,
+      zoomView: isZoomView,
       dragNodes: true,
       dragView: true,
     },
@@ -90,6 +97,16 @@ export default function DependencyGraph() {
             options={options}
             // style={{ width: "80%", height: "100%" }}
           />
+          <div className="button-container">
+            <div className="zoom-button-wrapper">
+              <div className="span">Zoomview</div>
+              <Switch
+                checked={isZoomView}
+                onChange={handleZoomToggleClick}
+                inputProps={{ 'aria-label': 'controlled' }}
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
