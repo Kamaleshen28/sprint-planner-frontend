@@ -216,12 +216,14 @@ function InputPage() {
   return (
     <>
       {/* <TopBar /> */}
-      <ErrorModal
-        open={open}
-        setOpen={setOpen}
-        handleClose={handleClose}
-        handleOpen={handleOpen}
-      />
+      {open && (
+        <ErrorModal
+          open={open}
+          setOpen={setOpen}
+          handleClose={handleClose}
+          handleOpen={handleOpen}
+        />
+      )}
       <Header value={title} setValue={setTitle} heading="Sprint Planner" />
       <Title value={title} setValue={setTitle} />
       <div className="common-input-section">

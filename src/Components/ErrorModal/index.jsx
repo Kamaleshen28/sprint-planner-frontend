@@ -4,6 +4,7 @@ import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import ErrorIcon from '@mui/icons-material/Error';
+import PropTypes from 'prop-types';
 
 const style = {
   position: 'absolute',
@@ -60,3 +61,10 @@ export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
     </div>
   );
 }
+
+ErrorModal.propTypes = {
+  open: PropTypes.bool,
+  setOpen: PropTypes.func,
+  handleClose: PropTypes.func,
+  handleOpen: PropTypes.func,
+};
