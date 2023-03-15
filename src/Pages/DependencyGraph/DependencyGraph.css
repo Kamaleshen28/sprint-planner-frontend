@@ -1,0 +1,49 @@
+.dependency-graph{
+  height: 100vh;
+}
+
+.wrapper{
+  margin-top: 60px;
+  height:80%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.dependency-graph-wrapper {
+  width: 95%;
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+  -webkit-box-shadow: 0px 0px 11px -8px #000000; 
+  box-shadow: 0px 0px 11px -8px #000000;
+
+  padding: 20px;
+}
+
+.zoom-button-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 15%;
+}
+
+.toggle-button{
+  margin-left: 30px;
+  margin-right: 20px;
+}
+
+.button-container{
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: flex-end;
+  flex-direction: column;
+}
+
+canvas{
+  height: 100% !important;
+  border-bottom: 5px solid black;
+}
