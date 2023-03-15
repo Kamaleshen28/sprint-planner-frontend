@@ -13,15 +13,6 @@ const DataProvider = ({ children }) => {
   const [projectId, setProjectId] = useState('');
 
   useEffect(() => {
-    // let url =
-    //   'http://localhost:8000/api/projects/28b52660-d0d2-4c01-9cda-a584771ccdcc';
-    // axios.get(url).then((res) => {
-    //   setApiResponse(res.data.data);
-    //   setSprints(res.data.data.sprints);
-    //   setStories(res.data.data.stories);
-    //   setDevelopers(res.data.data.developers);
-    // });
-
     const projectIdLocal = localStorage.getItem('projectId');
     if (projectId || projectIdLocal) {
       const id = projectId || projectIdLocal;

@@ -148,7 +148,13 @@ const developersData = [
 ];
 
 function InputPage() {
-  const { setProjectId, setApiResponse, setSprints } = useContext(DataContext);
+  const {
+    setProjectId,
+    setApiResponse,
+    setSprints,
+    setDevelopers,
+    setStories,
+  } = useContext(DataContext);
   const [storyList, setStoryList] = useState(storiesData);
   const [developerList, setDeveloperList] = useState(developersData);
   const [title, setTitle] = React.useState();
@@ -191,6 +197,8 @@ function InputPage() {
       setProjectId(res.data.data.id);
       setApiResponse(res.data.data);
       setSprints(res.data.data.sprints);
+      setStories(res.data.data.stories);
+      setDevelopers(res.data.data.developers);
       localStorage.setItem('projectId', res.data.data.id);
       navigate('/');
     });
