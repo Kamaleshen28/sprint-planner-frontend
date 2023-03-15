@@ -138,7 +138,7 @@ export default function DeveloperInput({
               // height: '100%',
             }}
           >
-            <Item sx={{ width: '80%', mx: 'auto' }}>
+            {/* <Item sx={{ width: '80%', mx: 'auto' }}>
               <TextValidator
                 placeholder="Id"
                 type="number"
@@ -146,7 +146,8 @@ export default function DeveloperInput({
                 disabled
                 value={id}
               />
-            </Item>
+            </Item> */}
+            <div></div>
             <Item sx={{ width: '80%', mx: 'auto' }}>
               <TextValidator
                 style={{ width: '100%' }}

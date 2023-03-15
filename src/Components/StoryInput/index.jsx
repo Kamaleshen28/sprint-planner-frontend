@@ -179,7 +179,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
             <Box
               sx={{
                 display: 'grid',
-                gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
+                gridTemplateColumns: '1fr repeat(4, 2fr) 1fr ',
                 ml: 6,
                 p: 1,
               }}
@@ -203,7 +203,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                       <Box
                         sx={{
                           display: 'grid',
-                          gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
+                          gridTemplateColumns: '1fr repeat(4, 2fr) 1fr ',
                           backgroundColor: 'white',
                           borderRadius: '10px',
                           ml: 6,
@@ -236,11 +236,11 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                             </IconButton>
                           </Tooltip>
                         )}
-                        <Tooltip title="Edit">
+                        {/* <Tooltip title="Edit">
                           <IconButton color="disabled">
                             <Edit />
                           </IconButton>
-                        </Tooltip>
+                        </Tooltip> */}
                         {/* <Fab>
                           <FontAwesomeIcon icon={faEdit} />
                         </Fab> */}
@@ -259,12 +259,17 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
             <Box
               sx={{
                 display: 'grid',
-                gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
+                gridTemplateColumns: '1fr repeat(4, 2fr) 1fr ',
                 ml: 6,
                 p: 1,
+                alignItems: 'center',
               }}
             >
-              <Item>
+              {/* <Item>
+
+              </Item> */}
+              <div></div>
+              <Item sx={{ width: '70%' }}>
                 <TextValidator
                   type="text"
                   name="story"
@@ -338,7 +343,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                   ))}
                 </Select>
               </FormControl>
-              <Item>
+              <Item sx={{ width: '70%' }}>
                 <TextValidator
                   type="text"
                   name="storyPoints"
@@ -358,9 +363,10 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                   onChange={(e) => setStoryPoints(e.target.value)}
                 />
               </Item>
-              <div></div>
+              {/* <div></div> */}
               <Fab
                 variant="contained"
+                color="primary"
                 style={{ margin: '0 auto', display: 'flex' }}
                 type="submit"
               >
