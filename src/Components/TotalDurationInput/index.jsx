@@ -8,7 +8,7 @@ function TotalDurationInput({ value, setValue }) {
   return (
     <div className="total-duration-input">
       {/* <span>Total Duration</span> */}
-      <InputLabel>TotalDuration(Days): </InputLabel>
+      <InputLabel>TotalDuration(Weeks): </InputLabel>
       <ValidatorForm>
         <TextValidator
           id="total-duration"

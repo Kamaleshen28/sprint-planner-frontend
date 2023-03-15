@@ -50,10 +50,10 @@ const storiesData = [
   },
 ];
 const developersData = [
-  // { id: 1, developer: 'Harbir', sprintCapacity: 8, capacity: 14 },
-  // { id: 2, developer: 'Smita', sprintCapacity: 8, capacity: 42 },
-  // { id: 3, developer: 'Mukul', sprintCapacity: 8, capacity: 34 },
-  // { id: 4, developer: 'Kamleshan', sprintCapacity: 8, capacity: 54 },
+  { id: 1, developer: 'Harbir', sprintCapacity: 8, capacity: 14 },
+  { id: 2, developer: 'Smita', sprintCapacity: 8, capacity: 42 },
+  { id: 3, developer: 'Mukul', sprintCapacity: 8, capacity: 34 },
+  { id: 4, developer: 'Kamleshan', sprintCapacity: 8, capacity: 54 },
 ];
 
 function InputPage() {
@@ -102,7 +102,7 @@ function InputPage() {
       stories: updateStories(storyList, developerList),
       developers: updateDevelopers(developerList),
     };
-    console.log(data);
+    // console.log(data);
     console.log(newProject);
     let url = 'http://localhost:8080/api/projects';
     axios
