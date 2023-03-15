@@ -10,6 +10,8 @@ export default function DependencyGraph() {
   const { developers } = useContext(DataContext);
   const { stories } = useContext(DataContext);
 
+  console.log('ST:', stories);
+
   const [isZoomView, setIsZoomView] = useState(true);
   const [isDragView, setIsDragView] = useState(true);
 
@@ -43,8 +45,7 @@ export default function DependencyGraph() {
       `<b>Title</b>: ${data.title}<br>` +
       `<b>Developers</b>: ${developerName}<br>` +
       `<b>Story Points</b>: ${data.storyPoints}<br>` +
-      `<b>Dependencies</b>: ${data.dependencies}<br>` +
-      `<b>Description</b>: ${data.description}`;
+      `<b>Dependencies</b>: ${data.dependencies}<br>`;
 
     return { id: data.id, label: String(data.id), title, size: 40 };
   });
@@ -58,6 +59,16 @@ export default function DependencyGraph() {
     }
     return result;
   }, []);
+
+  const renderStoryTitleWithId = stories.map((data) => {
+    return (
+      <span key={data.id} className="legend">
+        {/* {`${data.id} ${data.title}`} */}
+        <b className="story-id">{data.id}</b> {data.title}
+        <br></br>
+      </span>
+    );
+  });
 
   const graph = {
     nodes: storyNode,
@@ -96,12 +107,19 @@ export default function DependencyGraph() {
       <Header />
       <div className="wrapper">
         <div className="dependency-graph-wrapper">
-          <Graph
-            key={nanoid()}
-            graph={graph}
-            options={options}
-            // style={{ width: "80%", height: "100%" }}
-          />
+          <div className="graph-legend-container">
+            <div className="graph-container">
+              <Graph
+                key={nanoid()}
+                graph={graph}
+                options={options}
+                // style={{ width: "80%", height: "100%" }}
+              />
+            </div>
+            <div className="con">
+              <div className="legend-container">{renderStoryTitleWithId}</div>
+            </div>
+          </div>
           <div className="button-container">
             <div className="zoom-button-wrapper">
               <div className="span">Zoomview</div>

@@ -1,5 +1,7 @@
 .dependency-graph{
   height: 100vh;
+  text-align: left;
+  
 }
 
 .wrapper{
@@ -46,4 +48,53 @@
 canvas{
   height: 100% !important;
   border-bottom: 5px solid black;
+}
+
+.graph-legend-container{
+  display: flex;
+  justify-content: space-between;
+}
+
+.graph-container{
+  width: 70%;
+}
+
+.legend-container{
+  box-shadow: 0px 0px 18px -13px #FF2513;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  padding: 10px;
+  flex-wrap: revert;
+  height: 80%;
+  width: 100%;
+  overflow-y: scroll;
+}
+
+.legend{
+  /* display: flex; */
+  margin-top: 5px;
+  text-align: left;
+}
+
+.story-id{
+  margin-right: 5px;
+}
+
+.con{
+  display: flex;
+  flex-wrap: wrap;
+  width: 25%;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(179, 179, 179);
 }
