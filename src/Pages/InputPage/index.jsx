@@ -107,6 +107,7 @@ import {
   StartDateInput,
   TotalDurationInput,
   SprintDurationInput,
+  ErrorModal,
 } from '../../Components';
 import { Button } from '@mui/material';
 
@@ -161,6 +162,10 @@ function InputPage() {
   const [startDate, setStartDate] = React.useState();
   const [totalDuration, setTotalDuration] = React.useState();
   const [sprintDuration, setSprintDuration] = React.useState();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const navigate = useNavigate();
 
   const getSprintCapacity = (developers) => {
@@ -192,20 +197,31 @@ function InputPage() {
     console.log(data);
     console.log(newProject);
     let url = 'http://localhost:8080/api/projects';
-    axios.post(url, newProject).then((res) => {
-      console.log(res.data);
-      setProjectId(res.data.data.id);
-      setApiResponse(res.data.data);
-      setSprints(res.data.data.sprints);
-      setStories(res.data.data.stories);
-      setDevelopers(res.data.data.developers);
-      localStorage.setItem('projectId', res.data.data.id);
-      navigate('/');
-    });
+    axios
+      .post(url, newProject)
+      .then((res) => {
+        console.log(res.data);
+        setProjectId(res.data.data.id);
+        setApiResponse(res.data.data);
+        setSprints(res.data.data.sprints);
+        setStories(res.data.data.stories);
+        setDevelopers(res.data.data.developers);
+        localStorage.setItem('projectId', res.data.data.id);
+        navigate('/');
+      })
+      .catch((err) => {
+        handleOpen();
+      });
   };
   return (
     <>
       {/* <TopBar /> */}
+      <ErrorModal
+        open={open}
+        setOpen={setOpen}
+        handleClose={handleClose}
+        handleOpen={handleOpen}
+      />
       <Header value={title} setValue={setTitle} heading="Sprint Planner" />
       <Title value={title} setValue={setTitle} />
       <div className="common-input-section">
