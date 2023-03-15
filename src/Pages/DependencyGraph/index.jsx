@@ -11,9 +11,14 @@ export default function DependencyGraph() {
   const { stories } = useContext(DataContext);
 
   const [isZoomView, setIsZoomView] = useState(true);
+  const [isDragView, setIsDragView] = useState(true);
 
   const handleZoomToggleClick = () => {
     setIsZoomView((previousValue) => !previousValue);
+  };
+
+  const handleDragToggleClick = () => {
+    setIsDragView((previousValue) => !previousValue);
   };
 
   const findDeveloperById = (id) => {
@@ -81,8 +86,8 @@ export default function DependencyGraph() {
     interaction: {
       hover: true,
       zoomView: isZoomView,
-      dragNodes: true,
-      dragView: true,
+      dragNodes: isDragView,
+      dragView: isDragView,
     },
   };
 
@@ -103,6 +108,14 @@ export default function DependencyGraph() {
               <Switch
                 checked={isZoomView}
                 onChange={handleZoomToggleClick}
+                inputProps={{ 'aria-label': 'controlled' }}
+              />
+            </div>
+            <div className="zoom-button-wrapper">
+              <div className="span">Dragview</div>
+              <Switch
+                checked={isDragView}
+                onChange={handleDragToggleClick}
                 inputProps={{ 'aria-label': 'controlled' }}
               />
             </div>
