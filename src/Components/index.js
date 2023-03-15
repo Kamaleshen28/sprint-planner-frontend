@@ -11,3 +11,4 @@ export { default as Title } from './Title';
 export { default as StartDateInput } from './StartDateInput';
 export { default as TotalDurationInput } from './TotalDurationInput';
 export { default as SprintDurationInput } from './SprintDurationInput';
+export { default as ErrorModal } from './ErrorModal';
