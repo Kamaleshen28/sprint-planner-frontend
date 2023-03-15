@@ -3,6 +3,7 @@ import Graph from 'react-vis-network-graph';
 import './DependencyGraph.css';
 import { nanoid } from 'nanoid';
 import { DataContext } from '../../Contexts/DataContext';
+import { Header } from '../../Components';
 
 export default function DependencyGraph() {
   const { developers } = useContext(DataContext);
@@ -80,6 +81,7 @@ export default function DependencyGraph() {
 
   return (
     <div className="dependency-graph">
+      <Header />
       <div className="wrapper">
         <div className="dependency-graph-wrapper">
           <Graph
