@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import './InputForm.css';
-import { Tab, Tabs, Box, Typography } from '@mui/material';
+import { Tab, Tabs, Box, Typography, Button } from '@mui/material';
 import DeveloperInput from '../DeveloperInput';
 import StoryInput from '../StoryInput';
 import PropTypes from 'prop-types';
@@ -95,38 +95,43 @@ export default function InputForm() {
     setValue(newValue);
   };
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box
-        sx={{
-          borderBottom: 1,
-          borderColor: 'divider',
-          display: 'flex',
-          flexDirection: 'row-reverse',
-        }}
-      >
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
+    <>
+      <Box sx={{ width: '100%' }}>
+        <Box
+          sx={{
+            borderBottom: 1,
+            borderColor: 'divider',
+            display: 'flex',
+            flexDirection: 'row-reverse',
+          }}
         >
-          <Tab label="Stories" {...a11yProps(0)} />
-          <Tab label="Developers" {...a11yProps(1)} />
-        </Tabs>
+          <Tabs
+            value={value}
+            onChange={handleChange}
+            aria-label="basic tabs example"
+          >
+            <Tab label="Stories" {...a11yProps(0)} />
+            <Tab label="Developers" {...a11yProps(1)} />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0}>
+          <StoryInput
+            storyList={storyList}
+            setStoryList={setStoryList}
+            developerList={developerList}
+          />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          <DeveloperInput
+            developerList={developerList}
+            setDeveloperList={setDeveloperList}
+            deleteCheck={deleteCheck}
+          />
+        </TabPanel>
       </Box>
-      <TabPanel value={value} index={0}>
-        <StoryInput
-          storyList={storyList}
-          setStoryList={setStoryList}
-          developerList={developerList}
-        />
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        <DeveloperInput
-          developerList={developerList}
-          setDeveloperList={setDeveloperList}
-          deleteCheck={deleteCheck}
-        />
-      </TabPanel>
-    </Box>
+      <Button sx={{ width: '10%', mx: 'auto' }} variant="contained">
+        Submit
+      </Button>
+    </>
   );
 }

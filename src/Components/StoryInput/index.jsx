@@ -159,7 +159,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
 
   const getDeveloperAssigned = (id) => {
     if (!id || id.length === 0 || id === ' ') return [];
-    const developerassigned = developerList.find((dev) => dev.id === id[0]);
+    const developerassigned = developerList?.find((dev) => dev.id === id[0]);
     return developerassigned.developer;
   };
 
@@ -276,11 +276,19 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                   onChange={(e) => setStories(e.target.value)}
                 />
               </Item>
-              <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+              <FormControl
+                sx={{ m: 1, width: 300 }}
+                style={{ backgroundColor: 'white', borderRadius: '10px' }}
+              >
+                <InputLabel
+                  variant="standard"
+                  htmlFor="uncontrolled-native"
+                  sx={{ m: 1 }}
+                >
                   Story Dependecy
                 </InputLabel>
                 <Select
+                  sx={{ m: 1 }}
                   labelId="demo-multiple-name-label"
                   id="demo-multiple-name"
                   multiple
@@ -312,11 +320,19 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl sx={{ m: 1, width: 300 }}>
-                <InputLabel variant="standard" htmlFor="uncontrolled-native">
+              <FormControl
+                sx={{ m: 1, width: 300 }}
+                style={{ backgroundColor: 'white', borderRadius: '10px' }}
+              >
+                <InputLabel
+                  variant="standard"
+                  htmlFor="uncontrolled-native"
+                  sx={{ m: 1 }}
+                >
                   Preassign Developer
                 </InputLabel>
                 <Select
+                  sx={{ m: 1 }}
                   value={developer}
                   onChange={handleDeveloperChange}
                   input={<OutlinedInput />}
@@ -361,7 +377,8 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
               <div></div>
               <Fab
                 variant="contained"
-                style={{ margin: '0 auto', display: 'flex' }}
+                style={{ margin: 'auto', display: 'flex' }}
+                color="primary"
                 type="submit"
               >
                 +
