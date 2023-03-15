@@ -2,6 +2,7 @@ import React from 'react';
 import Highcharts from 'highcharts/highcharts-gantt';
 import HighchartsReact from 'highcharts-react-official';
 import getGanttChartFormatData from '../../Assets/dataMapper';
+import { Header } from '../../Components';
 
 const GanttChart = () => {
   const data = getGanttChartFormatData();
@@ -152,18 +153,7 @@ const GanttChart = () => {
       //   },
       // },
       {
-        breaks: [
-          {
-            from: Date.UTC(2021, 0, 9),
-            to: Date.UTC(2021, 0, 11),
-            breakSize: 0,
-          },
-          {
-            from: Date.UTC(2021, 0, 16),
-            to: Date.UTC(2021, 0, 18),
-            breakSize: 0,
-          },
-        ],
+        breaks: plots,
       },
 
       {
@@ -182,12 +172,15 @@ const GanttChart = () => {
   };
 
   return (
-    <div style={{ minHeight: '100vh' }}>
-      <HighchartsReact
-        highcharts={Highcharts}
-        constructorType={'ganttChart'}
-        options={options}
-      />
+    <div>
+      <Header />
+      <div style={{ minHeight: '100vh' }}>
+        <HighchartsReact
+          highcharts={Highcharts}
+          constructorType={'ganttChart'}
+          options={options}
+        />
+      </div>
     </div>
   );
 };

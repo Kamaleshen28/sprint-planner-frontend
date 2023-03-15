@@ -18,7 +18,7 @@ function App() {
             <Route path="/" element={<OutputList />} />
             {/* <Route path="/create" element={<Home />} /> */}
             <Route path="/create" element={<InputPage />} />
-            <Route path="/gantt" element={<GanttChart />} />
+            <Route path="/ganttChart" element={<GanttChart />} />
             <Route path="/graph" element={<DependencyGraph />} />
             <Route path="error/:errorCode?" element={<ErrorScreen />} />
           </Routes>

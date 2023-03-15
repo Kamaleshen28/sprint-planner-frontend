@@ -56,6 +56,14 @@ export default function SidePanel() {
           </ListItemButton>
         </ListItem>
       </List>
+
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton onClick={() => navigate('/ganttChart')}>
+            <ListItemText primary="Gantt Chart" />
+          </ListItemButton>
+        </ListItem>
+      </List>
     </Box>
   );
   return (

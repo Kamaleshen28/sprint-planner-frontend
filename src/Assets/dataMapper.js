@@ -1,6 +1,6 @@
-import * as response from './sampleData.json';
+// import * as response from './sampleData.json';
 // const { sprints, title: projectTitle, sprintDuration } = response;
-const tempDate = new Date('2021-01-04');
+const tempDate = new Date('2021-01-01');
 const projectStartDate = tempDate.getTime();
 import { DataContext } from '../Contexts/DataContext';
 import { useContext } from 'react';
