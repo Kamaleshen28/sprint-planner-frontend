@@ -11,8 +11,8 @@ import { ErrorScreen, GanttChart, InputPage } from './Pages';
 function App() {
   return (
     <div className="App">
-      <DataProvider>
-        <Router>
+      <Router>
+        <DataProvider>
           <Routes>
             <Route path="/" element={<OutputList />} />
             {/* <Route path="/create" element={<Home />} /> */}
@@ -20,8 +20,8 @@ function App() {
             <Route path="/:projectId/gantt" element={<GanttChart />} />
             <Route path="error/:errorCode?" element={<ErrorScreen />} />
           </Routes>
-        </Router>
-      </DataProvider>
+        </DataProvider>
+      </Router>
     </div>
   );
 }
