@@ -6,6 +6,7 @@ import './App.css';
 // import Home from './Pages/InputPage';
 import { ErrorScreen, GanttChart, InputPage } from './Pages';
 import DependencyGraph from './Pages/DependencyGraph';
+import Login from './Pages/Login';
 // import { Navbar, Footer } from './Components';
 // import GlobalContextProvider from './Contexts';
 
@@ -17,6 +18,7 @@ function App() {
           <Routes>
             <Route path="/" element={<OutputList />} />
             {/* <Route path="/create" element={<Home />} /> */}
+            <Route path="/login" element={<Login />} />
             <Route path="/create" element={<InputPage />} />
             <Route path="/ganttChart" element={<GanttChart />} />
             <Route path="/graph" element={<DependencyGraph />} />
