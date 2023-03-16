@@ -1,5 +1,7 @@
-.common-input-section {
+.start-date-input {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 1rem;
 }

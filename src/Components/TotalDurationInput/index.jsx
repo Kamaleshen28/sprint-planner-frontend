@@ -7,9 +7,8 @@ import { InputLabel } from '@mui/material';
 function TotalDurationInput({ value, setValue }) {
   return (
     <div className="total-duration-input">
-      {/* <span>Total Duration</span> */}
-      <InputLabel>TotalDuration(Weeks): </InputLabel>
-      <ValidatorForm>
+      <InputLabel>Total Duration ( Weeks ) : </InputLabel>
+      <ValidatorForm onSubmit={() => {}} instantValidate>
         <TextValidator
           id="total-duration"
           type="number"
@@ -24,12 +23,6 @@ function TotalDurationInput({ value, setValue }) {
           ]}
         />
       </ValidatorForm>
-      {/* <input
-        type="number"
-        id="total-duration"
-        value={value}
-        onChange={(e) => setValue(e.target.value)}
-      /> */}
     </div>
   );
 }

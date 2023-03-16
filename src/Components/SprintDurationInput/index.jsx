@@ -7,20 +7,22 @@ import { InputLabel } from '@mui/material';
 function SprintDurationInput({ value, setValue }) {
   return (
     <div className="sprint-duration-input">
-      {/* <span>Total Duration</span> */}
-      <InputLabel>SprintDuration(Weeks): </InputLabel>
-      <ValidatorForm>
+      <InputLabel>Sprint Duration ( Weeks ) : </InputLabel>
+      <ValidatorForm onSubmit={() => {}} instantValidate={true}>
         <TextValidator
           id="sprint-duration"
           type="number"
           placeholder="Enter Sprint Duration"
+          // defaultValue={}
           value={value}
-          onChange={(e) => setValue(e.target.value)}
+          onChange={(e) => {
+            setValue(e.target.value);
+          }}
           validators={['required', 'isNumber', 'minNumber:0']}
           errorMessages={[
             'This field is required',
             'Enter a valid number',
-            'Enter a number greater than 0',
+            'Enter a positive number',
           ]}
         />
       </ValidatorForm>
@@ -33,4 +35,5 @@ export default SprintDurationInput;
 SprintDurationInput.propTypes = {
   value: PropTypes.number.isRequired,
   setValue: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
 };

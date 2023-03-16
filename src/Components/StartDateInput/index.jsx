@@ -4,8 +4,10 @@ import './StartDateInput.css';
 import PropTypes from 'prop-types';
 
 export default function StartDateInput({ value, setValue }) {
+  // const currentDate = new Date();
+  // const defaultFormat = currentDate.toISOString().slice(0, 10);
   return (
-    <div style={{ marginLeft: '30px' }}>
+    <div className="start-date-input">
       <InputLabel htmlFor="startDate">
         <span
           style={{
@@ -15,14 +17,15 @@ export default function StartDateInput({ value, setValue }) {
         >
           Start:
         </span>
-        <Input
-          id="startDate"
-          type="date"
-          value={value}
-          onChange={(event) => setValue(event.target.value)}
-          className="startDateInput"
-        />
       </InputLabel>
+      <Input
+        id="startDate"
+        type="date"
+        // defaultValue={defaultFormat}
+        value={value}
+        onChange={(event) => setValue(event.target.value)}
+        className="startDateInput"
+      />
     </div>
   );
 }

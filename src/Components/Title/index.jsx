@@ -36,6 +36,7 @@ const InlineEdit = ({ value, setValue, isActive, setIsActive }) => {
       type="text"
       placeholder="Enter Project Name"
       aria-label="Field name"
+      // defaultValue={'Project Name'}
       value={editingValue}
       // disabled={!isActive}
       onChange={onChange}
@@ -63,7 +64,7 @@ const InlineEdit = ({ value, setValue, isActive, setIsActive }) => {
 
 export default function Title({ value, setValue }) {
   // const [value, setValue] = useState();
-  const [isActive, setIsActive] = useState(false);
+  const [isActive, setIsActive] = useState(true);
   const handleClick = () => {
     setIsActive(true);
   };
