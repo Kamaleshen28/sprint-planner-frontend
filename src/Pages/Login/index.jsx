@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { text } from '@fortawesome/fontawesome-svg-core';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ export default function Login() {
   const [userNotFound, setUserNotFound] = useState(false);
 
   const [loginErrorText, setLoginErrorText] = useState();
+  const [regiterErrorText, setRegisterErrorText] = useState();
+  const [isInValid, setIsInValid] = useState(false);
 
   const handleAccountConfirmationClick = () => {
     setHaveAccount((previousValue) => !previousValue);
@@ -35,9 +38,11 @@ export default function Login() {
     }));
     if (name === 'username') {
       setUserAlreadyExist(false);
+      setUserCreatedSuccessfully(false);
     }
     if (name === 'password' || name === 'confirmPassword') {
       setIsPaswwordMatch(true);
+      setUserCreatedSuccessfully(false);
     }
   };
 
@@ -54,11 +59,20 @@ export default function Login() {
 
   const handleRegisterSubmit = async (event) => {
     event.preventDefault();
-    if (registerFormData.password === registerFormData.confirmPassword) {
-      setIsPaswwordMatch(true);
-      await callCreateUserAPI(registerFormData);
+    if (registerFormData.password.length < 8) {
+      setIsInValid(true);
+      setRegisterErrorText('Password must be atleast 8 characters!');
+    } else if (registerFormData.username.length < 8) {
+      setIsInValid(true);
+      setRegisterErrorText('Username must be atleast 8 characters!');
     } else {
-      setIsPaswwordMatch(false);
+      setIsInValid(false);
+      if (registerFormData.password === registerFormData.confirmPassword) {
+        setIsPaswwordMatch(true);
+        await callCreateUserAPI(registerFormData);
+      } else {
+        setIsPaswwordMatch(false);
+      }
     }
   };
   const handleLoginSubmit = async (event) => {
@@ -168,6 +182,10 @@ export default function Login() {
               {userAlreadyExist && (
                 <span className="user-exist-text">User already exist</span>
               )}
+
+              {isInValid && (
+                <span className="register-error-text">{regiterErrorText}</span>
+              )}
               <br />
               <button className="submit-button">Register</button>
             </form>
@@ -186,7 +204,7 @@ export default function Login() {
             )}
             {haveAccount && (
               <span className="register-confirmation">
-                Dont have an account?{' '}
+                Don&#39;t have an account?{' '}
                 <span
                   className="register-text"
                   onClick={handleAccountConfirmationClick}

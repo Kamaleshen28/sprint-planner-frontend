@@ -170,3 +170,15 @@
     width: 70%;
   }
 }
+
+.register-error-text{
+  font-size: 15px;
+  color: red;
+  width: 50%;
+  margin-top: 5px;
+}
+@media only screen and (max-width: 630px) {  
+  .user-not-found-text{
+    width: 70%;
+  }
+}
