@@ -10,10 +10,13 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import Checkbox from '@mui/material/Checkbox';
 import ListItemText from '@mui/material/ListItemText';
-
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import Backdrop from '@mui/material/Backdrop';
+import Typography from '@mui/material/Typography';
+import Fade from '@mui/material/Fade';
 import './StoryInput.css';
+import EditInput from '../EditInput';
 import { Edit } from '@mui/icons-material';
 
 const ITEM_HEIGHT = 48;
@@ -78,6 +81,20 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
   const [developer, setDeveloper] = useState([]);
   const [storyPoints, setStoryPoints] = useState(0);
   const [isOpen, setIsOpen] = useState({ open: false, id: null });
+  const [editOpen, setEditOpen] = useState({
+    open: false,
+    id: null,
+    selectedStory: {},
+  });
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleEditPopupOpen = (id) => {
+    const selectedStory = storyList?.find((story) => story.id === id);
+    setEditOpen({ open: true, id, selectedStory });
+  };
+  const handleEditPopupClose = () => {
+    setEditOpen({ open: false, id: null, selectedStory: {} });
+  };
 
   const handlePopupOpen = (id) => {
     setIsOpen({ open: true, id });
@@ -126,6 +143,48 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
     </Modal>
   );
 
+  const EditInputModal = (
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={editOpen.open}
+      onClose={handleEditPopupClose}
+      closeAfterTransition
+      slots={{ backdrop: Backdrop }}
+      slotProps={{
+        backdrop: {
+          timeout: 500,
+        },
+      }}
+    >
+      <Fade in={editOpen.open}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '100%',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+          }}
+        >
+          <EditInput
+            id={editOpen.id}
+            stories={editOpen.selectedStory.stories}
+            dependencies={editOpen.selectedStory.dependencies}
+            developer={editOpen.selectedStory.developer}
+            storyPoints={editOpen.selectedStory.storyPoints}
+            storyList={storyList}
+            setStoryList={setStoryList}
+            developerList={developerList}
+            closeedit={handleEditPopupClose}
+          />
+        </Box>
+      </Fade>
+    </Modal>
+  );
+
   const removeItem = (id) => {
     let newStoryList = storyList.filter((story) => story.id !== id);
     setStoryList(newStoryList);
@@ -145,7 +204,6 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(storyList);
     if (id && stories && storyPoints) {
       const newStory = { id, stories, dependencies, developer, storyPoints };
       setStoryList([...storyList, newStory]);
@@ -179,7 +237,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
             <Box
               sx={{
                 display: 'grid',
-                gridTemplateColumns: '1fr repeat(4, 2fr) 1fr ',
+                gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
                 ml: 6,
                 p: 1,
               }}
@@ -192,6 +250,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
             </Box>
             <div className="story-list">
               {deleteConfirmationPopup}
+              {EditInputModal}
               {storyList.length === 0 ? (
                 <p style={{ fontSize: '2rem' }}>No Stories</p>
               ) : (
@@ -203,7 +262,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                       <Box
                         sx={{
                           display: 'grid',
-                          gridTemplateColumns: '1fr repeat(4, 2fr) 1fr ',
+                          gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
                           backgroundColor: 'white',
                           borderRadius: '10px',
                           ml: 6,
@@ -236,14 +295,14 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                             </IconButton>
                           </Tooltip>
                         )}
-                        {/* <Tooltip title="Edit">
-                          <IconButton color="disabled">
+                        <Tooltip title="Edit">
+                          <IconButton
+                            color="disabled"
+                            onClick={() => handleEditPopupOpen(id)}
+                          >
                             <Edit />
                           </IconButton>
-                        </Tooltip> */}
-                        {/* <Fab>
-                          <FontAwesomeIcon icon={faEdit} />
-                        </Fab> */}
+                        </Tooltip>
                       </Box>
                     </>
                   );
