@@ -24,6 +24,8 @@ function Item(props) {
         fontSize: '0.875rem',
         fontWeight: '700',
         ...sx,
+        display: 'flex',
+        alignItems: 'center',
         // alignSelf: 'center',
       }}
       {...other}
@@ -125,14 +127,14 @@ export default function DeveloperInput({
               // flexDirection: 'row',
               display: 'grid',
               gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
-              pl: 6,
+
               // ml: 6,
               // p: 1,
               // p: '0 2',
               // m: '0 4',
               // justifyContent: 'space-around',
-              bgcolor: '#345eeb40',
-              borderRadius: 6,
+              bgcolor: '#28709e',
+              borderRadius: '0 0 20px 20px',
               height: '100px',
               // boxShadow: 1,
               alignItems: 'center',
