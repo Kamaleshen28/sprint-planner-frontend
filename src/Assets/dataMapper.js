@@ -1,12 +1,8 @@
-// import * as response from './sampleData.json';
-// const { sprints, title: projectTitle, sprintDuration } = response;
-const tempDate = new Date('2021-01-01');
-const projectStartDate = tempDate.getTime();
 import { DataContext } from '../Contexts/DataContext';
 import { useContext } from 'react';
 
 // import { v4 } from 'uuid';
-const dateDuration = (sprintDuration) => {
+const dateDuration = (sprintDuration, projectStartDate) => {
   const milliseconds = projectStartDate; // Convert Unix timestamp to milliseconds
   const twoWeeksMs = 7 * sprintDuration * 24 * 60 * 60 * 1000; // Calculate two weeks in milliseconds
   return milliseconds + twoWeeksMs; // Add two weeks and convert back to Unix timestamp
@@ -14,6 +10,9 @@ const dateDuration = (sprintDuration) => {
 const getGanttChartFormatData = () => {
   const { apiResponse, sprints } = useContext(DataContext);
 
+  console.log('apiResponse', apiResponse);
+  const date = new Date(apiResponse.projectStartDate);
+  const projectStartDate = date.getTime();
   const toReturn = []; // 1-D array
   let storyYAxis = 0;
 
@@ -31,32 +30,55 @@ const getGanttChartFormatData = () => {
       var startStory = projectStartDate + startDay * 60 * 60 * 24 * 1000; //timestamp
       var endStory = projectStartDate + endDay * 60 * 60 * 24 * 1000;
       const startdate = new Date(startStory); // Convert Unix timestamp to JavaScript Date object
-      const dayOfstart = startdate.getUTCDay();
+      // const dayOfstart = startdate.getUTCDay();
       const enddate = new Date(endStory); // Convert Unix timestamp to JavaScript Date object
-      const dayOfend = enddate.getUTCDay();
-      if (dayOfstart === 0) {
-        //sunday
-        const date = new Date(startStory);
+      // const dayOfend = enddate.getUTCDay();
+      var startCount = endDay - startDay;
+      var endCount = endDay - startDay;
+      while (startCount > 0) {
+        if (startdate.getUTCDay() === 0 || startdate.getUTCDay() === 6) {
+          console.log('weekend of start', startdate);
+          startdate.setUTCDate(startdate.getUTCDate() + 1);
+          console.log('inside if date change');
+          continue;
+        }
 
-        // Add one day to the date
-        date.setDate(date.getDate() + 1);
-        startStory = date.getTime();
+        console.log(title, 'start', startdate);
+
+        startCount--;
       }
-      if (dayOfstart === 6) {
-        const date = new Date(startStory);
-        date.setDate(date.getDate() + 2);
-        startStory = date.getTime();
+      while (endCount > 0) {
+        if (enddate.getUTCDay() === 0) {
+          enddate.setUTCDate(enddate.getUTCDate() + 1);
+          continue;
+        }
+        if (enddate.getUTCDay() === 6) {
+          enddate.setUTCDate(enddate.getUTCDate() + 2);
+          continue;
+        }
+
+        console.log(title, 'end', enddate);
+
+        endCount--;
       }
-      if (dayOfend === 0) {
-        const date = new Date(endStory);
-        date.setDate(date.getDate() + 1);
-        endStory = date.getTime();
-      }
-      if (dayOfend === 6) {
-        const date = new Date(endStory);
-        date.setDate(date.getDate() + 2);
-        endStory = date.getTime();
-      }
+      // const weekends = [];
+      // for (let i = startStory; i <= endStory; i += 24 * 60 * 60 * 1000) {
+      //   const date = new Date(i); // Convert Unix timestamp to JavaScript Date object
+      //   const dayOfWeek = date.getUTCDay(); // Get day of the week (0=Sunday, 1=Monday, etc.)
+
+      //   // If the day is a Saturday or Sunday, add it to the weekends array
+      //   if (dayOfWeek === 0) {
+      //     date.setUTCDate(date.getUTCDate() + 1);
+      //     weekends.push(date);
+      //   }
+      //   if (dayOfWeek === 6) {
+      //     date.setUTCDate(date.getUTCDate() - 1);
+      //     weekends.push(date);
+      //   }
+      // }
+      // const endDate = new Date(endStory);
+      // endDate.setDate(date.getDate() + weekends.length);
+      // endStory = date.getTime();
 
       let storyToAdd = {
         id: id.toString(),
@@ -64,8 +86,8 @@ const getGanttChartFormatData = () => {
         developer: developers[0].name,
         name: title,
 
-        start: startStory,
-        end: endStory,
+        start: startdate.getTime(),
+        end: enddate.getTime(),
         // start: startOfWeek.getTime(),
         // end: endOfWeek.getTime(),
         storyPoints: storyPoints,
@@ -85,7 +107,7 @@ const getGanttChartFormatData = () => {
     colors: ['#05445e', '#189ab4', '#75e6da', '#d4f1f4'],
     sprintDuration: [
       projectStartDate,
-      dateDuration(apiResponse.sprintDuration),
+      dateDuration(apiResponse.sprintDuration, projectStartDate),
     ],
     series: [
       {

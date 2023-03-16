@@ -3,6 +3,21 @@ import Highcharts from 'highcharts/highcharts-gantt';
 import HighchartsReact from 'highcharts-react-official';
 import getGanttChartFormatData from '../../Assets/dataMapper';
 import { Header } from '../../Components';
+Date.prototype.getWeek = function () {
+  const firstDayOfYear = new Date(this.getFullYear(), 0, 1);
+  const daysSinceFirstDay = Math.floor(
+    (this.getTime() - firstDayOfYear.getTime()) / (1000 * 60 * 60 * 24),
+  );
+  const actualWeekNumber =
+    Math.floor((daysSinceFirstDay + firstDayOfYear.getDay() - 1) / 7) + 1;
+  const weekNumber =
+    actualWeekNumber - Math.floor((firstDayOfYear.getDay() + 6) / 7);
+  return weekNumber;
+};
+function getWeekNum(startWeek, date) {
+  const week = date.getWeek();
+  return week - startWeek + 1;
+}
 
 const GanttChart = () => {
   const data = getGanttChartFormatData();
@@ -10,6 +25,9 @@ const GanttChart = () => {
   const startDate = data.sprintDuration[0];
   const endDate = data.sprintDuration[1];
   const weekends = [];
+  const startWeek = new Date(startDate).getWeek();
+
+  // Output: 8
 
   // Loop through each day between the start and end timestamps
   for (let i = startDate; i <= endDate; i += 24 * 60 * 60 * 1000) {
@@ -22,6 +40,7 @@ const GanttChart = () => {
       weekends.push(date);
     }
     if (dayOfWeek === 6) {
+      date.setUTCDate(date.getUTCDate());
       weekends.push(date);
     }
   }
@@ -125,46 +144,26 @@ const GanttChart = () => {
       },
     },
     xAxis: [
-      // {
-      //   type: 'datetime',
-      //   tickPositioner: function () {
-      //     var ticks = [],
-      //       tick = this.dataMin;
-
-      //     // Loop through each day from dataMin to dataMax
-      //     for (tick; tick <= this.dataMax; tick += 24 * 3600 * 1000) {
-      //       // Check if the day is not a weekend (Saturday or Sunday)
-      //       // var day = new Date(tick).getUTCDay();
-      //       // if (day == 0) {
-      //       //   ticks.push(tick + 7);
-      //       //   continue;
-      //       // }
-      //       ticks.push(tick);
-      //     }
-
-      //     return ticks;
-      //   },
-      //   tickInterval: 1000 * 60 * 60 * 24, // day
-      //   labels: {
-      //     format: '{value: %a, %e. %b}',
-      //     style: {
-      //       color: '#000',
-      //     }, // Day label format
-      //   },
-      // },
       {
-        breaks: plots,
+        plotBands: plots,
       },
 
       {
         type: 'datetime',
         labels: {
-          format: '{value:Week %W}',
+          // format: '{value:Week %W-12}',
+          formatter: function () {
+            const date = new Date(this.value);
+            const weekNumber = getWeekNum(startWeek, date);
+            console.log(weekNumber);
+            return `Week ${weekNumber}`;
+          },
           style: {
             color: '#000',
           },
         },
-        tickInterval: 1000 * 60 * 60 * 24 * 7, // week
+        tickInterval: 1000 * 60 * 60 * 24 * 5,
+        // week
       },
     ],
 
