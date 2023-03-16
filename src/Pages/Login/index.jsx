@@ -111,7 +111,12 @@ export default function Login() {
 
   return (
     <div className="login-page">
+      <div className="left-top-decor"></div>
+      <div className="right-top-decor"></div>
+      <div className="left-bottom-decor"></div>
+      <div className="right-bottom-decor"></div>
       <div className="login-wrapper">
+        <div className="login-image-container"></div>
         <div className="form-container">
           {haveAccount && (
             <form className="form" onSubmit={handleLoginSubmit}>
