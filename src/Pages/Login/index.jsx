@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import './Login.css';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
+  const navigate = useNavigate();
   const [haveAccount, setHaveAccount] = useState(true);
   const [formData, setFormData] = useState({
     username: '',
@@ -32,23 +34,44 @@ export default function Login() {
       [name]: value,
     }));
   };
-  const handleRegisterSubmit = (event) => {
+  const handleRegisterSubmit = async (event) => {
     event.preventDefault();
     if (registerFormData.password === registerFormData.confirmPassword) {
-      callCreateUserAPI(registerFormData);
+      await callCreateUserAPI(registerFormData);
+    } else {
+      alert('Password does not match');
     }
   };
-  const handleLoginSubmit = (event) => {
+  const handleLoginSubmit = async (event) => {
     event.preventDefault();
-    sendLoginData(formData);
+    await sendLoginData(formData);
   };
 
   const sendLoginData = async (loginCredentials) => {
-    console.log('clicked login button');
+    try {
+      const response = await axios.post('http://localhost:8080/auth/login', {
+        username: loginCredentials.username,
+        password: loginCredentials.password,
+      });
+      if (response.data.message === 'User logged in successfully') {
+        navigate('/create');
+      }
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   };
 
   const callCreateUserAPI = async (userDetails) => {
-    console.log('clicked register button');
+    try {
+      await axios.post('http://localhost:8080/auth/signup', {
+        username: userDetails.username,
+        password: userDetails.password,
+      });
+      alert('User created successfully');
+      setHaveAccount(true);
+    } catch (error) {
+      alert(error.response.data.message);
+    }
   };
 
   return (
