@@ -91,19 +91,20 @@ export default function DeveloperInput({
               // gap: '0 1rem',
             }}
           >
-            <Item sx={{ width: '80%', mx: 'auto' }}>Id</Item>
+            <Item sx={{ width: '80%', mx: 'auto' }}>Serial No.</Item>
             <Item sx={{ width: '80%', mx: 'auto' }}>Developers</Item>
             <Item sx={{ width: '80%', mx: 'auto' }}>Sprint Capacity(days)</Item>
             <Item sx={{ width: '80%', mx: 'auto' }}>Capacity(days)</Item>
           </Box>
           <div className="dev-list">
             {developerList.length === 0 ? (
-              <h1>No Developers</h1>
+              <p style={{ fontSize: '2rem' }}>No Developers</p>
             ) : (
-              developerList.map((developerInfo) => {
+              developerList.map((developerInfo, index) => {
                 return (
                   <DeveloperEntry
                     key={developerInfo.id}
+                    index={index}
                     developerInfo={developerInfo}
                     removeItem={removeItem}
                     deleteCheck={deleteCheck}

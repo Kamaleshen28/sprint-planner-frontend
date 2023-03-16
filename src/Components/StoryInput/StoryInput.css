@@ -28,9 +28,17 @@
 }
 
 .story-list {
-  height: 50vh;
+  max-height: 50vh;
+  /* height: 50vh; */
   /* box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2); */
   /* border: 1px solid lightblue; */
   /* add scroll */
   overflow-y: scroll;
+  margin-bottom: 10px;
+}
+.story-list::-webkit-scrollbar {
+  display: none;
+}
+.story-list:hover::-webkit-scrollbar {
+  display: block;
 }

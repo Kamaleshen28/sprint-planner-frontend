@@ -31,7 +31,13 @@ export default function ValidationModal({ isOpen, setIsOpen }) {
       >
         <h2 id="modal-modal-title">Please Enter All the required Fields</h2>
         <p id="modal-modal-description">
-          Check the Project Title, Start Date and Sprint Duration Field.
+          Check the Following -
+          <ul>
+            <li>Project Title</li>
+            <li>Start Date</li>
+            <li>Sprint Duration</li>
+            <li>Stories Input</li>
+          </ul>
         </p>
         <Button onClick={handleClose}>Cancel</Button>
       </Box>

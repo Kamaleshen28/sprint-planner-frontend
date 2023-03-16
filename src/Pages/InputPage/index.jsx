@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import './InputPage.css';
 import defaultFormatToUnix from '../../utils/common/dateUtils';
+import { ValidatorForm } from 'react-material-ui-form-validator';
 import {
   updateDevelopers,
   updateStories,
@@ -16,44 +17,45 @@ import {
   TotalDurationInput,
   SprintDurationInput,
   ErrorModal,
+  ValidationModal,
 } from '../../Components';
 import { Button } from '@mui/material';
 
 const storiesData = [
   {
-    id: 1,
+    id: 3,
     stories: 'Authentication',
     dependencies: [],
     developer: [],
     storyPoints: 4,
   },
   {
-    id: 2,
+    id: 6,
     stories: 'Frontend',
-    dependencies: [1],
+    dependencies: [3],
     developer: [],
     storyPoints: 4,
   },
   {
-    id: 3,
+    id: 7,
     stories: 'BackEnd',
     dependencies: [],
-    developer: [],
+    developer: [3],
     storyPoints: 4,
   },
   {
-    id: 4,
+    id: 9,
     stories: 'Database',
-    dependencies: [2, 3],
+    dependencies: [6, 7],
     developer: [],
     storyPoints: 4,
   },
 ];
 const developersData = [
   { id: 1, developer: 'Harbir', sprintCapacity: 8, capacity: 14 },
-  { id: 2, developer: 'Smita', sprintCapacity: 8, capacity: 42 },
-  { id: 3, developer: 'Mukul', sprintCapacity: 8, capacity: 34 },
-  { id: 4, developer: 'Kamleshan', sprintCapacity: 8, capacity: 54 },
+  { id: 3, developer: 'Smita', sprintCapacity: 8, capacity: 42 },
+  { id: 7, developer: 'Mukul', sprintCapacity: 8, capacity: 34 },
+  { id: 9, developer: 'Kamleshan', sprintCapacity: 8, capacity: 54 },
 ];
 
 function InputPage() {
@@ -66,13 +68,15 @@ function InputPage() {
   } = useContext(DataContext);
   const [storyList, setStoryList] = useState(storiesData);
   const [developerList, setDeveloperList] = useState(developersData);
-  const [title, setTitle] = React.useState();
-  const [startDate, setStartDate] = React.useState();
-  const [totalDuration, setTotalDuration] = React.useState();
-  const [sprintDuration, setSprintDuration] = React.useState();
+  const [title, setTitle] = React.useState(null);
+  const [startDate, setStartDate] = React.useState(null);
+  const [totalDuration, setTotalDuration] = React.useState(null);
+  const [sprintDuration, setSprintDuration] = React.useState(null);
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+  const [openValidationModal, setOpenValidationModal] = React.useState(false);
+  const handleOpenValidationModal = () => setOpenValidationModal(true);
 
   const navigate = useNavigate();
 
@@ -81,45 +85,38 @@ function InputPage() {
   };
 
   const handleSubmit = () => {
-    const newDate = defaultFormatToUnix(startDate);
-    // console.log(
-    //   'value',
-    //   title,
-    //   newDate,
-    //   totalDuration,
-    //   sprintDuration,
-    //   storyList,
-    //   developerList,
-    //   // updateDevelopers(),
-    // );
-    const newProject = {
-      title: title,
-      duration: Number(totalDuration),
-      sprintDuration: Number(sprintDuration),
-      sprintCapacity: getSprintCapacity(developerList),
-      projectStartDate: newDate,
-      givenTotalDuration: totalDuration,
-      stories: updateStories(storyList, developerList),
-      developers: updateDevelopers(developerList),
-    };
-    // console.log(data);
-    console.log(newProject);
-    let url = 'http://localhost:8080/api/projects';
-    axios
-      .post(url, newProject)
-      .then((res) => {
-        console.log(res.data);
-        setProjectId(res.data.data.id);
-        setApiResponse(res.data.data);
-        setSprints(res.data.data.sprints);
-        setStories(res.data.data.stories);
-        setDevelopers(res.data.data.developers);
-        localStorage.setItem('projectId', res.data.data.id);
-        navigate('/');
-      })
-      .catch((err) => {
-        handleOpen();
-      });
+    if (title && startDate && sprintDuration && storyList.length > 0) {
+      const newDate = defaultFormatToUnix(startDate);
+      const newProject = {
+        title: title,
+        duration: totalDuration ? Number(totalDuration) : null,
+        sprintDuration: Number(sprintDuration),
+        sprintCapacity: getSprintCapacity(developerList),
+        projectStartDate: newDate,
+        givenTotalDuration: totalDuration ? Number(totalDuration) : null,
+        stories: updateStories(storyList, developerList),
+        developers: updateDevelopers(developerList),
+      };
+      console.log(newProject);
+      let url = 'http://localhost:8080/api/projects';
+      axios
+        .post(url, newProject)
+        .then((res) => {
+          console.log(res.data);
+          setProjectId(res.data.data.id);
+          setApiResponse(res.data.data);
+          setSprints(res.data.data.sprints);
+          setStories(res.data.data.stories);
+          setDevelopers(res.data.data.developers);
+          localStorage.setItem('projectId', res.data.data.id);
+          navigate('/');
+        })
+        .catch((err) => {
+          handleOpen();
+        });
+    } else {
+      handleOpenValidationModal();
+    }
   };
   return (
     <>
@@ -132,15 +129,21 @@ function InputPage() {
           handleOpen={handleOpen}
         />
       )}
+      {openValidationModal && (
+        <ValidationModal
+          isOpen={openValidationModal}
+          setIsOpen={setOpenValidationModal}
+        />
+      )}
       <Header value={title} setValue={setTitle} heading="Sprint Planner" />
       <Title value={title} setValue={setTitle} />
       <div className="common-input-section">
         <StartDateInput value={startDate} setValue={setStartDate} />
-        <TotalDurationInput value={totalDuration} setValue={setTotalDuration} />
         <SprintDurationInput
           value={sprintDuration}
           setValue={setSprintDuration}
         />
+        <TotalDurationInput value={totalDuration} setValue={setTotalDuration} />
       </div>
       <InputForm
         storyList={storyList}

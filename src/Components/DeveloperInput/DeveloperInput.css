@@ -24,10 +24,17 @@
 }
 
 .dev-list {
-  height: 50vh;
+  max-height: 50vh;
   /* border-radius: 20px; */
   /* box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2); */
   /* border: 1px solid lightblue; */
   /* add scroll */
   overflow-y: scroll;
+  margin-bottom: 10px;
+}
+.dev-list::-webkit-scrollbar {
+  display: none;
+}
+.dev-list:hover::-webkit-scrollbar {
+  display: block;
 }

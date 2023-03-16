@@ -41,6 +41,7 @@ Item.propTypes = {
 };
 
 export default function DeveloperEntry({
+  index,
   developerInfo,
   removeItem,
   deleteCheck,
@@ -108,7 +109,7 @@ export default function DeveloperEntry({
           // width: '70vw',
         }}
       >
-        <Item sx={{ width: '80%', mx: 'auto' }}>{id}</Item>
+        <Item sx={{ width: '80%', mx: 'auto' }}>{index}</Item>
         <Item sx={{ width: '80%', mx: 'auto' }}>{developer.toString()}</Item>
         <Item sx={{ width: '80%', mx: 'auto' }}>{sprintCapacity}</Item>
         <Item sx={{ width: '80%', mx: 'auto' }}>{capacity}</Item>

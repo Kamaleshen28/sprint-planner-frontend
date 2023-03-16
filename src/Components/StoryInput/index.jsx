@@ -184,7 +184,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                 p: 1,
               }}
             >
-              <Item sx={{ width: '70%' }}>Id</Item>
+              <Item sx={{ width: '70%' }}>Serial No.</Item>
               <Item sx={{ width: '70%' }}>Stories</Item>
               <Item sx={{ width: '70%' }}>Dependencies</Item>
               <Item sx={{ width: '70%' }}>Developer</Item>
@@ -193,9 +193,9 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
             <div className="story-list">
               {deleteConfirmationPopup}
               {storyList.length === 0 ? (
-                <h1>No Stories</h1>
+                <p style={{ fontSize: '2rem' }}>No Stories</p>
               ) : (
-                storyList.map((story) => {
+                storyList.map((story, index) => {
                   const { id, stories, dependencies, developer, storyPoints } =
                     story;
                   return (
@@ -211,7 +211,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                           p: 1,
                         }}
                       >
-                        <Item sx={{ width: '70%' }}>{id}</Item>
+                        <Item sx={{ width: '70%' }}>{index}</Item>
                         <Item sx={{ width: '70%' }}>{stories}</Item>
                         <Item sx={{ width: '70%' }}>
                           {getDependencies(dependencies).toString()}
