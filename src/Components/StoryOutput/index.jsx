@@ -94,9 +94,11 @@ const Story = ({
           <p>Title: {title}</p>
           <p>
             Dependencies:{' '}
-            {dependencies.map((dependency, index) => (
-              <li key={index}>{dependency}</li>
-            ))}
+            {dependencies.length !== 0
+              ? dependencies.map((dependency, index) => (
+                  <li key={index}>{dependency}</li>
+                ))
+              : 'NA'}
           </p>
           <p>Start Day: {startDate.toLocaleDateString()}</p>
           <p>End Day: {endDate.toLocaleDateString()}</p>

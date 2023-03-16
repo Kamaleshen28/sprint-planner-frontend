@@ -13,7 +13,7 @@ export default function List({
 }) {
   const style = {
     width: 400,
-    bgcolor: '#eeeeee',
+    bgcolor: '#b7cfde',
     border: '2px solid lightgrey',
   };
   let theme = createTheme({
@@ -28,13 +28,12 @@ export default function List({
       <Box
         display="flex"
         sx={{
-          bgcolor: 'lightblue',
+          bgcolor: '#0A3A58',
           color: 'white',
           width: '100%',
           borderRadius: 5,
           borderBottomLeftRadius: 0,
           borderBottomRightRadius: 0,
-          borderBottom: '5px solid white',
           height: '10%',
           minHeight: 50,
         }}

@@ -80,7 +80,7 @@ const getGanttChartFormatData = () => {
   });
   const formattedData = {
     title: {
-      text: 'sprint planner',
+      text: apiResponse.title,
     },
     colors: ['#05445e', '#189ab4', '#75e6da', '#d4f1f4'],
     sprintDuration: [
