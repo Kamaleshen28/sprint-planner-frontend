@@ -52,10 +52,10 @@ const storiesData = [
   },
 ];
 const developersData = [
-  { id: 1, developer: 'Harbir', sprintCapacity: 8, capacity: 14 },
-  { id: 3, developer: 'Smita', sprintCapacity: 8, capacity: 42 },
-  { id: 7, developer: 'Mukul', sprintCapacity: 8, capacity: 34 },
-  { id: 9, developer: 'Kamleshan', sprintCapacity: 8, capacity: 54 },
+  // { id: 1, developer: 'Harbir', sprintCapacity: 8, capacity: 14 },
+  // { id: 3, developer: 'Smita', sprintCapacity: 8, capacity: 42 },
+  // { id: 7, developer: 'Mukul', sprintCapacity: 8, capacity: 34 },
+  // { id: 9, developer: 'Kamleshan', sprintCapacity: 8, capacity: 54 },
 ];
 
 function InputPage() {
@@ -72,15 +72,21 @@ function InputPage() {
   const [startDate, setStartDate] = React.useState(null);
   const [totalDuration, setTotalDuration] = React.useState(null);
   const [sprintDuration, setSprintDuration] = React.useState(null);
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const [open, setOpen] = React.useState({
+    bool: false,
+    err: null,
+    success: false,
+  });
+  const handleOpen = (error, success) =>
+    setOpen({ bool: true, err: error, success: success });
+  const handleClose = () => setOpen({ bool: false, err: null, success: false });
   const [openValidationModal, setOpenValidationModal] = React.useState(false);
   const handleOpenValidationModal = () => setOpenValidationModal(true);
 
   const navigate = useNavigate();
 
   const getSprintCapacity = (developers) => {
+    if (developers.length < 1) return sprintDuration * 4;
     return developers[0].sprintCapacity;
   };
 
@@ -89,30 +95,48 @@ function InputPage() {
       const newDate = defaultFormatToUnix(startDate);
       const newProject = {
         title: title,
-        duration: totalDuration ? Number(totalDuration) : null,
+        duration: totalDuration ? Number(totalDuration) : 0,
         sprintDuration: Number(sprintDuration),
         sprintCapacity: getSprintCapacity(developerList),
         projectStartDate: newDate,
-        givenTotalDuration: totalDuration ? Number(totalDuration) : null,
+        // givenTotalDuration: totalDuration ? Number(totalDuration) : null,
         stories: updateStories(storyList, developerList),
-        developers: updateDevelopers(developerList),
+        // developers: updateDevelopers(developerList),
       };
+      if (totalDuration) {
+        // newProject.duration = Number(totalDuration);
+        newProject.givenTotalDuration = Number(totalDuration);
+      }
+      if (developerList.length > 0) {
+        newProject.developers = updateDevelopers(developerList);
+      }
       console.log(newProject);
       let url = 'http://localhost:8080/api/projects';
       axios
         .post(url, newProject)
         .then((res) => {
           console.log(res.data);
-          setProjectId(res.data.data.id);
-          setApiResponse(res.data.data);
-          setSprints(res.data.data.sprints);
-          setStories(res.data.data.stories);
-          setDevelopers(res.data.data.developers);
-          localStorage.setItem('projectId', res.data.data.id);
-          navigate('/');
+          if (res.data.data.developers) {
+            setProjectId(res.data.data.id);
+            setApiResponse(res.data.data);
+            setSprints(res.data.data.sprints);
+            setStories(res.data.data.stories);
+            setDevelopers(res.data.data.developers);
+            localStorage.setItem('projectId', res.data.data.id);
+            navigate('/');
+          } else {
+            const customErrorMessage = {
+              response: {
+                data: {
+                  message: `Please add ${res.data.data.minimumNumberOfDevelopers} Developer(s) to the project.`,
+                },
+              },
+            };
+            handleOpen(customErrorMessage, true);
+          }
         })
         .catch((err) => {
-          handleOpen();
+          handleOpen(err, false);
         });
     } else {
       handleOpenValidationModal();
@@ -121,7 +145,7 @@ function InputPage() {
   return (
     <>
       {/* <TopBar /> */}
-      {open && (
+      {open.bool && (
         <ErrorModal
           open={open}
           setOpen={setOpen}

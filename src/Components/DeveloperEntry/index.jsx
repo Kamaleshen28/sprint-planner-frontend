@@ -97,7 +97,7 @@ export default function DeveloperEntry({
           gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
           backgroundColor: 'white',
           borderRadius: '10px',
-          ml: 6,
+          // ml: 6,
           mt: 1,
           p: 1,
           // width: '100%',

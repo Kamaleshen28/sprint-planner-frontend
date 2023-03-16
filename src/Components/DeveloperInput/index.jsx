@@ -24,9 +24,6 @@ function Item(props) {
         fontSize: '0.875rem',
         fontWeight: '700',
         ...sx,
-        display: 'flex',
-        alignItems: 'center',
-        // alignSelf: 'center',
       }}
       {...other}
     />
@@ -77,14 +74,14 @@ export default function DeveloperInput({
   //   console.log(developerList.length);
   return (
     <div className="dev-container">
-      <Box mx="auto">
+      <Box mx="auto" sx={{ ml: 1, mr: 1 }}>
         <div>
           <Box
             sx={{
               display: 'grid',
               gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
               p: 1,
-              ml: 6,
+              // ml: 6,
               // m: 1,
               // justifyContent: 'space-between',
               // textAlign: 'center',
@@ -118,6 +115,7 @@ export default function DeveloperInput({
         </div>
         {/* <form onSubmit={handleSubmit}> */}
         <ValidatorForm
+          className="developer-container-form"
           onSubmit={handleSubmit}
           onError={(errors) => console.log(errors)}
         >

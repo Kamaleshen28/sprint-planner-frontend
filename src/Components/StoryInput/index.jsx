@@ -218,7 +218,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
   const getDeveloperAssigned = (id) => {
     if (!id || id.length === 0 || id === ' ') return [];
     const developerassigned = developerList?.find((dev) => dev.id === id[0]);
-    return developerassigned.developer;
+    return developerassigned ? developerassigned.developer : [];
   };
 
   const getDependencies = (id) => {
@@ -232,13 +232,13 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
   return (
     <>
       <div className="story-container">
-        <Box mx="auto">
+        <Box mx="auto" sx={{ ml: 1, mr: 1 }}>
           <div>
             <Box
               sx={{
                 display: 'grid',
                 gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
-                ml: 6,
+                // ml: 6,
                 p: 1,
               }}
             >
@@ -265,7 +265,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                           gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
                           backgroundColor: 'white',
                           borderRadius: '10px',
-                          ml: 6,
+                          // ml: 6,
                           mt: 1,
                           p: 1,
                         }}
@@ -319,7 +319,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
               sx={{
                 display: 'grid',
                 gridTemplateColumns: '1fr repeat(4, 2fr) 1fr ',
-                ml: 6,
+                // ml: 6,
                 p: 1,
                 alignItems: 'center',
               }}

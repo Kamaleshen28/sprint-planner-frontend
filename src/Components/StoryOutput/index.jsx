@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Card from '@mui/material/Card';
 import PropTypes from 'prop-types';
 import Modal from '@mui/material/Modal';
@@ -7,6 +7,7 @@ import Avatar from '@mui/material/Avatar';
 import { red } from '@mui/material/colors';
 import Divider from '@mui/material/Divider';
 import Tile from '../Tile';
+import { DataContext } from '../../Contexts/DataContext';
 
 const Story = ({
   id,
@@ -17,9 +18,11 @@ const Story = ({
   title,
   assignedDeveloperId,
 }) => {
-  const date = Date.now();
-  let startDate = new Date(date);
-  let endDate = new Date(date);
+  const { apiResponse } = useContext(DataContext);
+  // const date = Date.now();
+
+  let startDate = new Date(apiResponse.projectStartDate);
+  let endDate = new Date(apiResponse.projectStartDate);
   let count = 0;
   while (count < startDay) {
     startDate = new Date(startDate.setDate(startDate.getDate() + 1));

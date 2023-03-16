@@ -36,12 +36,12 @@ export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
   // const handleClose = () => setOpen(false);
 
   React.useEffect(() => {});
-
+  console.log(open);
   return (
     <div>
       <Button onClick={handleOpen}>Open modal</Button>
       <Modal
-        open={open}
+        open={open.bool}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
@@ -50,11 +50,15 @@ export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
           <Box className="modal-header" sx={buttonHeader}>
             <ErrorIcon sx={buttonStyle} />
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              Error in sending data!
+              {open.success ? 'Need More Developers' : 'Error !!'}
             </Typography>
           </Box>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            Please submit again
+            {open.err?.response.data.message
+              ? open.err.response.data.message
+              : 'Error'}
+            <br />
+            {/* {'Error'} */}
           </Typography>
         </Box>
       </Modal>
