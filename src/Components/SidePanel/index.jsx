@@ -27,13 +27,25 @@ export default function SidePanel() {
 
   const list = (anchor) => (
     <Box
-      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      sx={{
+        width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250,
+      }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <Divider />
-      <List>
+      <List
+        disablePadding
+        sx={{
+          '& .MuiListItemButton-root:hover': {
+            backgroundColor: '#051C2A',
+            '&, & .MuiListItemIcon-root': {
+              color: 'white',
+            },
+          },
+        }}
+      >
         <ListItem disablePadding>
           <ListItemButton
             onClick={() => navigate('/create')}
@@ -42,9 +54,7 @@ export default function SidePanel() {
             <ListItemText primary="Create Project" />
           </ListItemButton>
         </ListItem>
-      </List>
-      <Divider />
-      <List>
+        <Divider />
         <ListItem disablePadding>
           <ListItemButton
             onClick={() => navigate('/')}
@@ -53,9 +63,7 @@ export default function SidePanel() {
             <ListItemText primary="List View" />
           </ListItemButton>
         </ListItem>
-      </List>
 
-      <List>
         <ListItem disablePadding>
           <ListItemButton
             onClick={() => navigate('/graph')}
@@ -64,9 +72,6 @@ export default function SidePanel() {
             <ListItemText primary="Dependency Graph" />
           </ListItemButton>
         </ListItem>
-      </List>
-
-      <List>
         <ListItem disablePadding>
           <ListItemButton onClick={() => navigate('/ganttChart')}>
             <ListItemText primary="Gantt Chart" />
@@ -78,8 +83,8 @@ export default function SidePanel() {
   return (
     <div>
       <React.Fragment>
-        <Button onClick={toggleDrawer(true)} data-testid="menu-icon">
-          <MenuIcon />
+        <Button onClick={toggleDrawer(true)}>
+          <MenuIcon sx={{ color: 'white' }} />
         </Button>
         <Drawer anchor={'left'} open={state} onClose={toggleDrawer(false)}>
           {list('left')}
