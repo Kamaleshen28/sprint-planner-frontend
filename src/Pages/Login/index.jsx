@@ -57,7 +57,7 @@ export default function Login() {
       });
 
       if (response.data.message === 'User logged in successfully') {
-        localStorage.setItem('token', response.data.data.access_token);
+        localStorage.setItem('accessToken', response.data.data.access_token);
         navigate('/create');
       }
     } catch (error) {

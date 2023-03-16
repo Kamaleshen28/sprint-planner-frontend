@@ -91,6 +91,8 @@ function InputPage() {
   };
 
   const handleSubmit = () => {
+    console.log('SHISHI');
+    console.log('SHISHI', localStorage.getItem('accessToken'));
     if (title && startDate && sprintDuration && storyList.length > 0) {
       const newDate = defaultFormatToUnix(startDate);
       const newProject = {
@@ -113,7 +115,9 @@ function InputPage() {
       console.log(newProject);
       let url = 'http://localhost:8080/api/projects';
       axios
-        .post(url, newProject)
+        .post(url, newProject, {
+          headers: { authorization: localStorage.getItem('accessToken') },
+        })
         .then((res) => {
           console.log(res.data);
           if (res.data.data.developers) {

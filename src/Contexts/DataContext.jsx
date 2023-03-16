@@ -3,6 +3,7 @@ import axios from 'axios';
 export const DataContext = createContext({});
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { Token } from '@mui/icons-material';
 
 const DataProvider = ({ children }) => {
   const navigate = useNavigate();
@@ -17,14 +18,22 @@ const DataProvider = ({ children }) => {
     if (projectId || projectIdLocal) {
       const id = projectId || projectIdLocal;
       let url = `http://localhost:8080/api/projects/${id}`;
-      axios.get(url).then((res) => {
-        setApiResponse(res.data.data);
-        setSprints(res.data.data.sprints);
-        setStories(res.data.data.stories);
-        setDevelopers(res.data.data.developers);
-      });
+      axios
+        .get(url, {
+          headers: { authorization: localStorage.getItem('accessToken') },
+        })
+        .then((res) => {
+          setApiResponse(res.data.data);
+          setSprints(res.data.data.sprints);
+          setStories(res.data.data.stories);
+          setDevelopers(res.data.data.developers);
+        });
     } else {
-      navigate('/create');
+      if (!localStorage.getItem('accessToken')) {
+        navigate('/login');
+      } else {
+        navigate('/create');
+      }
     }
   }, []);
 
