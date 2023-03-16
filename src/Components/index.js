@@ -12,3 +12,4 @@ export { default as StartDateInput } from './StartDateInput';
 export { default as TotalDurationInput } from './TotalDurationInput';
 export { default as SprintDurationInput } from './SprintDurationInput';
 export { default as ErrorModal } from './ErrorModal';
+export { default as ValidationModal } from './ValidationModal';
