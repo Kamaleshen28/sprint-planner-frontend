@@ -76,6 +76,12 @@ export default function DependencyGraph() {
   };
 
   const options = {
+    layout: {
+      hierarchical: {
+        enabled: true,
+        nodeSpacing: 10,
+      },
+    },
     edges: {
       color: 'red',
       width: 3,

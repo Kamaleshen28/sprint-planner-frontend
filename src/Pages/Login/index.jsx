@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import './Login.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { text } from '@fortawesome/fontawesome-svg-core';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -59,12 +58,12 @@ export default function Login() {
 
   const handleRegisterSubmit = async (event) => {
     event.preventDefault();
-    if (registerFormData.password.length < 8) {
-      setIsInValid(true);
-      setRegisterErrorText('Password must be atleast 8 characters!');
-    } else if (registerFormData.username.length < 8) {
+    if (registerFormData.username.length < 8) {
       setIsInValid(true);
       setRegisterErrorText('Username must be atleast 8 characters!');
+    } else if (registerFormData.password.length < 8) {
+      setIsInValid(true);
+      setRegisterErrorText('Password must be atleast 8 characters!');
     } else {
       setIsInValid(false);
       if (registerFormData.password === registerFormData.confirmPassword) {
