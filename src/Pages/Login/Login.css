@@ -15,7 +15,7 @@
 
 .form-container {
   width: 500px;
-  height: 350px;
+  height: 380px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -125,3 +125,48 @@
   height: 60%;
 }
 
+.password-does-not-match-text{
+  font-size: 15px;
+  color: red;
+  width: 50%;
+  margin-top: 5px;
+}
+@media only screen and (max-width: 630px) {  
+  .password-does-not-match-text{
+    width: 70%;
+  }
+}
+.success-text{
+  font-size: 15px;
+  color: green;
+  width: 50%;
+  margin-top: 5px;
+}
+
+@media only screen and (max-width: 630px) {  
+  .success-text{
+    width: 70%;
+  }
+}
+.user-exist-text{
+  font-size: 15px;
+  color: red;
+  width: 50%;
+  margin-top: 5px;
+}
+@media only screen and (max-width: 630px) {  
+  .user-exist-text{
+    width: 70%;
+  }
+}
+.user-not-found-text{
+  font-size: 15px;
+  color: red;
+  width: 50%;
+  margin-top: 5px;
+}
+@media only screen and (max-width: 630px) {  
+  .user-not-found-text{
+    width: 70%;
+  }
+}

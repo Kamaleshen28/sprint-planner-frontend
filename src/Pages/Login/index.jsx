@@ -16,6 +16,13 @@ export default function Login() {
     confirmPassword: '',
   });
 
+  const [isPasswordMatch, setIsPaswwordMatch] = useState(true);
+  const [userCreatedSuccessfully, setUserCreatedSuccessfully] = useState(false);
+  const [userAlreadyExist, setUserAlreadyExist] = useState(false);
+  const [userNotFound, setUserNotFound] = useState(false);
+
+  const [loginErrorText, setLoginErrorText] = useState();
+
   const handleAccountConfirmationClick = () => {
     setHaveAccount((previousValue) => !previousValue);
   };
@@ -26,6 +33,12 @@ export default function Login() {
       ...previousData,
       [name]: value,
     }));
+    if (name === 'username') {
+      setUserAlreadyExist(false);
+    }
+    if (name === 'password' || name === 'confirmPassword') {
+      setIsPaswwordMatch(true);
+    }
   };
 
   const handleChange = (event) => {
@@ -34,14 +47,18 @@ export default function Login() {
       ...previousData,
       [name]: value,
     }));
+    if (name === 'username') {
+      setUserNotFound(false);
+    }
   };
 
   const handleRegisterSubmit = async (event) => {
     event.preventDefault();
     if (registerFormData.password === registerFormData.confirmPassword) {
+      setIsPaswwordMatch(true);
       await callCreateUserAPI(registerFormData);
     } else {
-      alert('Password does not match');
+      setIsPaswwordMatch(false);
     }
   };
   const handleLoginSubmit = async (event) => {
@@ -61,7 +78,8 @@ export default function Login() {
         navigate('/create');
       }
     } catch (error) {
-      alert(error.response.data.message);
+      setLoginErrorText(error.response.data.message);
+      setUserNotFound(true);
     }
   };
 
@@ -71,10 +89,10 @@ export default function Login() {
         username: userDetails.username,
         password: userDetails.password,
       });
-      alert('User created successfully');
+      setUserCreatedSuccessfully(true);
       setHaveAccount(true);
     } catch (error) {
-      alert(error.response.data.message);
+      setUserAlreadyExist(true);
     }
   };
 
@@ -101,6 +119,9 @@ export default function Login() {
                 name="password"
                 onChange={handleChange}
               />
+              {userNotFound && (
+                <span className="user-not-found-text">{loginErrorText}</span>
+              )}
               <br />
               <button className="submit-button">Login</button>
             </form>
@@ -136,6 +157,17 @@ export default function Login() {
                 name="confirmPassword"
                 onChange={handleRegisterDetailChange}
               />
+              {!isPasswordMatch && (
+                <span className="password-does-not-match-text">
+                  Password and confirm password must match.
+                </span>
+              )}
+              {userCreatedSuccessfully && (
+                <span className="success-text">User created successfully</span>
+              )}
+              {userAlreadyExist && (
+                <span className="user-exist-text">User already exist</span>
+              )}
               <br />
               <button className="submit-button">Register</button>
             </form>
