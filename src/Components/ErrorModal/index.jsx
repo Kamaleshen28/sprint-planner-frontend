@@ -54,7 +54,7 @@ export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
             </Typography>
           </Box>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {open.err?.response.data.message
+            {open.err.response?.data.message
               ? open.err.response.data.message
               : 'Error'}
             <br />

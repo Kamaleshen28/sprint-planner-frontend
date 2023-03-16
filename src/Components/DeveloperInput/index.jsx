@@ -73,135 +73,135 @@ export default function DeveloperInput({
   };
   //   console.log(developerList.length);
   return (
-    <div className="dev-container">
-      <Box mx="auto" sx={{ ml: 1, mr: 1 }}>
-        <div>
-          <Box
-            sx={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
-              p: 1,
-              // ml: 6,
-              // m: 1,
-              // justifyContent: 'space-between',
-              // textAlign: 'center',
-              // bgcolor: 'background.white',
-              // borderRadius: 1,
-              // gap: '0 1rem',
-            }}
-          >
-            <Item sx={{ width: '80%', mx: 'auto' }}>Serial No.</Item>
-            <Item sx={{ width: '80%', mx: 'auto' }}>Developers</Item>
-            <Item sx={{ width: '80%', mx: 'auto' }}>Sprint Capacity(days)</Item>
-            <Item sx={{ width: '80%', mx: 'auto' }}>Capacity(days)</Item>
-          </Box>
-          <div className="dev-list">
-            {developerList.length === 0 ? (
-              <p style={{ fontSize: '2rem' }}>No Developers</p>
-            ) : (
-              developerList.map((developerInfo, index) => {
-                return (
-                  <DeveloperEntry
-                    key={developerInfo.id}
-                    index={index}
-                    developerInfo={developerInfo}
-                    removeItem={removeItem}
-                    deleteCheck={deleteCheck}
-                  />
-                );
-              })
-            )}
+    <>
+      <div className="dev-container">
+        <Box mx="auto" sx={{ ml: 1, mr: 1 }}>
+          <div>
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
+                p: 1,
+                // ml: 6,
+                // m: 1,
+                // justifyContent: 'space-between',
+                // textAlign: 'center',
+                // bgcolor: 'background.white',
+                // borderRadius: 1,
+                // gap: '0 1rem',
+              }}
+            >
+              <Item sx={{ width: '80%', mx: 'auto' }}>Serial No.</Item>
+              <Item sx={{ width: '80%', mx: 'auto' }}>Developers</Item>
+              <Item sx={{ width: '80%', mx: 'auto' }}>
+                Sprint Capacity(days)
+              </Item>
+              <Item sx={{ width: '80%', mx: 'auto' }}>Capacity(days)</Item>
+            </Box>
+            <div className="dev-list">
+              {developerList.length === 0 ? (
+                <p style={{ fontSize: '2rem' }}>No Developers</p>
+              ) : (
+                developerList.map((developerInfo, index) => {
+                  return (
+                    <DeveloperEntry
+                      key={developerInfo.id}
+                      index={index}
+                      developerInfo={developerInfo}
+                      removeItem={removeItem}
+                      deleteCheck={deleteCheck}
+                    />
+                  );
+                })
+              )}
+            </div>
           </div>
-        </div>
-        {/* <form onSubmit={handleSubmit}> */}
-        <ValidatorForm
-          className="developer-container-form"
-          onSubmit={handleSubmit}
-          onError={(errors) => console.log(errors)}
-        >
-          <Box
-            sx={{
-              // display: 'flex',
-              // flexDirection: 'row',
-              display: 'grid',
-              gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
-
-              // ml: 6,
-              // p: 1,
-              // p: '0 2',
-              // m: '0 4',
-              // justifyContent: 'space-around',
-              bgcolor: '#28709e',
-              borderRadius: '0 0 20px 20px',
-              height: '100px',
-              // boxShadow: 1,
-              alignItems: 'center',
-              // height: '100%',
-            }}
+          {/* <form onSubmit={handleSubmit}> */}
+          <ValidatorForm
+            className="developer-container-form"
+            onSubmit={handleSubmit}
+            onError={(errors) => console.log(errors)}
           >
-            {/* <Item sx={{ width: '80%', mx: 'auto' }}>
-              <TextValidator
-                placeholder="Id"
-                type="number"
-                name="id"
-                disabled
-                value={id}
-              />
-            </Item> */}
-            <div></div>
-            <Item sx={{ width: '80%', mx: 'auto' }}>
-              <TextValidator
-                style={{ width: '100%' }}
-                placeholder="Enter Developer Name"
-                type="text"
-                name="developer"
-                defaultValue="Disabled"
-                value={developer}
-                validators={['required', 'matchRegexp:^[a-zA-Z ]*$']}
-                errorMessages={['this field is required', 'Not a valid name']}
-                onChange={(e) => setDeveloper(e.target.value)}
-              />
-            </Item>
-            <Item sx={{ width: '80%', mx: 'auto' }}>
-              <TextValidator
-                placeholder="Enter Sprint Capacity"
-                type="number"
-                name="sprintCapacity"
-                value={sprintCapacity}
-                validators={['required', 'isNumber', 'minNumber:0']}
-                errorMessages={[
-                  'this field is required',
-                  'Not a number',
-                  'Should be positive',
-                ]}
-                onChange={(e) => setSprintCapacity(e.target.value)}
-              />
-            </Item>
-            <Item sx={{ width: '80%', mx: 'auto' }}>
-              <TextValidator
-                placeholder="Enter capacity"
-                type="number"
-                name="capacity"
-                value={capacity}
-                validators={['required', 'isNumber', 'minNumber:0']}
-                errorMessages={[
-                  'this field is required',
-                  'Not a number',
-                  'Should be positive',
-                ]}
-                onChange={(e) => setCapacity(e.target.value)}
-              />
-            </Item>
-            <Tooltip sx={{ mx: 'auto' }} title="Add Developer" aria-label="add">
-              <Fab color="primary" type="submit" aria-label="add">
-                +
-              </Fab>
-            </Tooltip>
-          </Box>
-        </ValidatorForm>
-        {/* </form> */}
-      </Box>
-    </div>
+            <Box
+              sx={{
+                // display: 'flex',
+                // flexDirection: 'row',
+                width: '100%',
+                display: 'grid',
+                gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
+
+                // ml: 6,
+                p: 1,
+                // p: '0 2',
+                // m: '0 4',
+                // justifyContent: 'space-around',
+                // bgcolor: '#28709e',
+                // borderRadius: '0 0 20px 20px',
+                // height: '100px',
+                // boxShadow: 1,
+                alignItems: 'center',
+                // height: '100%',
+              }}
+            >
+              <div></div>
+              <Item sx={{ width: '80%', mx: 'auto' }}>
+                <TextValidator
+                  style={{ width: '100%' }}
+                  placeholder="Enter Developer Name"
+                  type="text"
+                  name="developer"
+                  defaultValue="Disabled"
+                  value={developer}
+                  validators={['required', 'matchRegexp:^[a-zA-Z ]*$']}
+                  errorMessages={['this field is required', 'Not a valid name']}
+                  onChange={(e) => setDeveloper(e.target.value)}
+                />
+              </Item>
+              <Item sx={{ width: '80%', mx: 'auto' }}>
+                <TextValidator
+                  placeholder="Enter Sprint Capacity"
+                  type="number"
+                  name="sprintCapacity"
+                  value={sprintCapacity}
+                  validators={['required', 'isNumber', 'minNumber:0']}
+                  errorMessages={[
+                    'this field is required',
+                    'Not a number',
+                    'Should be positive',
+                  ]}
+                  onChange={(e) => setSprintCapacity(e.target.value)}
+                />
+              </Item>
+              <Item sx={{ width: '80%', mx: 'auto' }}>
+                <TextValidator
+                  placeholder="Enter capacity"
+                  type="number"
+                  name="capacity"
+                  value={capacity}
+                  validators={['required', 'isNumber', 'minNumber:0']}
+                  errorMessages={[
+                    'this field is required',
+                    'Not a number',
+                    'Should be positive',
+                  ]}
+                  onChange={(e) => setCapacity(e.target.value)}
+                />
+              </Item>
+              <Tooltip
+                sx={{ mx: 'auto' }}
+                title="Add Developer"
+                aria-label="add"
+              >
+                <Fab color="primary" type="submit" aria-label="add">
+                  +
+                </Fab>
+              </Tooltip>
+            </Box>
+          </ValidatorForm>
+          {/* </form> */}
+        </Box>
+      </div>
+    </>
   );
 }
 
