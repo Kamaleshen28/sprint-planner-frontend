@@ -27,6 +27,7 @@ export default function Login() {
       [name]: value,
     }));
   };
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((previousData) => ({
@@ -34,6 +35,7 @@ export default function Login() {
       [name]: value,
     }));
   };
+
   const handleRegisterSubmit = async (event) => {
     event.preventDefault();
     if (registerFormData.password === registerFormData.confirmPassword) {
@@ -53,7 +55,9 @@ export default function Login() {
         username: loginCredentials.username,
         password: loginCredentials.password,
       });
+
       if (response.data.message === 'User logged in successfully') {
+        localStorage.setItem('token', response.data.data.access_token);
         navigate('/create');
       }
     } catch (error) {
