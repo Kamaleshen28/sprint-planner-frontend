@@ -10,8 +10,6 @@ export default function DependencyGraph() {
   const { developers } = useContext(DataContext);
   const { stories } = useContext(DataContext);
 
-  console.log('ST:', stories);
-
   const [isZoomView, setIsZoomView] = useState(true);
   const [isDragView, setIsDragView] = useState(true);
 
@@ -53,7 +51,7 @@ export default function DependencyGraph() {
   const dependencies = stories.reduce((result, eachStory) => {
     if (eachStory.dependencies.length) {
       const test = eachStory.dependencies.reduce((acc, element) => {
-        return [...acc, { from: eachStory.id, to: element }];
+        return [...acc, { from: element, to: eachStory.id }];
       }, []);
       return [...result, ...test];
     }
@@ -63,7 +61,6 @@ export default function DependencyGraph() {
   const renderStoryTitleWithId = stories.map((data) => {
     return (
       <span key={data.id} className="legend">
-        {/* {`${data.id} ${data.title}`} */}
         <b className="story-id">{data.id}</b> {data.title}
         <br></br>
       </span>
