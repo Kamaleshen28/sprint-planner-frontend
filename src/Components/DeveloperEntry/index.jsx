@@ -1,7 +1,12 @@
 import { Box, Tooltip, IconButton, Modal, Button } from '@mui/material';
+import Backdrop from '@mui/material/Backdrop';
+import Typography from '@mui/material/Typography';
+import Fade from '@mui/material/Fade';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
+import EditDeveloperInput from '../EditDeveloperInput';
+import { Edit } from '@mui/icons-material';
 import './DeveloperEntry.css';
 
 function Item(props) {
@@ -45,9 +50,16 @@ export default function DeveloperEntry({
   developerInfo,
   removeItem,
   deleteCheck,
+  developerList,
+  setDeveloperList,
 }) {
   const { id, developer, sprintCapacity, capacity } = developerInfo;
   const [isOpen, setIsOpen] = useState({ open: false, id: null });
+  const [editOpen, setEditOpen] = useState({
+    open: false,
+    id: null,
+    selectedDeveloper: {},
+  });
 
   const handlePopupOpen = (id) => {
     setIsOpen({ open: true, id });
@@ -55,7 +67,13 @@ export default function DeveloperEntry({
   const handlePopupClose = () => {
     setIsOpen({ open: false, id: null });
   };
-
+  const handleEditPopupOpen = (id) => {
+    const selectedDeveloper = developerInfo;
+    setEditOpen({ open: true, id, selectedDeveloper });
+  };
+  const handleEditPopupClose = () => {
+    setEditOpen({ open: false, id: null, selectedDeveloper: {} });
+  };
   const deleteConfirmationPopup = (
     <Modal
       open={isOpen.open}
@@ -87,14 +105,54 @@ export default function DeveloperEntry({
       </Box>
     </Modal>
   );
+  const EditInputModal = (
+    <Modal
+      aria-labelledby="transition-modal-title"
+      aria-describedby="transition-modal-description"
+      open={editOpen.open}
+      onClose={handleEditPopupClose}
+      closeAfterTransition
+      slots={{ backdrop: Backdrop }}
+      slotProps={{
+        backdrop: {
+          timeout: 500,
+        },
+      }}
+    >
+      <Fade in={editOpen.open}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '100%',
+            bgcolor: 'background.paper',
+            boxShadow: 24,
+          }}
+        >
+          <EditDeveloperInput
+            id={editOpen.id}
+            developer={editOpen.selectedDeveloper.developer}
+            sprintCapacity={editOpen.selectedDeveloper.sprintCapacity}
+            capacity={editOpen.selectedDeveloper.capacity}
+            closeedit={handleEditPopupClose}
+            developerList={developerList}
+            setDeveloperList={setDeveloperList}
+          />
+        </Box>
+      </Fade>
+    </Modal>
+  );
   return (
     // <div className="list-item">
     <>
       {deleteConfirmationPopup}
+      {EditInputModal}
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
+          gridTemplateColumns: '1fr 2fr repeat(3, 1fr) 1fr',
           backgroundColor: 'white',
           borderRadius: '10px',
           // ml: 6,
@@ -127,6 +185,11 @@ export default function DeveloperEntry({
             </IconButton>
           </Tooltip>
         )}
+        <Tooltip title="Edit">
+          <IconButton color="disabled" onClick={() => handleEditPopupOpen(id)}>
+            <Edit />
+          </IconButton>
+        </Tooltip>
       </Box>
     </>
     // </div>
@@ -139,4 +202,6 @@ DeveloperEntry.propTypes = {
   developerInfo: PropTypes.object,
   removeItem: PropTypes.func,
   deleteCheck: PropTypes.func,
+  developerList: PropTypes.array,
+  setDeveloperList: PropTypes.func,
 };

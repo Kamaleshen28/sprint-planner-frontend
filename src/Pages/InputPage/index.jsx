@@ -52,10 +52,10 @@ const storiesData = [
   // },
 ];
 const developersData = [
-  // { id: 1, developer: 'Harbir', sprintCapacity: 8, capacity: 14 },
-  // { id: 3, developer: 'Smita', sprintCapacity: 8, capacity: 42 },
-  // { id: 7, developer: 'Mukul', sprintCapacity: 8, capacity: 34 },
-  // { id: 9, developer: 'Kamleshan', sprintCapacity: 8, capacity: 54 },
+  { id: 1, developer: 'Harbir', sprintCapacity: 8, capacity: 14 },
+  { id: 3, developer: 'Smita', sprintCapacity: 8, capacity: 42 },
+  { id: 7, developer: 'Mukul', sprintCapacity: 8, capacity: 34 },
+  { id: 9, developer: 'Kamleshan', sprintCapacity: 8, capacity: 54 },
 ];
 
 function InputPage() {

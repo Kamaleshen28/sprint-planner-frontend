@@ -169,7 +169,7 @@ const EditInput = ({
               return (
                 story.id !== id && (
                   <MenuItem key={story.id} value={story.id}>
-                    <Checkbox checked={dependencies?.includes(story.id)} />
+                    <Checkbox checked={editdependencies?.includes(story.id)} />
                     <ListItemText primary={story.stories} />
                   </MenuItem>
                 )

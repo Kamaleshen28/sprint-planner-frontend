@@ -80,7 +80,7 @@ export default function DeveloperInput({
             <Box
               sx={{
                 display: 'grid',
-                gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
+                gridTemplateColumns: '1fr 2fr repeat(3, 1fr) 1fr',
                 p: 1,
                 // ml: 6,
                 // m: 1,
@@ -110,6 +110,8 @@ export default function DeveloperInput({
                       developerInfo={developerInfo}
                       removeItem={removeItem}
                       deleteCheck={deleteCheck}
+                      developerList={developerList}
+                      setDeveloperList={setDeveloperList}
                     />
                   );
                 })
@@ -128,7 +130,7 @@ export default function DeveloperInput({
                 // flexDirection: 'row',
                 width: '100%',
                 display: 'grid',
-                gridTemplateColumns: '1fr 2fr repeat(3, 1fr)',
+                gridTemplateColumns: '1fr 2fr repeat(3, 1fr) 1fr',
 
                 // ml: 6,
                 p: 1,
