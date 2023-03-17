@@ -8,6 +8,7 @@ import { red } from '@mui/material/colors';
 import Divider from '@mui/material/Divider';
 import Tile from '../Tile';
 import { DataContext } from '../../Contexts/DataContext';
+import { CardContent } from '@mui/material';
 
 const Story = ({
   id,
@@ -54,13 +55,9 @@ const Story = ({
     top: '50%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    // width: 400,
     bgcolor: 'background.paper',
-    border: '2px solid lightgrey',
     boxShadow: 24,
-    pt: 2,
-    px: 4,
-    pb: 3,
   };
   return (
     <React.Fragment>
@@ -69,17 +66,20 @@ const Story = ({
       </Tile>
       <Modal
         open={open}
+        data-testid="story-modal"
         onClose={handleClose}
         aria-labelledby="child-modal-title"
         aria-describedby="child-modal-description"
       >
-        <Card sx={{ ...style, maxWidth: 250, p: 2 }} variant="outlined">
+        <Card sx={{ ...style, minWidth: 270 }} variant="outlined">
           <CardHeader
             sx={{
               display: 'flex',
               justifyContent: 'space-between',
+              backgroundColor: '#0A3A58',
               p: 0,
-              marginLeft: 0.3,
+              pt: 2,
+              pl: 2,
               paddingBottom: 1.5,
             }}
             avatar={
@@ -92,31 +92,46 @@ const Story = ({
             }
           />
           <Divider variant="middle" />
-
-          <p>Story ID: {id}</p>
-          <p>Title: {title}</p>
-          <p>
-            Dependencies:{' '}
-            {dependencies.length !== 0
-              ? dependencies.map((dependency, index) => (
-                  <li key={index}>{dependency}</li>
-                ))
-              : 'NA'}
-          </p>
-          <p>Start Day: {startDate.toLocaleDateString()}</p>
-          <p>End Day: {endDate.toLocaleDateString()}</p>
-          <p>
-            All Developers:
-            {developers.map((developer, index) =>
-              developer.id === assignedDeveloperId ? (
-                <li key={index}>
-                  <b>{developer.name}</b> (Assigned)
-                </li>
-              ) : (
-                <li key={index}>{developer.name}</li>
-              ),
-            )}
-          </p>
+          <CardContent
+            sx={{
+              pt: 2,
+              px: 4,
+              pb: 3,
+            }}
+          >
+            <p>
+              <b>Story ID:</b> {id}
+            </p>
+            <p>
+              <b>Title:</b> {title}
+            </p>
+            <p>
+              <b>Dependencies(ID): </b>
+              {dependencies.length !== 0
+                ? dependencies.map((dependency, index) => (
+                    <li key={index}>{dependency}</li>
+                  ))
+                : 'NA'}
+            </p>
+            <p>
+              <b>Start Day:</b> {startDate.toLocaleDateString()}
+            </p>
+            <p>
+              <b>End Day:</b> {endDate.toLocaleDateString()}
+            </p>
+            <p>
+              <b>All Developers:</b>
+              {developers.map((developer, index) =>
+                developer.id === assignedDeveloperId ? (
+                  <li key={index}>
+                    <b>{developer.name}</b> (Assigned)
+                  </li>
+                ) : (
+                  <li key={index}>{developer.name}</li>
+                ),
+              )}
+            </p>
+          </CardContent>
         </Card>
       </Modal>
     </React.Fragment>

@@ -26,6 +26,7 @@ const Tile = ({ handleOpen, children, leftalign }) => (
     variant="outlined"
     onClick={handleOpen}
     fullWidth={true}
+    data-testid="modal-button"
   >
     {children}
   </Button>

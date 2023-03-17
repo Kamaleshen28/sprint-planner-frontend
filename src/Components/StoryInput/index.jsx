@@ -349,7 +349,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                   htmlFor="uncontrolled-native"
                   sx={{ m: 1 }}
                 >
-                  Story Dependecy
+                  Story Dependency
                 </InputLabel>
                 <Select
                   sx={{ m: 1 }}
@@ -431,7 +431,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                     'maxNumber:10',
                   ]}
                   errorMessages={[
-                    'this field is required',
+                    'This field is required',
                     'It should be number',
                     'Number should be positive',
                   ]}

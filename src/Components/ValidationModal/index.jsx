@@ -29,9 +29,9 @@ export default function ValidationModal({ isOpen, setIsOpen }) {
           borderRadius: 2,
         }}
       >
-        <h2 id="modal-modal-title">Please Enter All the required Fields</h2>
+        <h2 id="modal-modal-title">Please enter all the required fields</h2>
         <p id="modal-modal-description">
-          Check the Following -
+          Check the following -
           <ul>
             <li>Project Title</li>
             <li>Start Date</li>

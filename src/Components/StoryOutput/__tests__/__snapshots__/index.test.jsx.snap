@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`StoryOutput should render the component 1`] = `
+<DocumentFragment>
+  <button
+    class="MuiButtonBase-root MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-fullWidth MuiButton-root MuiButton-outlined MuiButton-outlinedPrimary MuiButton-sizeMedium MuiButton-outlinedSizeMedium MuiButton-fullWidth css-yczjo3-MuiButtonBase-root-MuiButton-root"
+    data-testid="modal-button"
+    tabindex="0"
+    type="button"
+  >
+    0: Authentication
+    <span
+      class="MuiTouchRipple-root css-8je8zh-MuiTouchRipple-root"
+    />
+  </button>
+</DocumentFragment>
+`;

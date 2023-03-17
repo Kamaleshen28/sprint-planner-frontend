@@ -71,7 +71,7 @@ export default function Sprint({ content, index }) {
           <Grid container spacing={2}>
             {content?.map((story, index) => {
               return (
-                <Grid key={index} item xs={12}>
+                <Grid key={index} item xs={12} data-testid="stories">
                   <Story
                     title={story.title}
                     id={story.id}
