@@ -73,16 +73,15 @@ export default function DependencyGraph() {
   };
 
   const options = {
-    layout: {
-      hierarchical: {
-        enabled: true,
-        nodeSpacing: 10,
-      },
-    },
     edges: {
       color: 'red',
       width: 3,
       // length: 200
+      smooth: {
+        type: 'discrete',
+        forceDirection: 'none',
+        roundness: 0,
+      },
     },
     nodes: {
       font: {
@@ -94,8 +93,12 @@ export default function DependencyGraph() {
     },
     height: '500px',
     physics: {
-      enabled: false,
+      // enabled: false,
       stabilization: false,
+      barnesHut: {
+        springConstant: 0,
+        avoidOverlap: 0.2,
+      },
     },
     interaction: {
       hover: true,
