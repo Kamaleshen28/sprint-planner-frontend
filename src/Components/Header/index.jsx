@@ -7,7 +7,9 @@ import Button from '@mui/material/Button';
 export default function Header() {
   const navigate = useNavigate();
   const handleSignoutClick = () => {
-    localStorage.setItem('accessToken', null);
+    // localStorage.setItem('accessToken', null);
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('projectId');
     navigate('/login');
   };
 

@@ -48,6 +48,7 @@ export default function SidePanel() {
         setProjects(res.data.data);
       });
   }, []);
+
   const list = (anchor) => (
     <Box
       sx={{
@@ -103,30 +104,32 @@ export default function SidePanel() {
       </List>
 
       <Divider />
-      <List>
-        <ListItem disablePadding>
-          <ListItemButton
-            onClick={() => navigate('/')}
-            data-testid="list-view-button"
-          >
-            <ListItemText primary="List View" />
-          </ListItemButton>
-        </ListItem>
+      {localStorage.getItem('projectId') && (
+        <List>
+          <ListItem disablePadding>
+            <ListItemButton
+              onClick={() => navigate('/')}
+              data-testid="list-view-button"
+            >
+              <ListItemText primary="List View" />
+            </ListItemButton>
+          </ListItem>
 
-        <ListItem disablePadding>
-          <ListItemButton
-            onClick={() => navigate('/graph')}
-            data-testid="dependency-graph-button"
-          >
-            <ListItemText primary="Dependency Graph" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton onClick={() => navigate('/ganttChart')}>
-            <ListItemText primary="Gantt Chart" />
-          </ListItemButton>
-        </ListItem>
-      </List>
+          <ListItem disablePadding>
+            <ListItemButton
+              onClick={() => navigate('/graph')}
+              data-testid="dependency-graph-button"
+            >
+              <ListItemText primary="Dependency Graph" />
+            </ListItemButton>
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemButton onClick={() => navigate('/ganttChart')}>
+              <ListItemText primary="Gantt Chart" />
+            </ListItemButton>
+          </ListItem>
+        </List>
+      )}
     </Box>
   );
   return (
