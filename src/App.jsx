@@ -17,7 +17,6 @@ function App() {
         <DataProvider>
           <Routes>
             <Route path="/" element={<OutputList />} />
-            {/* <Route path="/create" element={<Home />} /> */}
             <Route path="/login" element={<Login />} />
             <Route path="/create" element={<InputPage />} />
             <Route path="/ganttChart" element={<GanttChart />} />

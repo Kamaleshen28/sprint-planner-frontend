@@ -14,24 +14,24 @@ const DataProvider = ({ children }) => {
   const [projectId, setProjectId] = useState('');
 
   useEffect(() => {
-    console.log('projectId', projectId);
+    // console.log('projectId', projectId);
     const projectIdLocal = localStorage.getItem('projectId');
-    if (projectId || projectIdLocal) {
-      const id = projectId || projectIdLocal;
-      let url = `http://localhost:8080/api/projects/${id}`;
-      axios
-        .get(url, {
-          headers: { authorization: localStorage.getItem('accessToken') },
-        })
-        .then((res) => {
-          setApiResponse(res.data.data);
-          setSprints(res.data.data.sprints);
-          setStories(res.data.data.stories);
-          setDevelopers(res.data.data.developers);
-        });
+    if (!localStorage.getItem('accessToken')) {
+      navigate('/login');
     } else {
-      if (!localStorage.getItem('accessToken')) {
-        navigate('/login');
+      if (projectId || projectIdLocal) {
+        const id = projectId || projectIdLocal;
+        let url = `http://localhost:8080/api/projects/${id}`;
+        axios
+          .get(url, {
+            headers: { authorization: localStorage.getItem('accessToken') },
+          })
+          .then((res) => {
+            setApiResponse(res.data.data);
+            setSprints(res.data.data.sprints);
+            setStories(res.data.data.stories);
+            setDevelopers(res.data.data.developers);
+          });
       } else {
         navigate('/create');
       }
