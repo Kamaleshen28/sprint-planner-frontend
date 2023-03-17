@@ -6,11 +6,11 @@ import './ValidationModal.css';
 
 export default function ValidationModal({ isOpen, setIsOpen }) {
   const handleClose = () => {
-    setIsOpen(false);
+    setIsOpen({ bool: false, atLeastOneOptionalAvailable: false });
   };
   return (
     <Modal
-      open={isOpen}
+      open={isOpen.bool}
       onClose={handleClose}
       aria-labelledby="modal-modal-title"
       aria-describedby="modal-modal-description"
@@ -29,16 +29,26 @@ export default function ValidationModal({ isOpen, setIsOpen }) {
           borderRadius: 2,
         }}
       >
-        <h2 id="modal-modal-title">Please enter all the required fields</h2>
-        <p id="modal-modal-description">
-          Check the following -
-          <ul>
-            <li>Project Title</li>
-            <li>Start Date</li>
-            <li>Sprint Duration</li>
-            <li>Stories Input</li>
-          </ul>
-        </p>
+        <h2 id="modal-modal-title">Please Enter All the required Fields</h2>
+        {isOpen.atLeastOneOptionalAvailable ? (
+          <p id="modal-modal-description">
+            Fill all of the following fields -
+            <ul>
+              <li>Project Title</li>
+              <li>Start Date</li>
+              <li>Sprint Duration</li>
+              <li>Stories</li>
+            </ul>
+          </p>
+        ) : (
+          <p id="modal-modal-description">
+            Enter at least one of the following -
+            <ul>
+              <li>Total Duration</li>
+              <li>Developers</li>
+            </ul>
+          </p>
+        )}
         <Button onClick={handleClose}>Cancel</Button>
       </Box>
     </Modal>

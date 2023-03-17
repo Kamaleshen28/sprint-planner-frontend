@@ -22,34 +22,34 @@ import {
 import { Button } from '@mui/material';
 
 const storiesData = [
-  {
-    id: 3,
-    stories: 'Authentication',
-    dependencies: [],
-    developer: [],
-    storyPoints: 4,
-  },
-  {
-    id: 6,
-    stories: 'Frontend',
-    dependencies: [3],
-    developer: [],
-    storyPoints: 4,
-  },
-  {
-    id: 7,
-    stories: 'BackEnd',
-    dependencies: [],
-    developer: [3],
-    storyPoints: 4,
-  },
-  {
-    id: 9,
-    stories: 'Database',
-    dependencies: [6, 7],
-    developer: [],
-    storyPoints: 4,
-  },
+  // {
+  //   id: 3,
+  //   stories: 'Authentication',
+  //   dependencies: [],
+  //   developer: [],
+  //   storyPoints: 4,
+  // },
+  // {
+  //   id: 6,
+  //   stories: 'Frontend',
+  //   dependencies: [3],
+  //   developer: [],
+  //   storyPoints: 4,
+  // },
+  // {
+  //   id: 7,
+  //   stories: 'BackEnd',
+  //   dependencies: [],
+  //   developer: [3],
+  //   storyPoints: 4,
+  // },
+  // {
+  //   id: 9,
+  //   stories: 'Database',
+  //   dependencies: [6, 7],
+  //   developer: [],
+  //   storyPoints: 4,
+  // },
 ];
 const developersData = [
   // { id: 1, developer: 'Harbir', sprintCapacity: 8, capacity: 14 },
@@ -80,8 +80,15 @@ function InputPage() {
   const handleOpen = (error, success) =>
     setOpen({ bool: true, err: error, success: success });
   const handleClose = () => setOpen({ bool: false, err: null, success: false });
-  const [openValidationModal, setOpenValidationModal] = React.useState(false);
-  const handleOpenValidationModal = () => setOpenValidationModal(true);
+  const [openValidationModal, setOpenValidationModal] = React.useState({
+    bool: false,
+    atLeastOneOptionalAvailable: false,
+  });
+  const handleOpenValidationModal = (atLeastOneOptionalAvailable) =>
+    setOpenValidationModal({
+      bool: true,
+      atLeastOneOptionalAvailable: atLeastOneOptionalAvailable,
+    });
 
   const navigate = useNavigate();
 
@@ -103,6 +110,10 @@ function InputPage() {
         stories: updateStories(storyList, developerList),
         // developers: updateDevelopers(developerList),
       };
+      if (!totalDuration && !developerList.length > 0) {
+        handleOpenValidationModal(false);
+        return;
+      }
       if (totalDuration) {
         // newProject.duration = Number(totalDuration);
         newProject.givenTotalDuration = Number(totalDuration);
@@ -139,7 +150,7 @@ function InputPage() {
           handleOpen(err, false);
         });
     } else {
-      handleOpenValidationModal();
+      handleOpenValidationModal(true);
     }
   };
   return (
