@@ -67,7 +67,7 @@ const GanttChart = () => {
           pointFormat:
             'Story Points: {point.storyPoints}<br>' +
             'Start: {point.start:%e %b %Y}<br>' +
-            'End: {point.end:%e %b %Y}<br>' +
+            'End: {point.toolend:%e %b %Y}<br>' +
             'Duration: {point.duration} day(s)',
         },
       },
@@ -155,7 +155,7 @@ const GanttChart = () => {
           formatter: function () {
             const date = new Date(this.value);
             const weekNumber = getWeekNum(startWeek, date);
-            console.log(weekNumber);
+
             return `Week ${weekNumber}`;
           },
           style: {

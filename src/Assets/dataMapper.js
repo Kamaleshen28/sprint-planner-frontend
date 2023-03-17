@@ -31,40 +31,36 @@ const getGanttChartFormatData = () => {
         endDay,
         storyPoints,
       } = story;
-      var startStory = projectStartDate + startDay * 60 * 60 * 24 * 1000; //timestamp
-      var endStory = projectStartDate + endDay * 60 * 60 * 24 * 1000;
-      const startdate = new Date(startStory); // Convert Unix timestamp to JavaScript Date object
-      // const dayOfstart = startdate.getUTCDay();
-      const enddate = new Date(endStory); // Convert Unix timestamp to JavaScript Date object
-      // const dayOfend = enddate.getUTCDay();
-      var startCount = endDay - startDay;
-      var endCount = endDay - startDay;
-      while (startCount > 0) {
-        if (startdate.getUTCDay() === 0 || startdate.getUTCDay() === 6) {
-          console.log('weekend of start', startdate);
-          startdate.setUTCDate(startdate.getUTCDate() + 1);
-          console.log('inside if date change');
-          continue;
+
+      var startDate = new Date(apiResponse.projectStartDate); //timestamp
+      var endDate = new Date(apiResponse.projectStartDate);
+
+      let count = 0;
+      while (count < startDay) {
+        if (startDate.getDay() !== 0 && startDate.getDay() !== 6) {
+          count++;
+          startDate = new Date(startDate.setDate(startDate.getDate() + 1));
+        } else {
+          startDate = new Date(startDate.setDate(startDate.getDate() + 1));
         }
-
-        console.log(title, 'start', startdate);
-
-        startCount--;
       }
-      while (endCount > 0) {
-        if (enddate.getUTCDay() === 0) {
-          enddate.setUTCDate(enddate.getUTCDate() + 1);
-          continue;
-        }
-        if (enddate.getUTCDay() === 6) {
-          enddate.setUTCDate(enddate.getUTCDate() + 2);
-          continue;
-        }
 
-        console.log(title, 'end', enddate);
+      count = 0;
+      while (count < endDay) {
+        if (endDate.getDay() !== 0 && endDate.getDay() !== 6) {
+          //Date.getDay() gives weekday starting from 0(Sunday) to 6(Saturday)
 
-        endCount--;
+          count++;
+          endDate = new Date(endDate.setDate(endDate.getDate() + 1));
+        } else {
+          endDate = new Date(endDate.setDate(endDate.getDate() + 1));
+        }
       }
+      // console.log(title);
+      // console.log('startDate', startDay);
+      // console.log('endDate', endDay);
+      // console.log('startDate', startDate);
+
       // const weekends = [];
       // for (let i = startStory; i <= endStory; i += 24 * 60 * 60 * 1000) {
       //   const date = new Date(i); // Convert Unix timestamp to JavaScript Date object
@@ -83,6 +79,12 @@ const getGanttChartFormatData = () => {
       // const endDate = new Date(endStory);
       // endDate.setDate(date.getDate() + weekends.length);
       // endStory = date.getTime();
+      console.log(title);
+      console.log('startDay', startDay);
+      console.log('endDay', endDay);
+      endDate.setDate(endDate.getDate() + 1);
+      // let toolend = endDate;
+      // toolend.setDate(toolend.getDate() - 1);
 
       let storyToAdd = {
         id: id.toString(),
@@ -90,12 +92,14 @@ const getGanttChartFormatData = () => {
         developer: developers[0].name,
         name: title,
 
-        start: startdate.getTime(),
-        end: enddate.getTime(),
+        start: startDate.getTime(),
+        end: endDate.getTime(),
+        toolend: endDate.setDate(endDate.getDate() - 1),
+
         // start: startOfWeek.getTime(),
         // end: endOfWeek.getTime(),
         storyPoints: storyPoints,
-        duration: endDay - startDay,
+        duration: endDay - startDay + 1,
 
         y: storyYAxis,
       };

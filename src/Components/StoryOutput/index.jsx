@@ -27,7 +27,7 @@ const Story = ({
   let count = 0;
   while (count < startDay) {
     startDate = new Date(startDate.setDate(startDate.getDate() + 1));
-    if (startDate.getDay() != 0 && endDate.getDay() != 6) {
+    if (startDate.getDay() != 0 && startDate.getDay() != 6) {
       //Date.getDay() gives weekday starting from 0(Sunday) to 6(Saturday)
       count++;
     }
