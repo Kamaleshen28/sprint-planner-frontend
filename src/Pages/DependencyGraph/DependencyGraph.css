@@ -28,8 +28,7 @@
 .zoom-button-wrapper{
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  width: 15%;
+  /* justify-content: space-between; */
 }
 
 .toggle-button{
@@ -43,20 +42,18 @@
   flex-wrap: wrap;
   align-content: flex-end;
   flex-direction: column;
-}
-
-canvas{
-  height: 100% !important;
-  border-bottom: 5px solid black;
+  margin-top: 20px;
 }
 
 .graph-legend-container{
   display: flex;
   justify-content: space-between;
+  height: 80%;
 }
 
 .graph-container{
-  width: 70%;
+  width: 68%;
+  height: 100%;
 }
 
 .legend-container{
@@ -67,12 +64,11 @@ canvas{
   padding: 10px;
   flex-wrap: revert;
   height: 80%;
-  width: 100%;
+  width: 95%;
   overflow-y: scroll;
 }
 
 .legend{
-  /* display: flex; */
   margin-top: 5px;
   text-align: left;
 }
@@ -81,10 +77,10 @@ canvas{
   margin-right: 5px;
 }
 
-.con{
+.legend-button-container{
   display: flex;
-  flex-wrap: wrap;
-  width: 25%;
+  flex-direction: column;
+  width: 30%;
 }
 
 ::-webkit-scrollbar {
