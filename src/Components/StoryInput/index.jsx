@@ -79,7 +79,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
   const [stories, setStories] = useState('');
   const [dependencies, setDependencies] = useState([]);
   const [developer, setDeveloper] = useState([]);
-  const [storyPoints, setStoryPoints] = useState(0);
+  const [storyPoints, setStoryPoints] = useState(null);
   const [isOpen, setIsOpen] = useState({ open: false, id: null });
   const [editOpen, setEditOpen] = useState({
     open: false,
