@@ -14,6 +14,7 @@ const DataProvider = ({ children }) => {
   const [projectId, setProjectId] = useState('');
 
   useEffect(() => {
+    console.log('projectId', projectId);
     const projectIdLocal = localStorage.getItem('projectId');
     if (projectId || projectIdLocal) {
       const id = projectId || projectIdLocal;
@@ -35,7 +36,7 @@ const DataProvider = ({ children }) => {
         navigate('/create');
       }
     }
-  }, []);
+  }, [projectId]);
 
   return (
     <DataContext.Provider

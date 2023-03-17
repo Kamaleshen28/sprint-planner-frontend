@@ -54,13 +54,13 @@ const Developer = (props) => {
           <Box
             display="flex"
             sx={{
-              bgcolor: 'lightblue',
+              bgcolor: '#0A3A58',
               color: 'white',
               width: '100%',
               borderRadius: 2,
               borderBottomLeftRadius: 0,
               borderBottomRightRadius: 0,
-              borderBottom: '5px solid white',
+              mb: 2,
               // borderTopRightRadius: 5,
               height: 50,
             }}

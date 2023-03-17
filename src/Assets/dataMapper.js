@@ -1,3 +1,7 @@
+// import * as response from './sampleData.json';
+// const { sprints, title: projectTitle, sprintDuration } = response;
+// const tempDate = new Date(new Date().toISOString().substring(0, 10));
+// const projectStartDate = tempDate.getTime();
 import { DataContext } from '../Contexts/DataContext';
 import { useContext } from 'react';
 

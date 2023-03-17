@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -9,11 +10,20 @@ import ListItemButton from '@mui/material/ListItemButton';
 // import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText';
 import MenuIcon from '@mui/icons-material/Menu';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { DataContext } from '../../Contexts/DataContext';
 
 export default function SidePanel() {
+  const { setProjectId } = React.useContext(DataContext);
   const navigate = useNavigate();
   const [state, setState] = React.useState(false);
+  const [projects, setProjects] = React.useState([]);
+  const [project, setProject] = React.useState('');
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === 'keydown' &&
@@ -24,7 +34,20 @@ export default function SidePanel() {
 
     setState(open);
   };
-
+  const handleChange = (event) => {
+    setProjectId(event.target.value);
+    setProject(event.target.value);
+    localStorage.setItem('projectId', event.target.value);
+  };
+  React.useEffect(() => {
+    axios
+      .get('http://localhost:8080/api/projects', {
+        headers: { authorization: localStorage.getItem('accessToken') },
+      })
+      .then((res) => {
+        setProjects(res.data.data);
+      });
+  }, []);
   const list = (anchor) => (
     <Box
       sx={{
@@ -54,7 +77,33 @@ export default function SidePanel() {
             <ListItemText primary="Create Project" />
           </ListItemButton>
         </ListItem>
-        <Divider />
+      </List>
+
+      <List>
+        <ListItem>
+          <Box sx={{ width: '100%' }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">Project</InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={project}
+                label="Project"
+                onChange={handleChange}
+              >
+                {projects.map((project) => (
+                  <MenuItem key={project.id} value={project.id}>
+                    {project.title}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+          </Box>
+        </ListItem>
+      </List>
+
+      <Divider />
+      <List>
         <ListItem disablePadding>
           <ListItemButton
             onClick={() => navigate('/')}
