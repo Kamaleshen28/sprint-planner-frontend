@@ -7,11 +7,23 @@ import { Header } from '../../Components';
 import Switch from '@mui/material/Switch';
 
 export default function DependencyGraph() {
-  const { developers } = useContext(DataContext);
   const { stories } = useContext(DataContext);
+  const { sprints } = useContext(DataContext);
 
   const [isZoomView, setIsZoomView] = useState(true);
   const [isDragView, setIsDragView] = useState(true);
+
+  const getEachSprintDeveloperStoryList = (sprintData) => {
+    return sprintData.reduce((result, storyData) => {
+      result[storyData.id] = storyData.developers[0].name;
+      return result;
+    }, {});
+  };
+
+  const developerStoryList = sprints.reduce((result, sprintData) => {
+    const developerList = getEachSprintDeveloperStoryList(sprintData);
+    return { ...result, ...developerList };
+  }, {});
 
   const handleZoomToggleClick = () => {
     setIsZoomView((previousValue) => !previousValue);
@@ -21,31 +33,26 @@ export default function DependencyGraph() {
     setIsDragView((previousValue) => !previousValue);
   };
 
-  const findDeveloperById = (id) => {
-    const developer = developers.filter(
-      (developerData) => developerData.id === id,
-    );
-    return developer;
-  };
+  const getEachStoryNodeTitle = (storyData) => {
+    const developerName = developerStoryList[storyData.id];
 
-  const getDeveloperName = (developerId) => {
-    const developer = findDeveloperById(developerId);
-    let developerName = 'None';
-    if (developer.length) {
-      developerName = developer[0].name;
-    }
-    return developerName;
-  };
-
-  const storyNode = stories.map((data) => {
-    const developerName = getDeveloperName(data.preAssignedDeveloperId);
-    const title =
-      `<b>Title</b>: ${data.title}<br>` +
+    return (
+      `<b>Title</b>: ${storyData.title}<br>` +
       `<b>Developers</b>: ${developerName}<br>` +
-      `<b>Story Points</b>: ${data.storyPoints}<br>` +
-      `<b>Dependencies</b>: ${data.dependencies}<br>`;
+      `<b>Story Points</b>: ${storyData.storyPoints}<br>` +
+      `<b>Dependencies</b>: ${storyData.dependencies}<br>`
+    );
+  };
 
-    return { id: data.id, label: String(data.id), title, size: 40 };
+  const storyNode = stories.map((storyData) => {
+    const title = getEachStoryNodeTitle(storyData);
+    return {
+      id: storyData.id,
+      label: `     ${String(storyData.id)}     `,
+      title,
+      font: { size: 17 },
+      shape: 'circle',
+    };
   });
 
   const dependencies = stories.reduce((result, eachStory) => {
@@ -76,7 +83,6 @@ export default function DependencyGraph() {
     edges: {
       color: 'red',
       width: 3,
-      // length: 200
       smooth: {
         type: 'discrete',
         forceDirection: 'none',
@@ -85,15 +91,10 @@ export default function DependencyGraph() {
     },
     nodes: {
       font: {
-        size: 24,
         color: '#000000',
       },
-      size: 30,
-      shape: 'dot',
     },
-    height: '500px',
     physics: {
-      // enabled: false,
       stabilization: false,
       barnesHut: {
         springConstant: 0,
@@ -119,29 +120,29 @@ export default function DependencyGraph() {
                 key={nanoid()}
                 graph={graph}
                 options={options}
-                // style={{ width: "80%", height: "100%" }}
+                style={{ width: '100%', height: '100%' }}
               />
             </div>
-            <div className="con">
+            <div className="legend-button-container">
               <div className="legend-container">{renderStoryTitleWithId}</div>
-            </div>
-          </div>
-          <div className="button-container">
-            <div className="zoom-button-wrapper">
-              <div className="span">Zoomview</div>
-              <Switch
-                checked={isZoomView}
-                onChange={handleZoomToggleClick}
-                inputProps={{ 'aria-label': 'controlled' }}
-              />
-            </div>
-            <div className="zoom-button-wrapper">
-              <div className="span">Dragview</div>
-              <Switch
-                checked={isDragView}
-                onChange={handleDragToggleClick}
-                inputProps={{ 'aria-label': 'controlled' }}
-              />
+              <div className="button-container">
+                <div className="zoom-button-wrapper">
+                  <div className="span">Zoomview</div>
+                  <Switch
+                    checked={isZoomView}
+                    onChange={handleZoomToggleClick}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                  />
+                </div>
+                <div className="zoom-button-wrapper">
+                  <div className="span">Dragview</div>
+                  <Switch
+                    checked={isDragView}
+                    onChange={handleDragToggleClick}
+                    inputProps={{ 'aria-label': 'controlled' }}
+                  />
+                </div>
+              </div>
             </div>
           </div>
         </div>
