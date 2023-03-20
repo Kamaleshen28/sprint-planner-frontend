@@ -94,6 +94,7 @@ export default function DependencyGraph() {
         color: '#000000',
       },
     },
+    height: '600px',
     physics: {
       stabilization: false,
       barnesHut: {
@@ -123,7 +124,7 @@ export default function DependencyGraph() {
                 style={{ width: '100%', height: '100%' }}
               />
             </div>
-            <div className="legend-button-container">
+            <div className="legend-container-wrapper">
               <div className="legend-container">{renderStoryTitleWithId}</div>
               <div className="button-container">
                 <div className="zoom-button-wrapper">

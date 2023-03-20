@@ -28,11 +28,13 @@ export default function Sprint({ content, index }) {
     pt: 2,
     px: 4,
     pb: 3,
+    overflowY: 'auto',
+    minHeight: '100px',
   };
   let theme = createTheme({
     typography: {
-      fontSize: 13,
-      fontWeightBold: 300,
+      fontSize: 10,
+      fontWeightBold: 400,
     },
   });
   theme = responsiveFontSizes(theme);
@@ -48,16 +50,16 @@ export default function Sprint({ content, index }) {
         <Box
           width={2 / 3}
           p={3}
-          sx={{ ...style, overflow: 'auto', borderRadius: 5 }}
+          sx={{ ...style, overflow: 'auto', borderRadius: '4px' }}
           maxHeight={300}
         >
           <Box
             display="flex"
             sx={{
-              bgcolor: '#0A3A58',
+              bgcolor: 'black',
               color: 'white',
               width: '100%',
-              borderRadius: 2,
+              borderRadius: '6px',
               borderBottomLeftRadius: 0,
               borderBottomRightRadius: 0,
               mb: 2,
@@ -68,6 +70,7 @@ export default function Sprint({ content, index }) {
               SPRINT {index}
             </Typography>
           </Box>
+
           <Grid container spacing={2}>
             {content?.map((story, index) => {
               return (

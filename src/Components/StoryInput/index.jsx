@@ -46,17 +46,20 @@ function Item(props) {
         p: 1,
         m: 1,
         width: 200,
-        bgcolor: (theme) =>
-          theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
+        bgcolor: 'white',
+
+        // bgcolor: (theme) =>
+        //   theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
         color: (theme) =>
           theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-        border: '1px solid',
-        borderColor: (theme) =>
-          theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
-        borderRadius: 2,
+        // border: '1px solid',
+        // borderColor: (theme) =>
+        //   theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
+        borderRadius: '4px',
         fontSize: '0.875rem',
         fontWeight: '700',
         ...sx,
+        minHeight: '20px',
       }}
       {...other}
     />
@@ -242,17 +245,17 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                 p: 1,
               }}
             >
-              <Item sx={{ width: '70%' }}>Serial No.</Item>
-              <Item sx={{ width: '70%' }}>Stories</Item>
-              <Item sx={{ width: '70%' }}>Dependencies</Item>
-              <Item sx={{ width: '70%' }}>Developer</Item>
-              <Item sx={{ width: '70%' }}>Story Points</Item>
+              <Item sx={{ width: '70%' }}>SERIAL NO.</Item>
+              <Item sx={{ width: '70%' }}>STORIES</Item>
+              <Item sx={{ width: '70%' }}>DEPENDENCIES</Item>
+              <Item sx={{ width: '70%' }}>DEVELOPER</Item>
+              <Item sx={{ width: '70%' }}>STORY POINTS</Item>
             </Box>
             <div className="story-list">
               {deleteConfirmationPopup}
               {EditInputModal}
               {storyList.length === 0 ? (
-                <p style={{ fontSize: '2rem' }}>No Stories</p>
+                <p style={{ fontSize: '1.3rem' }}>No Stories</p>
               ) : (
                 storyList.map((story, index) => {
                   const { id, stories, dependencies, developer, storyPoints } =
@@ -263,8 +266,12 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                         sx={{
                           display: 'grid',
                           gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
-                          backgroundColor: 'white',
-                          borderRadius: '10px',
+                          backgroundColor: '#e4eef1',
+                          borderRadius: '2px',
+                          height: '50px',
+                          // display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
                           // ml: 6,
                           mt: 1,
                           p: 1,

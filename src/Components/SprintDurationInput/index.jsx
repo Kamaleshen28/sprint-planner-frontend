@@ -7,7 +7,7 @@ import { InputLabel } from '@mui/material';
 function SprintDurationInput({ value, setValue }) {
   return (
     <div className="sprint-duration-input">
-      <InputLabel>Sprint Duration ( Weeks ) : </InputLabel>
+      <InputLabel>Sprint Duration(weeks): </InputLabel>
       <ValidatorForm onSubmit={() => {}} instantValidate={true}>
         <TextValidator
           id="sprint-duration"

@@ -135,8 +135,8 @@ export default function SidePanel() {
   return (
     <div>
       <React.Fragment>
-        <Button onClick={toggleDrawer(true)}>
-          <MenuIcon sx={{ color: 'white' }} />
+        <Button onClick={toggleDrawer(true)} sx={{}}>
+          <MenuIcon sx={{ color: 'black', fontSize: 30 }} />
         </Button>
         <Drawer anchor={'left'} open={state} onClose={toggleDrawer(false)}>
           {list('left')}
