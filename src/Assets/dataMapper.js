@@ -15,13 +15,27 @@ const getGanttChartFormatData = () => {
   const { apiResponse, sprints } = useContext(DataContext);
 
   console.log('apiResponse', apiResponse);
-  const date = new Date(apiResponse.projectStartDate);
-  const projectStartDate = date.getTime();
+  let date = new Date(apiResponse.projectStartDate);
+  let projectStartDate = date.getTime();
+  let sprintArrayLength = 0;
+  sprints.forEach((sprint) => {
+    if (sprint.length > sprintArrayLength) {
+      sprintArrayLength = sprint.length;
+    }
+  });
+
+  let storiesPresent = new Array(sprintArrayLength).fill(false);
   const toReturn = []; // 1-D array
   let storyYAxis = 0;
 
   sprints.forEach((sprint) => {
     sprint.forEach((story) => {
+      if (!storiesPresent[story.id]) {
+        storiesPresent[story.id] = true;
+      } else {
+        return;
+      }
+
       let {
         id,
         dependencies,
@@ -36,7 +50,11 @@ const getGanttChartFormatData = () => {
       var endDate = new Date(apiResponse.projectStartDate);
 
       let count = 0;
-      while (count < startDay) {
+      while (
+        count < startDay ||
+        startDate.getDay() === 0 ||
+        startDate.getDay() === 6
+      ) {
         if (startDate.getDay() !== 0 && startDate.getDay() !== 6) {
           count++;
           startDate = new Date(startDate.setDate(startDate.getDate() + 1));
@@ -46,7 +64,11 @@ const getGanttChartFormatData = () => {
       }
 
       count = 0;
-      while (count < endDay) {
+      while (
+        count < endDay ||
+        endDate.getDay() === 0 ||
+        endDate.getDay() === 6
+      ) {
         if (endDate.getDay() !== 0 && endDate.getDay() !== 6) {
           //Date.getDay() gives weekday starting from 0(Sunday) to 6(Saturday)
 
@@ -56,35 +78,8 @@ const getGanttChartFormatData = () => {
           endDate = new Date(endDate.setDate(endDate.getDate() + 1));
         }
       }
-      // console.log(title);
-      // console.log('startDate', startDay);
-      // console.log('endDate', endDay);
-      // console.log('startDate', startDate);
 
-      // const weekends = [];
-      // for (let i = startStory; i <= endStory; i += 24 * 60 * 60 * 1000) {
-      //   const date = new Date(i); // Convert Unix timestamp to JavaScript Date object
-      //   const dayOfWeek = date.getUTCDay(); // Get day of the week (0=Sunday, 1=Monday, etc.)
-
-      //   // If the day is a Saturday or Sunday, add it to the weekends array
-      //   if (dayOfWeek === 0) {
-      //     date.setUTCDate(date.getUTCDate() + 1);
-      //     weekends.push(date);
-      //   }
-      //   if (dayOfWeek === 6) {
-      //     date.setUTCDate(date.getUTCDate() - 1);
-      //     weekends.push(date);
-      //   }
-      // }
-      // const endDate = new Date(endStory);
-      // endDate.setDate(date.getDate() + weekends.length);
-      // endStory = date.getTime();
-      console.log(title);
-      console.log('startDay', startDay);
-      console.log('endDay', endDay);
       endDate.setDate(endDate.getDate() + 1);
-      // let toolend = endDate;
-      // toolend.setDate(toolend.getDate() - 1);
 
       let storyToAdd = {
         id: id.toString(),
@@ -115,7 +110,10 @@ const getGanttChartFormatData = () => {
     colors: ['#05445e', '#189ab4', '#75e6da', '#d4f1f4'],
     sprintDuration: [
       projectStartDate,
-      dateDuration(apiResponse.sprintDuration, projectStartDate),
+      dateDuration(
+        apiResponse.sprintDuration * sprints.length,
+        projectStartDate,
+      ),
     ],
     series: [
       {
@@ -128,51 +126,3 @@ const getGanttChartFormatData = () => {
   return formattedData;
 };
 export default getGanttChartFormatData;
-
-// var weekends = [];
-// var storyStartDate = projectStartDate + startDay * 60 * 60 * 24 * 1000;
-
-// var storyEndDate = projectStartDate + endDay * 60 * 60 * 24 * 1000;
-// for (
-//   let i = storyStartDate;
-//   i <= storyEndDate;
-//   i += 24 * 60 * 60 * 1000
-// ) {
-//   const date = new Date(i); // Convert Unix timestamp to JavaScript Date object
-//   const dayOfWeek = date.getUTCDay(); // Get day of the week (0=Sunday, 1=Monday, etc.)
-
-//   // If the day is a Saturday or Sunday, add it to the weekends array
-//   if (dayOfWeek === 0) {
-//     weekends.push(date);
-//   }
-//   if (dayOfWeek === 6) {
-//     weekends.push(date);
-//   }
-// }
-
-// if (weekends.length > 1) {
-//   var i = 0;
-//   while (i < weekends.length) {
-//     if (weekends[i].getUTCDay() - weekends[i + 1].getUTCDay() === 6) {
-//       let storyToAdd = {
-//         id: id.toString(),
-//         dependency: dependencies.map((id) => id.toString()),
-//         developer: developers[0].name,
-//         name: title,
-
-//         start: projectStartDate + startDay * 60 * 60 * 24 * 1000,
-//         end: projectStartDate + endDay * 60 * 60 * 24 * 1000,
-//         // start: startOfWeek.getTime(),
-//         // end: endOfWeek.getTime(),
-//         storyPoints: storyPoints,
-//         duration: endDay - startDay,
-
-//         y: storyYAxis,
-//       };
-//       toReturn.push(storyToAdd);
-//       //stroyAxis dont incremnet
-
-//       i += 2;
-//     }
-//   }
-// }

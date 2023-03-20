@@ -25,7 +25,11 @@ const Story = ({
   let startDate = new Date(apiResponse.projectStartDate);
   let endDate = new Date(apiResponse.projectStartDate);
   let count = 0;
-  while (count < startDay) {
+  while (
+    count < startDay ||
+    startDate.getDay() === 0 ||
+    startDate.getDay() === 6
+  ) {
     startDate = new Date(startDate.setDate(startDate.getDate() + 1));
     if (startDate.getDay() != 0 && startDate.getDay() != 6) {
       //Date.getDay() gives weekday starting from 0(Sunday) to 6(Saturday)
@@ -34,7 +38,7 @@ const Story = ({
   }
 
   count = 0;
-  while (count < endDay) {
+  while (count < endDay || endDate.getDay() === 0 || endDate.getDay() === 6) {
     endDate = new Date(endDate.setDate(endDate.getDate() + 1));
     if (endDate.getDay() != 0 && endDate.getDay() != 6) {
       //Date.getDay() gives weekday starting from 0(Sunday) to 6(Saturday)

@@ -55,6 +55,9 @@ const GanttChart = () => {
       color: '#f2f2f2',
       from: weekends[i], // Saturday
       to: weekends[i + 1],
+      label: {
+        text: null, // Set the plot band label to null to remove it
+      },
       // Sunday
     });
   }
@@ -75,6 +78,7 @@ const GanttChart = () => {
     chart: {
       scrollablePlotArea: {
         minWidth: 2000,
+        opacity: 0.85,
 
         scrollPositionX: 1,
         scrollbar: {
@@ -145,6 +149,12 @@ const GanttChart = () => {
     },
     xAxis: [
       {
+        type: 'datetime',
+        label: {
+          overflow: 'justify',
+          format: '{value:%e %b}',
+        },
+        tickInterval: 1000 * 60 * 60 * 24,
         plotBands: plots,
       },
 
@@ -162,7 +172,7 @@ const GanttChart = () => {
             color: '#000',
           },
         },
-        tickInterval: 1000 * 60 * 60 * 24 * 5,
+        tickInterval: 1000 * 60 * 60 * 24 * 7,
         // week
       },
     ],
