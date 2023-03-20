@@ -4,13 +4,13 @@
   align-items: center;
   justify-content: center;
   /* align-content: center; */
-  /* height: 100vh; */
+  min-height: 57vh;
   /* width: 100vw; */
-  margin: 10px;
-  border: 1px solid lightblue;
-  border-radius: 20px;
-  /* background-color: #e9e9e9; */
-  background-color: #b7cfde;
+  margin: 0 10px 0 10px;
+  border-radius: 2px;
+  background-color: white;
+  box-shadow: 0px 0px 11px -8px #000000;
+  padding: 0 20px 0 20px;
 }
 
 .developer-container-form {
@@ -18,10 +18,13 @@
   /* height: 15vh; */
   display: flex;
   flex-direction: column;
-  background-color: #28709e;
+  background-color: white;
   justify-content: center;
   align-items: center;
-  border-radius: 0 0 20px 20px;
+  border-radius: 2px;
+  box-shadow: 0px 0px 11px -8px #000000;
+  /* margin-top:30px; */
+  min-height: 60px;
 }
 .dev-container form {
   width: 100%;

@@ -76,10 +76,10 @@ export default function Title({ value, setValue }) {
       sx={{ mt: 2 }}
       width={400}
       height={40}
-      bgcolor={isActive ? 'lightblue' : 'transparent'}
+      bgcolor={isActive ? '#e4eef1' : 'transparent'}
       justifyContent={'space-between'}
       alignItems={'center'}
-      borderRadius={2}
+      borderRadius={'2px'}
     >
       <InlineEdit
         value={value}

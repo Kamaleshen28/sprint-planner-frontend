@@ -154,7 +154,7 @@ function InputPage() {
     }
   };
   return (
-    <>
+    <div className="home-page-wrapper">
       {/* <TopBar /> */}
       {open.bool && (
         <ErrorModal
@@ -171,14 +171,21 @@ function InputPage() {
         />
       )}
       <Header value={title} setValue={setTitle} heading="Sprint Planner" />
-      <Title value={title} setValue={setTitle} />
       <div className="common-input-section">
-        <StartDateInput value={startDate} setValue={setStartDate} />
-        <SprintDurationInput
-          value={sprintDuration}
-          setValue={setSprintDuration}
-        />
-        <TotalDurationInput value={totalDuration} setValue={setTotalDuration} />
+        <div className="common-input-wrapper">
+          <Title value={title} setValue={setTitle} />
+          <div className="common-input-date">
+            <StartDateInput value={startDate} setValue={setStartDate} />
+            <SprintDurationInput
+              value={sprintDuration}
+              setValue={setSprintDuration}
+            />
+            <TotalDurationInput
+              value={totalDuration}
+              setValue={setTotalDuration}
+            />
+          </div>
+        </div>
       </div>
       <InputForm
         storyList={storyList}
@@ -193,7 +200,7 @@ function InputPage() {
       >
         Submit
       </Button>
-    </>
+    </div>
   );
 }
 

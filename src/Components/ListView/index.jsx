@@ -11,13 +11,14 @@ const style = {
   width: '100%',
   height: '70vh',
   minHeight: 400,
-  bgcolor: '#fafafa',
-  border: '2px solid lightgrey',
-  boxShadow: 4,
+  // bgcolor: '#fafafa',
+  // border: '2px solid lightgrey',
+  // boxShadow: 4,
 };
 
 const ListView = ({ heading }) => {
   const { sprints } = useContext(DataContext);
+
   const developerIdMapping = {};
   const storiesPerDeveloper = sprints.reduce((acc, sprint) => {
     sprint.forEach((story) => {
@@ -53,11 +54,11 @@ const ListView = ({ heading }) => {
           boxSizing: 'border-box',
           justifyContent: 'space-around',
           rowGap: 10,
-          borderRadius: 10,
+          borderRadius: 0.5,
         }}
       >
         <List
-          heading="Sprints"
+          heading="SPRINTS"
           contents={sprints}
           developerIdMapping={developerIdMapping}
         >
@@ -65,7 +66,7 @@ const ListView = ({ heading }) => {
         </List>
 
         <List
-          heading="Developers"
+          heading="DEVELOPERS"
           contents={storiesPerDeveloper}
           developerIdMapping={developerIdMapping}
         >

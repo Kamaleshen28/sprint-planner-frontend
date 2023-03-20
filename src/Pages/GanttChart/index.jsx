@@ -3,6 +3,8 @@ import Highcharts from 'highcharts/highcharts-gantt';
 import HighchartsReact from 'highcharts-react-official';
 import getGanttChartFormatData from '../../Assets/dataMapper';
 import { Header } from '../../Components';
+import './GanttChart.css';
+
 Date.prototype.getWeek = function () {
   const firstDayOfYear = new Date(this.getFullYear(), 0, 1);
   const daysSinceFirstDay = Math.floor(
@@ -171,14 +173,16 @@ const GanttChart = () => {
   };
 
   return (
-    <div>
+    <div className="gantt-chart-page">
       <Header />
-      <div style={{ minHeight: '100vh' }}>
-        <HighchartsReact
-          highcharts={Highcharts}
-          constructorType={'ganttChart'}
-          options={options}
-        />
+      <div className="gantt-chart-wrapper">
+        <div className="gantt-chart">
+          <HighchartsReact
+            highcharts={Highcharts}
+            constructorType={'ganttChart'}
+            options={options}
+          />
+        </div>
       </div>
     </div>
   );

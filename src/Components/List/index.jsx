@@ -13,25 +13,25 @@ export default function List({
 }) {
   const style = {
     width: 400,
-    bgcolor: '#b7cfde',
-    border: '2px solid lightgrey',
+    bgcolor: 'white',
+    // border: '2px solid lightgrey',
   };
   let theme = createTheme({
     typography: {
-      fontSize: 13,
+      fontSize: 9,
       fontWeightBold: 300,
     },
   });
   theme = responsiveFontSizes(theme);
   return (
-    <Box width={2 / 3} sx={{ ...style, borderRadius: 5, ml: 2 }}>
+    <Box width={2 / 3} sx={{ ...style, borderRadius: '5px', ml: 2 }}>
       <Box
         display="flex"
         sx={{
-          bgcolor: '#0A3A58',
+          bgcolor: 'black',
           color: 'white',
           width: '100%',
-          borderRadius: 5,
+          borderRadius: '5px',
           borderBottomLeftRadius: 0,
           borderBottomRightRadius: 0,
           height: '10%',
@@ -54,7 +54,7 @@ export default function List({
         >
           {contents.map((content, index) => {
             let props = {};
-            if (heading === 'Sprints') {
+            if (heading === 'SPRINTS') {
               props = {
                 content,
                 index,

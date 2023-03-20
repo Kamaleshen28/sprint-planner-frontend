@@ -91,7 +91,7 @@ export default function DependencyGraph() {
       size: 30,
       shape: 'dot',
     },
-    height: '500px',
+    height: '600px',
     physics: {
       // enabled: false,
       stabilization: false,
@@ -122,7 +122,7 @@ export default function DependencyGraph() {
                 // style={{ width: "80%", height: "100%" }}
               />
             </div>
-            <div className="con">
+            <div className="legend-container-wrapper">
               <div className="legend-container">{renderStoryTitleWithId}</div>
             </div>
           </div>

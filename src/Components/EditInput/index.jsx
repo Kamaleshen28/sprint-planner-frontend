@@ -43,14 +43,14 @@ function Item(props) {
         p: 1,
         m: 1,
         width: 200,
-        bgcolor: (theme) =>
-          theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
+        // bgcolor: (theme) =>
+        //   theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
         color: (theme) =>
           theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-        border: '1px solid',
-        borderColor: (theme) =>
-          theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
-        borderRadius: 2,
+        // border: '1px solid',
+        // borderColor: (theme) =>
+        //   theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
+        // borderRadius: 2,
         fontSize: '0.875rem',
         fontWeight: '700',
         ...sx,
@@ -117,6 +117,8 @@ const EditInput = ({
           ml: 6,
           p: 1,
           alignItems: 'center',
+          bgcolor: 'white',
+          // height: '160px',
         }}
       >
         <div></div>

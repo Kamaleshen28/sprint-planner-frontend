@@ -44,13 +44,13 @@ function Item(props) {
         p: 1,
         m: 1,
         width: 200,
-        bgcolor: (theme) =>
-          theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
+        // bgcolor: (theme) =>
+        //   theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
         color: (theme) =>
           theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-        border: '1px solid',
-        borderColor: (theme) =>
-          theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
+        // border: '1px solid',
+        // borderColor: (theme) =>
+        //   theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
         borderRadius: 2,
         fontSize: '0.875rem',
         fontWeight: '700',
@@ -100,10 +100,13 @@ const EditDeveloperInput = ({
         sx={{
           display: 'grid',
           gridTemplateColumns: '1fr 2fr repeat(3, 1fr) 1fr',
-          bgcolor: '#28709e',
-          borderRadius: '0 0 20px 20px',
+          // bgcolor: '#28709e',
+          // borderRadius: '0 0 20px 20px',
           height: '100px',
           alignItems: 'center',
+          width: '90%',
+          bgcolor: 'white',
+          // boxShadow: '0px 0px 11px -8px #000000',
         }}
       >
         <div></div>
@@ -151,14 +154,19 @@ const EditDeveloperInput = ({
           />
         </Item>
 
-        <Fab color="primary" type="submit" aria-label="add">
+        <Fab
+          color="primary"
+          type="submit"
+          aria-label="add"
+          sx={{ fontSize: '1.5rem' }}
+        >
           +
         </Fab>
         <Fab
           onClick={closeedit}
           variant="contained"
           style={{ margin: 'auto', display: 'flex' }}
-          color="secondary"
+          color="error"
           type="submit"
         >
           x

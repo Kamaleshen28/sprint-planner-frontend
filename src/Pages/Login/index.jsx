@@ -141,7 +141,7 @@ export default function Login() {
                 <span className="user-not-found-text">{loginErrorText}</span>
               )}
               <br />
-              <button className="submit-button">Login</button>
+              <button className="submit-button">Sign In</button>
             </form>
           )}
           {!haveAccount && (
@@ -191,7 +191,7 @@ export default function Login() {
                 <span className="register-error-text">{regiterErrorText}</span>
               )}
               <br />
-              <button className="submit-button">Register</button>
+              <button className="submit-button">Sign up</button>
             </form>
           )}
           <div className="confirmation-text">
@@ -202,7 +202,7 @@ export default function Login() {
                   className="login-text"
                   onClick={handleAccountConfirmationClick}
                 >
-                  Login
+                  Sign In
                 </span>
               </span>
             )}
@@ -213,7 +213,7 @@ export default function Login() {
                   className="register-text"
                   onClick={handleAccountConfirmationClick}
                 >
-                  Register
+                  Sign up
                 </span>
               </span>
             )}

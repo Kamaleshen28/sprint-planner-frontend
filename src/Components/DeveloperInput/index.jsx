@@ -13,14 +13,15 @@ function Item(props) {
         p: 1,
         m: 1,
         width: 200,
-        bgcolor: (theme) =>
-          theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
+        // height: '40px',
+        // bgcolor: (theme) =>
+        //   theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
         color: (theme) =>
           theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-        border: '1px solid',
-        borderColor: (theme) =>
-          theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
-        borderRadius: 2,
+        // border: '1px solid',
+        // borderColor: (theme) =>
+        //   theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
+        borderRadius: 0,
         fontSize: '0.875rem',
         fontWeight: '700',
         ...sx,
@@ -80,7 +81,7 @@ export default function DeveloperInput({
             <Box
               sx={{
                 display: 'grid',
-                gridTemplateColumns: '1fr 2fr repeat(3, 1fr) 1fr',
+                gridTemplateColumns: '1fr 2fr 2fr repeat(3, 1fr)',
                 p: 1,
                 // ml: 6,
                 // m: 1,
@@ -91,16 +92,62 @@ export default function DeveloperInput({
                 // gap: '0 1rem',
               }}
             >
-              <Item sx={{ width: '80%', mx: 'auto' }}>Serial No.</Item>
-              <Item sx={{ width: '80%', mx: 'auto' }}>Developers</Item>
-              <Item sx={{ width: '80%', mx: 'auto' }}>
-                Sprint Capacity(days)
+              <Item
+                sx={{
+                  width: '80%',
+                  mx: 'auto',
+                  borderRadius: '2px',
+                  padding: '4px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                SERIAL NO.
               </Item>
-              <Item sx={{ width: '80%', mx: 'auto' }}>Capacity(days)</Item>
+              <Item
+                sx={{
+                  width: '80%',
+                  mx: 'auto',
+                  borderRadius: '2px',
+                  padding: '4px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                DEVELOPERS
+              </Item>
+              <Item
+                sx={{
+                  width: '80%',
+                  mx: 'auto',
+                  borderRadius: '2px',
+                  padding: '4px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                SPRINT CAPACITY(DAYS)
+              </Item>
+              <Item
+                sx={{
+                  width: '80%',
+                  mx: 'auto',
+                  borderRadius: '2px',
+                  padding: '4px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
+              >
+                CAPACITY(DAYS)
+              </Item>
             </Box>
             <div className="dev-list">
               {developerList.length === 0 ? (
-                <p style={{ fontSize: '2rem' }}>No Developers</p>
+                <p style={{ fontSize: '1.3rem' }}>No Developers</p>
               ) : (
                 developerList.map((developerInfo, index) => {
                   return (
@@ -130,7 +177,8 @@ export default function DeveloperInput({
                 // flexDirection: 'row',
                 width: '100%',
                 display: 'grid',
-                gridTemplateColumns: '1fr 2fr repeat(3, 1fr) 1fr',
+                gridTemplateColumns: '1fr 2fr 2fr repeat(3, 1fr)',
+                // bgcolor: 'white',
 
                 // ml: 6,
                 p: 1,
@@ -141,14 +189,14 @@ export default function DeveloperInput({
                 // borderRadius: '0 0 20px 20px',
                 // height: '100px',
                 // boxShadow: 1,
+                // height: '50px',
                 alignItems: 'center',
                 // height: '100%',
               }}
             >
               <div></div>
-              <Item sx={{ width: '80%', mx: 'auto' }}>
+              <Item sx={{ width: '95%', mx: 'auto', p: 0 }}>
                 <TextValidator
-                  style={{ width: '100%' }}
                   placeholder="Enter Developer Name"
                   type="text"
                   name="developer"
@@ -159,7 +207,7 @@ export default function DeveloperInput({
                   onChange={(e) => setDeveloper(e.target.value)}
                 />
               </Item>
-              <Item sx={{ width: '80%', mx: 'auto' }}>
+              <Item sx={{ width: '100%', mx: 'auto', p: 0 }}>
                 <TextValidator
                   placeholder="Enter Sprint Capacity"
                   type="number"
@@ -174,9 +222,9 @@ export default function DeveloperInput({
                   onChange={(e) => setSprintCapacity(e.target.value)}
                 />
               </Item>
-              <Item sx={{ width: '80%', mx: 'auto' }}>
+              <Item sx={{ width: '95%', mx: 'auto', p: 0 }}>
                 <TextValidator
-                  placeholder="Enter capacity"
+                  placeholder="Enter Capacity"
                   type="number"
                   name="capacity"
                   value={capacity}

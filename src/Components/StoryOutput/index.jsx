@@ -74,22 +74,35 @@ const Story = ({
         <Card sx={{ ...style, minWidth: 270 }} variant="outlined">
           <CardHeader
             sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              backgroundColor: '#0A3A58',
+              // display: 'flex',
+              // justifyContent: 'center',
+              backgroundColor: 'black',
+              // alignItems: 'center',
+              color: 'white',
+              mx: 'auto',
+              border: 'none',
+
               p: 0,
-              pt: 2,
-              pl: 2,
-              paddingBottom: 1.5,
+              // pt: 2,
+              pl: 4,
+              fontSize: 18,
+              fontWeight: 500,
+
+              // paddingBottom: 1.5,
             }}
-            avatar={
-              <Avatar
-                sx={{ bgcolor: red[500], height: 50, width: 50 }}
-                aria-label="recipe"
-              >
-                Story
-              </Avatar>
-            }
+            // avatar={
+            //   <Avatar
+            //     sx={{
+            //       bgcolor: red[500],
+            //       height: '50px',
+            //       width: 50,
+            //     }}
+            //     aria-label="recipe"
+            //   >
+            //     STORY {id}
+            //   </Avatar>
+            // }
+            avatar={<p>STORY {id}</p>}
           />
           <Divider variant="middle" />
           <CardContent
@@ -97,11 +110,12 @@ const Story = ({
               pt: 2,
               px: 4,
               pb: 3,
+              width: '370px',
             }}
           >
-            <p>
+            {/* <p>
               <b>Story ID:</b> {id}
-            </p>
+            </p> */}
             <p>
               <b>Title:</b> {title}
             </p>

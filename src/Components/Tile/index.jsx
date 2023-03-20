@@ -22,6 +22,7 @@ const Tile = ({ handleOpen, children, leftalign }) => (
       overflow: 'hidden',
       display: 'block',
       textAlign: leftalign ? 'left' : 'center',
+      borderRadius: 1,
     }}
     variant="outlined"
     onClick={handleOpen}

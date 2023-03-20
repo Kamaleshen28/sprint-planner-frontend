@@ -1,0 +1,13 @@
+.gantt-chart-page{
+  background-color: #e4eef1;
+  min-height: 100vh;
+}
+
+.gantt-chart-wrapper{
+  min-height: 90vh;
+}
+
+.gantt-chart{
+    padding: 80px 65px 30px 65px;
+    height: 90%;
+}
