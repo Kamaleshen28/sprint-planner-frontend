@@ -82,7 +82,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
   const [stories, setStories] = useState('');
   const [dependencies, setDependencies] = useState([]);
   const [developer, setDeveloper] = useState([]);
-  const [storyPoints, setStoryPoints] = useState(null);
+  const [storyPoints, setStoryPoints] = useState(undefined);
   const [isOpen, setIsOpen] = useState({ open: false, id: null });
   const [editOpen, setEditOpen] = useState({
     open: false,
@@ -339,7 +339,6 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                 <TextValidator
                   type="text"
                   name="story"
-                  defaultValue="Disabled"
                   value={stories}
                   placeholder="Enter Story Title"
                   validators={['required']}
@@ -415,7 +414,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                   }}
                   MenuProps={MenuProps}
                 >
-                  <MenuItem value=" ">
+                  <MenuItem value="">
                     <em>None</em>
                   </MenuItem>
                   {developerList.map((developer) => (
