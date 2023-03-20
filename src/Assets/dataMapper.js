@@ -47,7 +47,6 @@ const getGanttChartFormatData = () => {
       } = story;
 
       var startDate = new Date(apiResponse.projectStartDate); //timestamp
-      var endDate = new Date(apiResponse.projectStartDate);
 
       let count = 0;
       while (
@@ -63,12 +62,10 @@ const getGanttChartFormatData = () => {
         }
       }
 
+      let endDate = new Date(startDate);
+      const duration = endDay - startDay;
       count = 0;
-      while (
-        count < endDay ||
-        endDate.getDay() === 0 ||
-        endDate.getDay() === 6
-      ) {
+      while (count < duration) {
         if (endDate.getDay() !== 0 && endDate.getDay() !== 6) {
           //Date.getDay() gives weekday starting from 0(Sunday) to 6(Saturday)
 
@@ -79,8 +76,6 @@ const getGanttChartFormatData = () => {
         }
       }
 
-      endDate.setDate(endDate.getDate() + 1);
-
       let storyToAdd = {
         id: id.toString(),
         dependency: dependencies.map((id) => id.toString()),
@@ -89,12 +84,13 @@ const getGanttChartFormatData = () => {
 
         start: startDate.getTime(),
         end: endDate.getTime(),
+
         toolend: endDate.setDate(endDate.getDate() - 1),
 
         // start: startOfWeek.getTime(),
         // end: endOfWeek.getTime(),
         storyPoints: storyPoints,
-        duration: endDay - startDay + 1,
+        duration: endDay - startDay,
 
         y: storyYAxis,
       };

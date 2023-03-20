@@ -10,6 +10,7 @@ const DataProvider = ({ children }) => {
   const [sprints, setSprints] = useState([]);
   const [stories, setStories] = useState([]);
   const [developers, setDevelopers] = useState([]);
+  const [comments, setComments] = useState([]);
   const [apiResponse, setApiResponse] = useState({});
   const [projectId, setProjectId] = useState('');
 
@@ -31,6 +32,7 @@ const DataProvider = ({ children }) => {
             setSprints(res.data.data.sprints);
             setStories(res.data.data.stories);
             setDevelopers(res.data.data.developers);
+            setComments(res.data.data.comments);
           });
       } else {
         navigate('/create');
@@ -51,6 +53,8 @@ const DataProvider = ({ children }) => {
         setDevelopers,
         projectId,
         setProjectId,
+        comments,
+        setComments,
       }}
     >
       {children}
