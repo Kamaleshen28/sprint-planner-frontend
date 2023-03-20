@@ -13,7 +13,7 @@ let theme = createTheme();
 theme = responsiveFontSizes(theme);
 
 const InlineEdit = ({ value, setValue, isActive, setIsActive }) => {
-  const [editingValue, setEditingValue] = useState(value);
+  const [editingValue, setEditingValue] = useState(value || '');
 
   const onChange = (event) => setEditingValue(event.target.value);
 
@@ -100,13 +100,13 @@ export default function Title({ value, setValue }) {
 }
 
 InlineEdit.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   setValue: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   setIsActive: PropTypes.func.isRequired,
 };
 
 Title.propTypes = {
-  value: PropTypes.string.isRequired,
+  value: PropTypes.string,
   setValue: PropTypes.func.isRequired,
 };

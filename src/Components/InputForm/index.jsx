@@ -19,7 +19,7 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          <Typography component={'span'}>{children}</Typography>
         </Box>
       )}
     </div>
@@ -61,7 +61,6 @@ export default function InputForm({
     setValue(newValue);
   };
 
-  const handleSubmit = () => {};
   return (
     <>
       <Box sx={{ width: '100%' }}>

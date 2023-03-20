@@ -56,6 +56,9 @@ export default function ValidationModal({ isOpen, setIsOpen }) {
 }
 
 ValidationModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired,
+  isOpen: PropTypes.shape({
+    bool: PropTypes.bool.isRequired,
+    atLeastOneOptionalAvailable: PropTypes.bool.isRequired,
+  }).isRequired,
   setIsOpen: PropTypes.func.isRequired,
 };

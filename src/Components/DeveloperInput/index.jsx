@@ -1,4 +1,4 @@
-import { Box, Input, Fab, Tooltip, Modal, Button } from '@mui/material';
+import { Box, Fab, Tooltip } from '@mui/material';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
@@ -51,8 +51,8 @@ export default function DeveloperInput({
       : 1,
   );
   const [developer, setDeveloper] = useState('');
-  const [sprintCapacity, setSprintCapacity] = useState(null);
-  const [capacity, setCapacity] = useState(null);
+  const [sprintCapacity, setSprintCapacity] = useState(undefined);
+  const [capacity, setCapacity] = useState(undefined);
 
   const removeItem = (id) => {
     let newDeveloperList = developerList.filter(
@@ -100,7 +100,12 @@ export default function DeveloperInput({
             </Box>
             <div className="dev-list">
               {developerList.length === 0 ? (
-                <p data-testid='developerlength' style={{ fontSize: '2rem' }}>No Developers</p>
+                <span
+                  data-testid="developerlength"
+                  style={{ fontSize: '2rem' }}
+                >
+                  No Developers
+                </span>
               ) : (
                 developerList.map((developerInfo, index) => {
                   return (
@@ -118,11 +123,9 @@ export default function DeveloperInput({
               )}
             </div>
           </div>
-          {/* <form onSubmit={handleSubmit}> */}
           <ValidatorForm
             className="developer-container-form"
             onSubmit={handleSubmit}
-            onError={(errors) => console.log(errors)}
           >
             <Box
               sx={{
@@ -145,49 +148,58 @@ export default function DeveloperInput({
                 // height: '100%',
               }}
             >
-              <div></div>
+              <span></span>
               <Item sx={{ width: '80%', mx: 'auto' }}>
-                <TextValidator
-                  style={{ width: '100%' }}
-                  placeholder="Enter Developer Name"
-                  type="text"
-                  name="developer"
-                  defaultValue="Disabled"
-                  value={developer}
-                  validators={['required', 'matchRegexp:^[a-zA-Z ]*$']}
-                  errorMessages={['this field is required', 'Not a valid name']}
-                  onChange={(e) => setDeveloper(e.target.value)}
-                />
+                <>
+                  <TextValidator
+                    style={{ width: '100%' }}
+                    placeholder="Enter Developer Name"
+                    type="text"
+                    name="developer"
+                    value={developer}
+                    validators={['required', 'matchRegexp:^[a-zA-Z ]*$']}
+                    errorMessages={[
+                      'this field is required',
+                      'Not a valid name',
+                    ]}
+                    onChange={(e) => setDeveloper(e.target.value)}
+                  />
+                </>
               </Item>
               <Item sx={{ width: '80%', mx: 'auto' }}>
-                <TextValidator
-                  placeholder="Enter Sprint Capacity"
-                  type="number"
-                  name="sprintCapacity"
-                  value={sprintCapacity}
-                  validators={['required', 'isNumber', 'minNumber:0']}
-                  errorMessages={[
-                    'this field is required',
-                    'Not a number',
-                    'Should be positive',
-                  ]}
-                  onChange={(e) => setSprintCapacity(e.target.value)}
-                />
+                <>
+                  <TextValidator
+                    placeholder="Enter Sprint Capacity"
+                    type="number"
+                    name="sprintCapacity"
+                    value={sprintCapacity}
+                    validators={['required', 'isNumber', 'minNumber:0']}
+                    errorMessages={[
+                      'this field is required',
+                      'Not a number',
+                      'Should be positive',
+                    ]}
+                    onChange={(e) => setSprintCapacity(e.target.value)}
+                  />
+                </>
               </Item>
               <Item sx={{ width: '80%', mx: 'auto' }}>
-                <TextValidator
-                  placeholder="Enter capacity"
-                  type="number"
-                  name="capacity"
-                  value={capacity}
-                  validators={['required', 'isNumber', 'minNumber:0']}
-                  errorMessages={[
-                    'this field is required',
-                    'Not a number',
-                    'Should be positive',
-                  ]}
-                  onChange={(e) => setCapacity(e.target.value)}
-                />
+                <>
+                  <TextValidator
+                    component={'span'}
+                    placeholder="Enter capacity"
+                    type="number"
+                    name="capacity"
+                    value={capacity}
+                    validators={['required', 'isNumber', 'minNumber:0']}
+                    errorMessages={[
+                      'this field is required',
+                      'Not a number',
+                      'Should be positive',
+                    ]}
+                    onChange={(e) => setCapacity(e.target.value)}
+                  />
+                </>
               </Item>
               <Tooltip
                 sx={{ mx: 'auto' }}

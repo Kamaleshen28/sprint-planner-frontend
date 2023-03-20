@@ -22,7 +22,7 @@ export default function StartDateInput({ value, setValue }) {
         id="startDate"
         type="date"
         // defaultValue={defaultFormat}
-        value={value}
+        value={value || undefined}
         onChange={(event) => setValue(event.target.value)}
         className="startDateInput"
       />
@@ -32,5 +32,5 @@ export default function StartDateInput({ value, setValue }) {
 
 StartDateInput.propTypes = {
   value: PropTypes.string,
-  setValue: PropTypes.func,
+  setValue: PropTypes.func.isRequired,
 };

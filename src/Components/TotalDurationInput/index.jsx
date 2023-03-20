@@ -13,7 +13,7 @@ function TotalDurationInput({ value, setValue }) {
           id="total-duration"
           type="number"
           placeholder="Enter Total Duration"
-          value={value}
+          value={value || undefined}
           onChange={(e) => setValue(e.target.value)}
           validators={['required', 'isNumber', 'minNumber:0']}
           errorMessages={[
@@ -30,6 +30,6 @@ function TotalDurationInput({ value, setValue }) {
 export default TotalDurationInput;
 
 TotalDurationInput.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
   setValue: PropTypes.func.isRequired,
 };
