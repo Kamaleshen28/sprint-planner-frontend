@@ -63,6 +63,7 @@ const GanttChart = () => {
       // Sunday
     });
   }
+  console.log('plots', plots);
 
   const options = {
     plotOptions: {

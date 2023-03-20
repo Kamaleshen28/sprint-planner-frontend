@@ -57,13 +57,12 @@
   .dependency-graph-wrapper{
     width: 80%;
   }
-
 }
 
 .graph-legend-container{
   display: flex;
   justify-content: space-between;
-  height: 80%;
+  /* height: 80%; */
 }
 
 @media only screen and (max-width: 900px) {  

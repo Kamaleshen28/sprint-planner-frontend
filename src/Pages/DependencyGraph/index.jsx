@@ -94,7 +94,7 @@ export default function DependencyGraph() {
         color: '#000000',
       },
     },
-    height: '600px',
+    height: '550px',
     physics: {
       stabilization: false,
       barnesHut: {
