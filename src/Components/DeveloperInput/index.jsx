@@ -200,7 +200,6 @@ export default function DeveloperInput({
                   placeholder="Enter Developer Name"
                   type="text"
                   name="developer"
-                  defaultValue="Disabled"
                   value={developer}
                   validators={['required', 'matchRegexp:^[a-zA-Z ]*$']}
                   errorMessages={['this field is required', 'Not a valid name']}
