@@ -13,6 +13,7 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import './EditInputModal.css';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -106,24 +107,26 @@ const EditInput = ({
   };
   return (
     <ValidatorForm
-      className="story-container-form"
+      className="story-container-edit"
       onSubmit={handleSubmitEdit}
-      onError={(errors) => console.log(errors)}
+      // onError={(errors) => console.log(errors)}
     >
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
-          ml: 6,
-          p: 1,
+          gridTemplateColumns: 'repeat(4, 2fr) 1fr 1fr',
+          height: '100px',
+          width: '90%',
+          // ml: 6,
+          // p: 1,
           alignItems: 'center',
           bgcolor: 'white',
           // height: '160px',
         }}
       >
-        <div></div>
-        <Item sx={{ width: '70%' }}>
+        <Item sx={{ width: '80%', mx: 'auto' }}>
           <TextValidator
+            style={{ width: '100%' }}
             type="text"
             name="story"
             defaultValue="Disabled"
@@ -134,6 +137,7 @@ const EditInput = ({
             onChange={(e) => seteditStories(e.target.value)}
           />
         </Item>
+
         <FormControl
           sx={{ m: 1, width: 300 }}
           style={{ backgroundColor: 'white', borderRadius: '10px' }}
@@ -211,8 +215,9 @@ const EditInput = ({
             ))}
           </Select>
         </FormControl>
-        <Item sx={{ width: '70%' }}>
+        <Item sx={{ width: '80%', mx: 'auto' }}>
           <TextValidator
+            style={{ width: '100%' }}
             type="text"
             name="storyPoints"
             value={editstoryPoints}
@@ -226,12 +231,12 @@ const EditInput = ({
             onChange={(e) => seteditStoryPoints(e.target.value)}
           />
         </Item>
-        {/* <div></div> */}
         <Fab
-          variant="contained"
-          style={{ margin: 'auto', display: 'flex' }}
+          // variant="contained"
           color="primary"
           type="submit"
+          aria-label="add"
+          sx={{ fontSize: '1.5rem' }}
         >
           +
         </Fab>
@@ -239,7 +244,7 @@ const EditInput = ({
           onClick={closeedit}
           variant="contained"
           style={{ margin: 'auto', display: 'flex' }}
-          color="secondary"
+          color="error"
           type="submit"
         >
           x

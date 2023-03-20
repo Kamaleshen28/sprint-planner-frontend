@@ -45,17 +45,16 @@ function Item(props) {
       sx={{
         p: 1,
         m: 1,
-        width: 200,
+        width: 150,
         bgcolor: 'white',
 
         // bgcolor: (theme) =>
         //   theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
-        color: (theme) =>
-          theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
+        color: 'grey.800',
         // border: '1px solid',
         // borderColor: (theme) =>
         //   theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
-        borderRadius: '4px',
+        borderRadius: 1,
         fontSize: '0.875rem',
         fontWeight: '700',
         ...sx,
@@ -167,9 +166,10 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: '100%',
+            width: '90%',
             bgcolor: 'background.paper',
             boxShadow: 24,
+            // margin: '0 30px',
           }}
         >
           <EditInput

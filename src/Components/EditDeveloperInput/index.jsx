@@ -92,7 +92,7 @@ const EditDeveloperInput = ({
 
   return (
     <ValidatorForm
-      className="developer-container-form"
+      className="developer-container-edit"
       onSubmit={handleSubmit}
       onError={(errors) => console.log(errors)}
     >
