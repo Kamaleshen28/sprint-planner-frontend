@@ -393,7 +393,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                   htmlFor="uncontrolled-native"
                   sx={{ m: 1 }}
                 >
-                  Preassign Developer
+                  Auto assign Developer
                 </InputLabel>
                 <Select
                   sx={{ m: 1 }}
