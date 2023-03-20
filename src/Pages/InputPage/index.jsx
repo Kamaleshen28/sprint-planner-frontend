@@ -1,7 +1,6 @@
 import React, { useContext, useState } from 'react';
 import './InputPage.css';
 import defaultFormatToUnix from '../../utils/common/dateUtils';
-import { ValidatorForm } from 'react-material-ui-form-validator';
 import {
   updateDevelopers,
   updateStories,
@@ -155,7 +154,6 @@ function InputPage() {
   };
   return (
     <div className="home-page-wrapper">
-      {/* <TopBar /> */}
       {open.bool && (
         <ErrorModal
           open={open}

@@ -1,4 +1,4 @@
-import { Box, Input, Fab, Tooltip, Modal, Button } from '@mui/material';
+import { Box, Fab, Tooltip } from '@mui/material';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
@@ -52,8 +52,8 @@ export default function DeveloperInput({
       : 1,
   );
   const [developer, setDeveloper] = useState('');
-  const [sprintCapacity, setSprintCapacity] = useState(null);
-  const [capacity, setCapacity] = useState(null);
+  const [sprintCapacity, setSprintCapacity] = useState(undefined);
+  const [capacity, setCapacity] = useState(undefined);
 
   const removeItem = (id) => {
     let newDeveloperList = developerList.filter(
@@ -167,11 +167,9 @@ export default function DeveloperInput({
               )}
             </div>
           </div>
-          {/* <form onSubmit={handleSubmit}> */}
           <ValidatorForm
             className="developer-container-form"
             onSubmit={handleSubmit}
-            onError={(errors) => console.log(errors)}
           >
             <Box
               sx={{

@@ -14,7 +14,7 @@ function SprintDurationInput({ value, setValue }) {
           type="number"
           placeholder="Enter Sprint Duration"
           // defaultValue={}
-          value={value}
+          value={value || undefined}
           onChange={(e) => {
             setValue(e.target.value);
           }}
@@ -33,7 +33,6 @@ function SprintDurationInput({ value, setValue }) {
 export default SprintDurationInput;
 
 SprintDurationInput.propTypes = {
-  value: PropTypes.number.isRequired,
+  value: PropTypes.number,
   setValue: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
 };
