@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import loginPageImage from '../../Assets/undraw_secure_login_pdn4.svg';
 
 export default function Login() {
   const navigate = useNavigate();
@@ -116,7 +117,9 @@ export default function Login() {
       <div className="left-bottom-decor"></div>
       <div className="right-bottom-decor"></div>
       <div className="login-wrapper">
-        <div className="login-image-container"></div>
+        <div className="login-image-container">
+          <img src={loginPageImage} alt="" className="login-page-image" />
+        </div>
         <div className="form-container">
           {haveAccount && (
             <form className="form" onSubmit={handleLoginSubmit}>
