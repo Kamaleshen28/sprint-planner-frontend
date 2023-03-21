@@ -21,7 +21,6 @@ import {
   ValidationModal,
 } from '../../Components';
 import { Button } from '@mui/material';
-import moment from 'moment';
 
 const storiesData = [
   // {
@@ -131,20 +130,22 @@ function EditPage() {
           headers: { authorization: localStorage.getItem('accessToken') },
         })
         .then((res) => {
+          console.log(res);
           console.log(res.data.data);
-          if (res.data.data[0] === 1) {
+          if (res.data.data.developers) {
             setProjectId(res.data.data.id);
             setApiResponse(res.data.data);
             setSprints(res.data.data.sprints);
             setStories(res.data.data.stories);
             setDevelopers(res.data.data.developers);
+
             localStorage.setItem('projectId', res.data.data.id);
             navigate('/');
           } else {
             const customErrorMessage = {
               response: {
                 data: {
-                  message: 'Edit not possible .',
+                  message: `Need ${res.data.data.minimumNumberOfDevelopers} Developer(s) to complete the project.`,
                 },
               },
             };

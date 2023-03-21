@@ -89,8 +89,16 @@ const EditInput = ({
     seteditDependencies(value);
   };
   const handleSubmitEdit = (e) => {
+    console.log('edit');
+    console.log(
+      id,
+      editstories,
+      editdependencies,
+      editdeveloper,
+      editstoryPoints,
+    );
     e.preventDefault();
-    if (id && editstories && editstoryPoints) {
+    if (editstories && editstoryPoints) {
       const newStory = {
         id: id,
         stories: editstories,
@@ -103,6 +111,8 @@ const EditInput = ({
       newStoryList[index] = newStory;
       setStoryList(newStoryList);
       closeedit();
+    } else {
+      console.log('error');
     }
   };
   return (
@@ -114,16 +124,14 @@ const EditInput = ({
       <Box
         sx={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(4, 2fr) 1fr 1fr',
+          gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
           height: '100px',
           width: '90%',
-          // ml: 6,
-          // p: 1,
           alignItems: 'center',
           bgcolor: 'white',
-          // height: '160px',
         }}
       >
+        <div></div>
         <Item sx={{ width: '80%', mx: 'auto' }}>
           <TextValidator
             style={{ width: '100%' }}
@@ -137,7 +145,6 @@ const EditInput = ({
             onChange={(e) => seteditStories(e.target.value)}
           />
         </Item>
-
         <FormControl
           sx={{ m: 1, width: 300 }}
           style={{ backgroundColor: 'white', borderRadius: '10px' }}

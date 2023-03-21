@@ -1,6 +1,6 @@
 import { Button, Modal } from '@mui/material';
 import { Box } from '@mui/system';
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import './ValidationModal.css';
 
@@ -23,7 +23,6 @@ export default function ValidationModal({ isOpen, setIsOpen }) {
           transform: 'translate(-50%, -50%)',
           width: 400,
           bgcolor: 'white',
-          //   border: '2px solid #000',
           boxShadow: 24,
           p: 4,
           borderRadius: 2,
@@ -31,7 +30,7 @@ export default function ValidationModal({ isOpen, setIsOpen }) {
       >
         <h2 id="modal-modal-title">Please Enter All the required Fields</h2>
         {isOpen.atLeastOneOptionalAvailable ? (
-          <p id="modal-modal-description">
+          <span id="modal-modal-description">
             Fill all of the following fields -
             <ul>
               <li>Project Title</li>
@@ -39,7 +38,7 @@ export default function ValidationModal({ isOpen, setIsOpen }) {
               <li>Sprint Duration</li>
               <li>Stories</li>
             </ul>
-          </p>
+          </span>
         ) : (
           <p id="modal-modal-description">
             Enter at least one of the following -

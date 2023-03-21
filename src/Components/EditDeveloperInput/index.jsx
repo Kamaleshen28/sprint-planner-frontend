@@ -75,7 +75,7 @@ const EditDeveloperInput = ({
   const [editsprintCapacity, seteditSprintCapacity] = useState(sprintCapacity);
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (id && editdeveloper && editcapacity && editsprintCapacity) {
+    if (editdeveloper && editcapacity && editsprintCapacity) {
       const newDeveloper = {
         id: id,
         developer: editdeveloper,
