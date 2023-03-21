@@ -139,7 +139,7 @@ function InputPage() {
             const customErrorMessage = {
               response: {
                 data: {
-                  message: `Please add ${res.data.data.minimumNumberOfDevelopers} Developer(s) to the project.`,
+                  message: `Need ${res.data.data.minimumNumberOfDevelopers} Developer(s) to complete the project.`,
                 },
               },
             };
@@ -163,7 +163,7 @@ function InputPage() {
           handleOpen={handleOpen}
         />
       )}
-      {openValidationModal && (
+      {openValidationModal.bool && (
         <ValidationModal
           isOpen={openValidationModal}
           setIsOpen={setOpenValidationModal}

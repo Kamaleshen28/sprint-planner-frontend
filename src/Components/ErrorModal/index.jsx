@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import ErrorIcon from '@mui/icons-material/Error';
 import PropTypes from 'prop-types';
+import { Check, CheckCircle, Warning } from '@mui/icons-material';
 
 const style = {
   position: 'absolute',
@@ -25,10 +26,6 @@ const buttonHeader = {
   gap: '5px',
 };
 
-const buttonStyle = {
-  color: '#ff3333',
-};
-
 export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
   // const [open, setOpen] = React.useState(false);
 
@@ -36,10 +33,8 @@ export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
   // const handleClose = () => setOpen(false);
 
   React.useEffect(() => {});
-  console.log(open);
   return (
     <div>
-      <Button onClick={handleOpen}>Open modal</Button>
       <Modal
         open={open.bool}
         onClose={handleClose}
@@ -48,15 +43,24 @@ export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
       >
         <Box sx={style}>
           <Box className="modal-header" sx={buttonHeader}>
-            <ErrorIcon sx={buttonStyle} />
+            {open.err.response ? (
+              <ErrorIcon color="success" />
+            ) : (
+              <ErrorIcon color="error" />
+            )}
+            {/* <ErrorIcon sx={buttonStyle} /> */}
             <Typography id="modal-modal-title" variant="h6" component="h2">
-              {open.success ? 'Need More Developers' : 'Error !!'}
+              {open.err.response
+                ? open.success
+                  ? 'Need More Developers'
+                  : 'Completion Not Possible'
+                : 'Error !!'}
             </Typography>
           </Box>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {open.err.response?.data.message
               ? open.err.response.data.message
-              : 'Error'}
+              : open.err.message}
             <br />
             {/* {'Error'} */}
           </Typography>
