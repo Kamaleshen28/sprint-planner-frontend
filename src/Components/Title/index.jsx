@@ -6,7 +6,7 @@ import {
   IconButton,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Edit } from '@mui/icons-material';
 
 let theme = createTheme();
@@ -14,8 +14,12 @@ theme = responsiveFontSizes(theme);
 
 const InlineEdit = ({ value, setValue, isActive, setIsActive }) => {
   const [editingValue, setEditingValue] = useState(value);
-  console.log('value: ', value);
-  const onChange = (event) => setEditingValue(event.target.value);
+  useEffect(() => {
+    setEditingValue(value);
+  }, [value]);
+  const onChange = (event) => {
+    setEditingValue(event.target.value);
+  };
 
   const onKeyDown = (event) => {
     if (event.key === 'Enter' || event.key === 'Escape') {
@@ -62,7 +66,7 @@ const InlineEdit = ({ value, setValue, isActive, setIsActive }) => {
 };
 
 export default function Title({ value, setValue }) {
-  const [isActive, setIsActive] = useState(value === '' ? true : false);
+  const [isActive, setIsActive] = useState(true);
 
   const handleClick = () => {
     setIsActive(true);
