@@ -8,8 +8,10 @@
   height: 8vh;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   position: sticky;
-    top: 0;
-    z-index: 100;
+  top: 0;
+  padding-right: 24px;
+  box-sizing: border-box;
+  z-index: 100;
 }
 
 .heading {
@@ -20,7 +22,7 @@
   width: fit-content;
 }
 
-.signout-button{
+.signout-button {
   font-weight: bold;
   cursor: pointer;
 }

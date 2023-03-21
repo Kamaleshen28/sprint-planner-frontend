@@ -354,7 +354,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                 <InputLabel
                   variant="standard"
                   htmlFor="uncontrolled-native"
-                  sx={{ m: 1 }}
+                  sx={{ m: 1, ml: 2 }}
                 >
                   Story Dependency
                 </InputLabel>
@@ -398,7 +398,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                 <InputLabel
                   variant="standard"
                   htmlFor="uncontrolled-native"
-                  sx={{ m: 1 }}
+                  sx={{ m: 1, ml: 2 }}
                 >
                   Auto assign Developer
                 </InputLabel>

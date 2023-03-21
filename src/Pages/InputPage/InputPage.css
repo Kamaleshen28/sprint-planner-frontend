@@ -1,9 +1,12 @@
 .common-input-section {
+  box-sizing: border-box;
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   /* background-color: yellowgreen; */
+  padding-right: 24px;
+  padding-left: 24px;
   /* height: 100px; */
   align-items: center;
   align-content: center;
@@ -11,8 +14,9 @@
   width: 100%;
 }
 
-.common-input-wrapper{
-  width: 95%;
+.common-input-wrapper {
+  box-sizing: border-box;
+  width: 100%;
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -20,16 +24,17 @@
   padding-left: 10px;
   padding-right: 10px;
 }
-.common-input-date{
+.common-input-date {
   width: 100%;
   margin: 10px 0px 10px 0;
 
   display: flex;
   justify-content: space-around;
   background-color: white;
+  align-items: center;
 }
 
-.home-page-wrapper{
+.home-page-wrapper {
   background-color: #e4eef1;
   min-height: 100vh;
 }

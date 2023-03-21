@@ -73,12 +73,13 @@ export default function InputForm({
           }}
         >
           <Tabs
+            sx={{ pr: '24px' }}
             value={value}
             onChange={handleChange}
             aria-label="basic tabs example"
           >
             <Tab label="Stories" {...a11yProps(0)} />
-            <Tab label="Developers" {...a11yProps(1)} />
+            <Tab label="Developers" {...a11yProps(1)} sx={{ pr: 0 }} />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
