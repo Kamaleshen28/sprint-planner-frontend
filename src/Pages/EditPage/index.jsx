@@ -1,7 +1,9 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './InputPage.css';
 import defaultFormatToUnix from '../../utils/common/dateUtils';
 import {
+  getDevelopers,
+  getStories,
   updateDevelopers,
   updateStories,
 } from '../../utils/common/mappingUtils';
@@ -19,6 +21,7 @@ import {
   ValidationModal,
 } from '../../Components';
 import { Button } from '@mui/material';
+import moment from 'moment';
 
 const storiesData = [
   // {
@@ -57,8 +60,9 @@ const developersData = [
   // { id: 9, developer: 'Kamleshan', sprintCapacity: 8, capacity: 54 },
 ];
 
-function InputPage() {
+function EditPage() {
   const {
+    projectId,
     setProjectId,
     setApiResponse,
     setSprints,
@@ -105,9 +109,7 @@ function InputPage() {
         sprintDuration: Number(sprintDuration),
         sprintCapacity: getSprintCapacity(developerList),
         projectStartDate: newDate,
-        // givenTotalDuration: totalDuration ? Number(totalDuration) : null,
         stories: updateStories(storyList, developerList),
-        // developers: updateDevelopers(developerList),
       };
       if (!totalDuration && !developerList.length > 0) {
         handleOpenValidationModal(false);
@@ -116,18 +118,21 @@ function InputPage() {
       if (totalDuration) {
         // newProject.duration = Number(totalDuration);
         newProject.givenTotalDuration = Number(totalDuration);
-        newProject.duration = Number(totalDuration);
       }
       if (developerList.length > 0) {
         newProject.developers = updateDevelopers(developerList);
       }
-      let url = 'http://localhost:8080/api/projects';
+      console.log('asdfad', newProject);
+      let url = `http://localhost:8080/api/projects/${localStorage.getItem(
+        'projectId',
+      )}`;
       axios
-        .post(url, newProject, {
+        .put(url, newProject, {
           headers: { authorization: localStorage.getItem('accessToken') },
         })
         .then((res) => {
-          if (res.data.data.developers) {
+          console.log(res.data.data);
+          if (res.data.data[0] === 1) {
             setProjectId(res.data.data.id);
             setApiResponse(res.data.data);
             setSprints(res.data.data.sprints);
@@ -139,7 +144,7 @@ function InputPage() {
             const customErrorMessage = {
               response: {
                 data: {
-                  message: `Please add ${res.data.data.minimumNumberOfDevelopers} Developer(s) to the project.`,
+                  message: 'Edit not possible .',
                 },
               },
             };
@@ -147,12 +152,49 @@ function InputPage() {
           }
         })
         .catch((err) => {
+          console.log(err);
           handleOpen(err, false);
         });
     } else {
       handleOpenValidationModal(true);
     }
   };
+
+  useEffect(() => {
+    const projectIdLocal = localStorage.getItem('projectId');
+    if (!localStorage.getItem('accessToken')) {
+      navigate('/login');
+    } else {
+      if (projectId || projectIdLocal) {
+        const id = projectId || projectIdLocal;
+        let url = `http://localhost:8080/api/projects/${id}`;
+        axios
+          .get(url, {
+            headers: { authorization: localStorage.getItem('accessToken') },
+          })
+          .then((res) => {
+            console.log(res.data.data);
+            setStoryList(getStories(res.data.data.stories));
+            setDeveloperList(
+              getDevelopers(
+                res.data.data.developers,
+                res.data.data.sprintCapacity,
+              ),
+            );
+            setTitle(res.data.data.title);
+            const date = new Date(res.data.data.projectStartDate);
+            var formattedDate = date.toLocaleDateString();
+            formattedDate = formattedDate.split('/').reverse().join('-');
+            setStartDate(formattedDate);
+            setSprintDuration(res.data.data.sprintDuration);
+            setTotalDuration(res.data.data.givenTotalDuration);
+          });
+      } else {
+        navigate('/create');
+      }
+    }
+  }, []);
+
   return (
     <div className="home-page-wrapper">
       {open.bool && (
@@ -197,10 +239,10 @@ function InputPage() {
         variant="contained"
         onClick={handleSubmit}
       >
-        Submit
+        Edit
       </Button>
     </div>
   );
 }
 
-export default InputPage;
+export default EditPage;

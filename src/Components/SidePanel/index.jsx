@@ -46,6 +46,12 @@ export default function SidePanel() {
       })
       .then((res) => {
         setProjects(res.data.data);
+        const selectedProject = res.data.data.find(
+          (project) => project.id === localStorage.getItem('projectId'),
+        );
+        if (selectedProject) {
+          setProject(selectedProject.id);
+        }
       });
   }, []);
 
@@ -89,6 +95,12 @@ export default function SidePanel() {
                 labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={project}
+                renderValue={(value) => {
+                  const project = projects.find(
+                    (project) => project.id === value,
+                  );
+                  return project?.title;
+                }}
                 label="Project"
                 onChange={handleChange}
               >
@@ -105,30 +117,41 @@ export default function SidePanel() {
 
       <Divider />
       {localStorage.getItem('projectId') && (
-        <List>
-          <ListItem disablePadding>
-            <ListItemButton
-              onClick={() => navigate('/')}
-              data-testid="list-view-button"
-            >
-              <ListItemText primary="List View" />
-            </ListItemButton>
-          </ListItem>
+        <>
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => navigate('/')}
+                data-testid="list-view-button"
+              >
+                <ListItemText primary="List View" />
+              </ListItemButton>
+            </ListItem>
 
-          <ListItem disablePadding>
-            <ListItemButton
-              onClick={() => navigate('/graph')}
-              data-testid="dependency-graph-button"
-            >
-              <ListItemText primary="Dependency Graph" />
-            </ListItemButton>
-          </ListItem>
-          <ListItem disablePadding>
-            <ListItemButton onClick={() => navigate('/ganttChart')}>
-              <ListItemText primary="Gantt Chart" />
-            </ListItemButton>
-          </ListItem>
-        </List>
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={() => navigate('/graph')}
+                data-testid="dependency-graph-button"
+              >
+                <ListItemText primary="Dependency Graph" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => navigate('/ganttChart')}>
+                <ListItemText primary="Gantt Chart" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem>
+              <Button
+                sx={{ width: '90%', mx: 'auto' }}
+                variant="contained"
+                onClick={() => navigate('/edit')}
+              >
+                Edit Project
+              </Button>
+            </ListItem>
+          </List>
+        </>
       )}
     </Box>
   );

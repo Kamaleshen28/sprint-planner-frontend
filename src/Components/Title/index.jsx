@@ -13,8 +13,8 @@ let theme = createTheme();
 theme = responsiveFontSizes(theme);
 
 const InlineEdit = ({ value, setValue, isActive, setIsActive }) => {
-  const [editingValue, setEditingValue] = useState(value || '');
-
+  const [editingValue, setEditingValue] = useState(value);
+  console.log('value: ', value);
   const onChange = (event) => setEditingValue(event.target.value);
 
   const onKeyDown = (event) => {
@@ -36,7 +36,6 @@ const InlineEdit = ({ value, setValue, isActive, setIsActive }) => {
       type="text"
       placeholder="Enter Project Name"
       aria-label="Field name"
-      // defaultValue={'Project Name'}
       value={editingValue}
       // disabled={!isActive}
       onChange={onChange}
@@ -63,11 +62,12 @@ const InlineEdit = ({ value, setValue, isActive, setIsActive }) => {
 };
 
 export default function Title({ value, setValue }) {
-  // const [value, setValue] = useState();
-  const [isActive, setIsActive] = useState(true);
+  const [isActive, setIsActive] = useState(value === '' ? true : false);
+
   const handleClick = () => {
     setIsActive(true);
   };
+
   return (
     <Box
       component="span"
@@ -100,13 +100,13 @@ export default function Title({ value, setValue }) {
 }
 
 InlineEdit.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
   setValue: PropTypes.func.isRequired,
   isActive: PropTypes.bool.isRequired,
   setIsActive: PropTypes.func.isRequired,
 };
 
 Title.propTypes = {
-  value: PropTypes.string,
+  value: PropTypes.string.isRequired,
   setValue: PropTypes.func.isRequired,
 };

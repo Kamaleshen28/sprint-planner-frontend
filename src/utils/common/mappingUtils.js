@@ -103,7 +103,34 @@ const updateStories = (stories, developers) => {
   return updatedStories;
 };
 
-export { updateDevelopers, updateStories };
+const getStories = (stories) => {
+  const newStories = [];
+  stories.map((story) => {
+    newStories.push({
+      id: story.id,
+      stories: story.title,
+      dependencies: story.dependencies,
+      developer: [story.preAssignedDeveloperId],
+      storyPoints: story.storyPoints,
+    });
+  });
+  return newStories;
+};
+
+const getDevelopers = (developers, sprintCapacity) => {
+  const newDevelopers = [];
+  developers.map((developer) => {
+    newDevelopers.push({
+      id: developer.id,
+      developer: developer.name,
+      capacity: developer.capacity,
+      sprintCapacity: sprintCapacity,
+    });
+  });
+  return newDevelopers;
+};
+
+export { updateDevelopers, updateStories, getStories, getDevelopers };
 
 // console.log(updateDevelopers(developersData));
 // console.log(updateStories(storiesData, developersData));

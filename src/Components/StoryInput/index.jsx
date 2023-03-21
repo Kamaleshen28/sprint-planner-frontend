@@ -214,7 +214,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
       setStories('');
       setDependencies([]);
       setDeveloper([]);
-      setStoryPoints(0);
+      setStoryPoints('');
     }
   };
 
@@ -261,7 +261,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                   const { id, stories, dependencies, developer, storyPoints } =
                     story;
                   return (
-                    <>
+                    <div key={id}>
                       <Box
                         sx={{
                           display: 'grid',
@@ -277,15 +277,15 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                           p: 1,
                         }}
                       >
-                        <Item sx={{ width: '70%' }}>{index}</Item>
-                        <Item sx={{ width: '70%' }}>{stories}</Item>
-                        <Item sx={{ width: '70%' }}>
+                        <Item sx={{ width: '80%' }}>{index}</Item>
+                        <Item sx={{ width: '80%' }}>{stories}</Item>
+                        <Item sx={{ width: '80%' }}>
                           {getDependencies(dependencies).toString()}
                         </Item>
-                        <Item sx={{ width: '70%' }}>
+                        <Item sx={{ width: '80%' }}>
                           {getDeveloperAssigned(developer).toString()}
                         </Item>
-                        <Item sx={{ width: '70%' }}>{storyPoints}</Item>
+                        <Item sx={{ width: '80%' }}>{storyPoints}</Item>
                         {deleteCheck(id) ? (
                           <Tooltip title="Delete">
                             <IconButton
@@ -311,7 +311,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                           </IconButton>
                         </Tooltip>
                       </Box>
-                    </>
+                    </div>
                   );
                 })
               )}
@@ -325,7 +325,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
             <Box
               sx={{
                 display: 'grid',
-                gridTemplateColumns: '1fr repeat(4, 2fr) 1fr ',
+                gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
                 // ml: 6,
                 p: 1,
                 alignItems: 'center',
@@ -335,8 +335,9 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
 
               </Item> */}
               <div></div>
-              <Item sx={{ width: '70%' }}>
+              <Item sx={{ width: '95%' }}>
                 <TextValidator
+                  style={{ width: '100%' }}
                   type="text"
                   name="story"
                   value={stories}
@@ -424,8 +425,9 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                   ))}
                 </Select>
               </FormControl>
-              <Item sx={{ width: '70%' }}>
+              <Item sx={{ width: '95%' }}>
                 <TextValidator
+                  style={{ width: '100%' }}
                   type="text"
                   name="storyPoints"
                   value={storyPoints}
@@ -453,6 +455,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
               >
                 +
               </Fab>
+              <div></div>
             </Box>
           </ValidatorForm>
         </Box>

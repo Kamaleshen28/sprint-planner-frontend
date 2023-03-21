@@ -197,6 +197,7 @@ export default function DeveloperInput({
               <div></div>
               <Item sx={{ width: '95%', mx: 'auto', p: 0 }}>
                 <TextValidator
+                  style={{ width: '100%' }}
                   placeholder="Enter Developer Name"
                   type="text"
                   name="developer"
@@ -206,8 +207,9 @@ export default function DeveloperInput({
                   onChange={(e) => setDeveloper(e.target.value)}
                 />
               </Item>
-              <Item sx={{ width: '100%', mx: 'auto', p: 0 }}>
+              <Item sx={{ width: '95%', mx: 'auto', p: 0 }}>
                 <TextValidator
+                  style={{ width: '100%' }}
                   placeholder="Enter Sprint Capacity"
                   type="number"
                   name="sprintCapacity"
@@ -223,6 +225,7 @@ export default function DeveloperInput({
               </Item>
               <Item sx={{ width: '95%', mx: 'auto', p: 0 }}>
                 <TextValidator
+                  style={{ width: '100%' }}
                   placeholder="Enter Capacity"
                   type="number"
                   name="capacity"

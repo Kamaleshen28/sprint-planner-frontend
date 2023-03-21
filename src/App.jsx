@@ -4,7 +4,7 @@ import OutputList from './Pages/OutputList';
 import DataProvider from './Contexts/DataContext';
 import './App.css';
 // import Home from './Pages/InputPage';
-import { ErrorScreen, GanttChart, InputPage } from './Pages';
+import { ErrorScreen, GanttChart, InputPage, EditPage } from './Pages';
 import DependencyGraph from './Pages/DependencyGraph';
 import Login from './Pages/Login';
 // import { Navbar, Footer } from './Components';
@@ -22,6 +22,7 @@ function App() {
             <Route path="/ganttChart" element={<GanttChart />} />
             <Route path="/graph" element={<DependencyGraph />} />
             <Route path="error/:errorCode?" element={<ErrorScreen />} />
+            <Route path="/edit" element={<EditPage />} />
           </Routes>
         </DataProvider>
       </Router>
