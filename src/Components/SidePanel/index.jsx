@@ -17,6 +17,7 @@ import Select from '@mui/material/Select';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../Contexts/DataContext';
+import { Chip, Hidden } from '@mui/material';
 
 export default function SidePanel() {
   const { setProjectId } = React.useContext(DataContext);
@@ -38,6 +39,7 @@ export default function SidePanel() {
     setProjectId(event.target.value);
     setProject(event.target.value);
     localStorage.setItem('projectId', event.target.value);
+    navigate('/');
   };
   React.useEffect(() => {
     axios
@@ -45,6 +47,7 @@ export default function SidePanel() {
         headers: { authorization: localStorage.getItem('accessToken') },
       })
       .then((res) => {
+        console.log(res.data.data);
         setProjects(res.data.data);
         const selectedProject = res.data.data.find(
           (project) => project.id === localStorage.getItem('projectId'),
@@ -58,7 +61,8 @@ export default function SidePanel() {
   const list = (anchor) => (
     <Box
       sx={{
-        width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250,
+        width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 400,
+        maxWidth: 400,
       }}
       role="presentation"
       onClick={toggleDrawer(anchor, false)}
@@ -106,7 +110,34 @@ export default function SidePanel() {
               >
                 {projects.map((project) => (
                   <MenuItem key={project.id} value={project.id}>
-                    {project.title}
+                    {/* {project.title} */}
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        width: '100%',
+                      }}
+                    >
+                      <span
+                        style={{
+                          width: 250,
+                          textOverflow: 'ellipsis',
+                          overflow: 'hidden',
+                        }}
+                      >
+                        {project.title}
+                      </span>
+                      {Math.round(Math.random()) ? (
+                        <Chip
+                          style={{ width: 100 }}
+                          color="success"
+                          label="planned"
+                        />
+                      ) : (
+                        <Chip style={{ width: 100 }} label="draft" />
+                      )}
+                      {/* // <Chip color="success" label="planned" /> */}
+                    </div>
                   </MenuItem>
                 ))}
               </Select>
