@@ -8,6 +8,13 @@
 }
 
 .gantt-chart{
-    padding: 80px 65px 30px 65px;
+    padding: 20px 24px 20px 24px;
     height: 90%;
+}
+
+.export-button-gantt{
+  margin-top: 20px;
+  padding: 0 24px 0 24px;
+  display: flex;
+  justify-content: flex-end;
 }

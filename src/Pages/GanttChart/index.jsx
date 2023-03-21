@@ -5,6 +5,10 @@ import getGanttChartFormatData from '../../Assets/dataMapper';
 import { Header } from '../../Components';
 import './GanttChart.css';
 
+import exporting from 'highcharts/modules/exporting';
+
+exporting(Highcharts);
+
 Date.prototype.getWeek = function () {
   const firstDayOfYear = new Date(this.getFullYear(), 0, 1);
   const daysSinceFirstDay = Math.floor(
@@ -63,7 +67,6 @@ const GanttChart = () => {
       // Sunday
     });
   }
-  console.log('plots', plots);
 
   const options = {
     plotOptions: {
@@ -78,10 +81,17 @@ const GanttChart = () => {
         },
       },
     },
+    exporting: {
+      buttons: {
+        contextButton: {
+          menuItems: ['downloadPNG', 'downloadSVG'],
+        },
+      },
+      sourceWidth: 1000,
+    },
     chart: {
       scrollablePlotArea: {
         minWidth: 2000,
-        opacity: 0.85,
 
         scrollPositionX: 1,
         scrollbar: {
@@ -103,6 +113,7 @@ const GanttChart = () => {
 
       grid: {
         //background color for highcharts
+
         columns: [
           {
             title: {
@@ -114,8 +125,6 @@ const GanttChart = () => {
               },
 
               rotation: 0,
-              y: -15,
-              x: -15,
             },
             labels: {
               format: '{point.name}',
@@ -134,8 +143,6 @@ const GanttChart = () => {
                 fontSize: '15px',
               },
               rotation: 0,
-              y: -13,
-              x: -1,
             },
 
             labels: {
@@ -152,10 +159,8 @@ const GanttChart = () => {
     },
     xAxis: [
       {
-        type: 'datetime',
         label: {
-          overflow: 'justify',
-          format: '{value:%e %b}',
+          format: '{value:%e}',
         },
         tickInterval: 1000 * 60 * 60 * 24,
         plotBands: plots,
@@ -182,7 +187,115 @@ const GanttChart = () => {
 
     ...data,
   };
+  // const options = {
+  //   plotOptions: {
+  //     series: {
+  //       tooltip: {
+  //         headerFormat: '<b>{point.key}</b><br>',
+  //         pointFormat:
+  //           'Story Points: {point.storyPoints}<br>' +
+  //           'Start: {point.start:%e %b %Y}<br>' +
+  //           'End: {point.toolend:%e %b %Y}<br>' +
+  //           'Duration: {point.duration} day(s)',
+  //       },
+  //     },
+  //   },
 
+  //   yAxis: {
+  //     type: 'category',
+  //     labels: {
+  //       style: {
+  //         width: '900px',
+  //         textOverflow: 'ellipsis',
+  //       },
+  //     },
+
+  //     grid: {
+  //       //background color for highcharts
+
+  //       columns: [
+  //         {
+  //           title: {
+  //             text: 'Stories',
+  //             style: {
+  //               color: '#000',
+  //               fontWeight: 'bold',
+  //               fontSize: '15px',
+  //             },
+
+  //             rotation: 0,
+  //           },
+  //           labels: {
+  //             format: '{point.name}',
+  //             style: {
+  //               color: '#000',
+  //             },
+  //           },
+  //         },
+  //         {
+  //           title: {
+  //             text: 'Owner',
+
+  //             style: {
+  //               color: '#000',
+  //               fontWeight: 'bold',
+  //               fontSize: '15px',
+  //             },
+  //             rotation: 0,
+  //           },
+
+  //           labels: {
+  //             format: '{point.developer}',
+  //             useHTML: true,
+  //             style: {
+  //               color: '#000',
+  //               width: '200px',
+  //             },
+  //           },
+  //         },
+  //       ],
+  //     },
+  //   },
+  //   xAxis: [
+  //     {
+  //       type: 'datetime',
+  //       label: {
+  //         overflow: 'justify',
+  //         format: '{value:%e %b}',
+  //       },
+  //       tickInterval: 1000 * 60 * 60 * 24,
+  //       plotBands: plots,
+  //     },
+
+  //     {
+  //       type: 'datetime',
+  //       labels: {
+  //         // format: '{value:Week %W-12}',
+  //         formatter: function () {
+  //           const date = new Date(this.value);
+  //           const weekNumber = getWeekNum(startWeek, date);
+
+  //           return `Week ${weekNumber}`;
+  //         },
+  //         style: {
+  //           color: '#000',
+  //         },
+  //       },
+  //       tickInterval: 1000 * 60 * 60 * 24 * 7,
+  //       // week
+  //     },
+  //   ],
+
+  //   ...data,
+  // };
+  // const [chartOptions, setChartOptions] = useState(true);
+  // const exportChart = () => {
+  //   console.log('chartOptions', chartOptions);
+  //   delete chartOptions.chart;
+  //   setChartOptions(false);
+  //   console.log('delete chart ', chartOptions);
+  //   // exportComponentAsJPEG(componentRef);
+  // };
   return (
     <div className="gantt-chart-page">
       <Header />
