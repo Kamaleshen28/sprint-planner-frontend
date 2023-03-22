@@ -48,7 +48,7 @@ export default function DependencyGraph() {
     const title = getEachStoryNodeTitle(storyData);
     return {
       id: storyData.id,
-      label: `     ${String(storyData.id)}     `,
+      label: `    ${String(storyData.id)}    `,
       title,
       font: { size: 17 },
       shape: 'circle',
