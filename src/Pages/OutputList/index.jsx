@@ -5,9 +5,10 @@ import './OutputList.css';
 
 export default function OutputList() {
   const { sprints, apiResponse } = useContext(DataContext);
+  console.log('sprints', sprints);
   return (
     <>
-      {sprints.length ? (
+      {sprints?.length > 0 ? (
         <React.Fragment>
           <Header />
           <div className="list-view">

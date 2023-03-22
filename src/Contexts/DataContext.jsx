@@ -13,9 +13,10 @@ const DataProvider = ({ children }) => {
   const [comments, setComments] = useState([]);
   const [apiResponse, setApiResponse] = useState({});
   const [projectId, setProjectId] = useState('');
+  // const [selectedProject, setSelectedProject] = useState({});
 
   useEffect(() => {
-    // console.log('projectId', projectId);
+    console.log('projectId DataContext', projectId);
     const projectIdLocal = localStorage.getItem('projectId');
     if (!localStorage.getItem('accessToken')) {
       navigate('/login');
@@ -29,7 +30,7 @@ const DataProvider = ({ children }) => {
           })
           .then((res) => {
             setApiResponse(res.data.data);
-            setSprints(res.data.data.sprints);
+            setSprints(res.data.data.sprints || []);
             setStories(res.data.data.stories);
             setDevelopers(res.data.data.developers);
             setComments(res.data.data.comments);
