@@ -3,14 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import SidePanel from '../SidePanel';
 import './Header.css';
 import Button from '@mui/material/Button';
+import { useOktaAuth } from '@okta/okta-react';
 
 export default function Header() {
   const navigate = useNavigate();
+  const { oktaAuth } = useOktaAuth();
+
   const handleSignoutClick = () => {
+    oktaAuth.signOut('/');
     // localStorage.setItem('accessToken', null);
-    localStorage.removeItem('accessToken');
-    localStorage.removeItem('projectId');
-    navigate('/login');
+    // localStorage.removeItem('accessToken');
+    // localStorage.removeItem('projectId');
+    // navigate('/login');
   };
 
   return (

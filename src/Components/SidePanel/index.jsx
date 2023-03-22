@@ -18,6 +18,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../Contexts/DataContext';
 import { Chip, Hidden } from '@mui/material';
+import { useOktaAuth } from '@okta/okta-react';
 
 export default function SidePanel() {
   const { setProjectId } = React.useContext(DataContext);
@@ -41,10 +42,13 @@ export default function SidePanel() {
     localStorage.setItem('projectId', event.target.value);
     navigate('/');
   };
+  const { authState } = useOktaAuth();
   React.useEffect(() => {
     axios
       .get('http://localhost:8080/api/projects', {
-        headers: { authorization: localStorage.getItem('accessToken') },
+        headers: {
+          authorization: authState?.accessToken.accessToken,
+        },
       })
       .then((res) => {
         console.log(res.data.data);

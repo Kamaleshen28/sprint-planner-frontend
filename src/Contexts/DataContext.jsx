@@ -18,7 +18,7 @@ const DataProvider = ({ children }) => {
     // console.log('projectId', projectId);
     const projectIdLocal = localStorage.getItem('projectId');
     if (!localStorage.getItem('accessToken')) {
-      navigate('/login');
+      // navigate('/login');
     } else {
       if (projectId || projectIdLocal) {
         const id = projectId || projectIdLocal;
