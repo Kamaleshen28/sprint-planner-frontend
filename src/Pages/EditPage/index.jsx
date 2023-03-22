@@ -67,6 +67,7 @@ function EditPage() {
     setSprints,
     setDevelopers,
     setStories,
+    plannedStatus,
   } = useContext(DataContext);
   const [storyList, setStoryList] = useState(storiesData);
   const [developerList, setDeveloperList] = useState(developersData);
@@ -142,6 +143,7 @@ function EditPage() {
             localStorage.setItem('projectId', res.data.data.id);
             navigate('/');
           } else {
+            localStorage.setItem('projectId', res.data.data.id);
             const customErrorMessage = {
               response: {
                 data: {
@@ -154,6 +156,7 @@ function EditPage() {
         })
         .catch((err) => {
           console.log(err);
+          localStorage.setItem('projectId', err.response.data.projectId);
           handleOpen(err, false);
         });
     } else {
@@ -189,12 +192,16 @@ function EditPage() {
             setStartDate(formattedDate);
             setSprintDuration(res.data.data.sprintDuration);
             setTotalDuration(res.data.data.givenTotalDuration);
+          })
+          .catch((err) => {
+            console.log(err);
+            // handleOpen(err, false);
           });
       } else {
         navigate('/create');
       }
     }
-  }, []);
+  }, [projectId]);
 
   return (
     <div className="home-page-wrapper">
@@ -240,7 +247,7 @@ function EditPage() {
         variant="contained"
         onClick={handleSubmit}
       >
-        Edit
+        Submit
       </Button>
     </div>
   );

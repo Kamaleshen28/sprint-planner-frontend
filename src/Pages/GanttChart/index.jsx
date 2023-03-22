@@ -87,7 +87,7 @@ const GanttChart = () => {
           menuItems: ['downloadPNG', 'downloadSVG'],
         },
       },
-      sourceWidth: 1000,
+      sourceWidth: 6000,
     },
     chart: {
       scrollablePlotArea: {

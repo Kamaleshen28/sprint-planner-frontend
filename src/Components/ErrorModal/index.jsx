@@ -6,13 +6,14 @@ import Modal from '@mui/material/Modal';
 import ErrorIcon from '@mui/icons-material/Error';
 import PropTypes from 'prop-types';
 import { Check, CheckCircle, Warning } from '@mui/icons-material';
+import { useNavigate } from 'react-router';
 
 const style = {
   position: 'absolute',
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 300,
+  width: 400,
   bgcolor: 'white',
   boxShadow: 30,
   p: 4,
@@ -27,10 +28,19 @@ const buttonHeader = {
 };
 
 export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
+  const navigate = useNavigate();
   // const [open, setOpen] = React.useState(false);
 
   // const handleOpen = () => setOpen(true);
   // const handleClose = () => setOpen(false);
+  const handleAutoFill = () => {
+    navigate('/edit/auto-fill');
+    handleClose();
+  };
+  const handleSaveDraft = () => {
+    navigate('/edit');
+    handleClose();
+  };
 
   React.useEffect(() => {});
   return (
@@ -62,6 +72,16 @@ export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
               ? open.err.response.data.message
               : open.err.message}
             <br />
+            {open.success && (
+              <div style={{ marginTop: '20px' }}>
+                <Button onClick={() => handleSaveDraft()} color="success">
+                  Save draft
+                </Button>
+                <Button onClick={() => handleAutoFill()} color="primary">
+                  Auto-fill Developers
+                </Button>
+              </div>
+            )}
             {/* {'Error'} */}
           </Typography>
         </Box>

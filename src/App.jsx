@@ -22,7 +22,7 @@ function App() {
             <Route path="/ganttChart" element={<GanttChart />} />
             <Route path="/graph" element={<DependencyGraph />} />
             <Route path="error/:errorCode?" element={<ErrorScreen />} />
-            <Route path="/edit" element={<EditPage />} />
+            <Route path="/edit/:auto-fill?" element={<EditPage />} />
           </Routes>
         </DataProvider>
       </Router>

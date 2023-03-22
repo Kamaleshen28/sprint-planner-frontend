@@ -78,7 +78,10 @@ function InputPage() {
   });
   const handleOpen = (error, success) =>
     setOpen({ bool: true, err: error, success: success });
-  const handleClose = () => setOpen({ bool: false, err: null, success: false });
+  const handleClose = () => {
+    setOpen({ bool: false, err: null, success: false });
+    navigate('/edit');
+  };
   const [openValidationModal, setOpenValidationModal] = React.useState({
     bool: false,
     atLeastOneOptionalAvailable: false,
@@ -136,6 +139,7 @@ function InputPage() {
             localStorage.setItem('projectId', res.data.data.id);
             navigate('/');
           } else {
+            localStorage.setItem('projectId', res.data.data.id);
             const customErrorMessage = {
               response: {
                 data: {
@@ -147,6 +151,9 @@ function InputPage() {
           }
         })
         .catch((err) => {
+          // set project id
+          console.log(err.response.data);
+          localStorage.setItem('projectId', err.response.data.projectId);
           handleOpen(err, false);
         });
     } else {

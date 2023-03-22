@@ -17,7 +17,7 @@ import Select from '@mui/material/Select';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../Contexts/DataContext';
-import { Chip, Hidden } from '@mui/material';
+import { Chip } from '@mui/material';
 
 export default function SidePanel() {
   const { setProjectId } = React.useContext(DataContext);
@@ -25,6 +25,8 @@ export default function SidePanel() {
   const [state, setState] = React.useState(false);
   const [projects, setProjects] = React.useState([]);
   const [project, setProject] = React.useState('');
+  const [plannedStatus, setPlannedStatus] = React.useState(false);
+  // const location = useLocation();
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === 'keydown' &&
@@ -36,24 +38,60 @@ export default function SidePanel() {
     setState(open);
   };
   const handleChange = (event) => {
+    // console.log(event.target.value);
     setProjectId(event.target.value);
     setProject(event.target.value);
     localStorage.setItem('projectId', event.target.value);
-    navigate('/');
+    const selectedProject = projects.find(
+      (project) => project.id === event.target.value,
+    );
+    if (selectedProject.status === 'planned') {
+      navigate('/');
+      setPlannedStatus(true);
+    } else {
+      navigate('/edit');
+      setPlannedStatus(false);
+    }
   };
+  // React.useEffect(() => {
+  //   // setProjectId(project);
+  //   const projectIdLocal = localStorage.getItem('projectId');
+  //   if (!localStorage.getItem('accessToken')) {
+  //     navigate('/login');
+  //   } else {
+  //     if (projectId || projectIdLocal) {
+  //       const id = projectId || projectIdLocal;
+  //       let url = `http://localhost:8080/api/projects/${id}`;
+  //       axios
+  //         .get(url, {
+  //           headers: { authorization: localStorage.getItem('accessToken') },
+  //         })
+  //         .then((res) => {
+  //           setApiResponse(res.data.data);
+  //           setSprints(res.data.data.sprints);
+  //           setStories(res.data.data.stories);
+  //           setDevelopers(res.data.data.developers);
+  //           setComments(res.data.data.comments);
+  //         });
+  //     } else {
+  //       navigate('/create');
+  //     }
+  //   }
+  // }, [project]);
   React.useEffect(() => {
     axios
       .get('http://localhost:8080/api/projects', {
         headers: { authorization: localStorage.getItem('accessToken') },
       })
       .then((res) => {
-        console.log(res.data.data);
+        // console.log(res.data.data);
         setProjects(res.data.data);
         const selectedProject = res.data.data.find(
           (project) => project.id === localStorage.getItem('projectId'),
         );
         if (selectedProject) {
           setProject(selectedProject.id);
+          setPlannedStatus(selectedProject.status === 'planned');
         }
       });
   }, []);
@@ -110,7 +148,6 @@ export default function SidePanel() {
               >
                 {projects.map((project) => (
                   <MenuItem key={project.id} value={project.id}>
-                    {/* {project.title} */}
                     <div
                       style={{
                         display: 'flex',
@@ -127,7 +164,7 @@ export default function SidePanel() {
                       >
                         {project.title}
                       </span>
-                      {Math.round(Math.random()) ? (
+                      {project.status === 'planned' ? (
                         <Chip
                           style={{ width: 100 }}
                           color="success"
@@ -136,7 +173,6 @@ export default function SidePanel() {
                       ) : (
                         <Chip style={{ width: 100 }} label="draft" />
                       )}
-                      {/* // <Chip color="success" label="planned" /> */}
                     </div>
                   </MenuItem>
                 ))}
@@ -153,6 +189,7 @@ export default function SidePanel() {
             <ListItem disablePadding>
               <ListItemButton
                 onClick={() => navigate('/')}
+                disabled={!plannedStatus}
                 data-testid="list-view-button"
               >
                 <ListItemText primary="List View" />
@@ -161,6 +198,7 @@ export default function SidePanel() {
 
             <ListItem disablePadding>
               <ListItemButton
+                disabled={!plannedStatus}
                 onClick={() => navigate('/graph')}
                 data-testid="dependency-graph-button"
               >
@@ -168,7 +206,10 @@ export default function SidePanel() {
               </ListItemButton>
             </ListItem>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate('/ganttChart')}>
+              <ListItemButton
+                disabled={!plannedStatus}
+                onClick={() => navigate('/ganttChart')}
+              >
                 <ListItemText primary="Gantt Chart" />
               </ListItemButton>
             </ListItem>
@@ -186,6 +227,7 @@ export default function SidePanel() {
       )}
     </Box>
   );
+
   return (
     <div>
       <React.Fragment>

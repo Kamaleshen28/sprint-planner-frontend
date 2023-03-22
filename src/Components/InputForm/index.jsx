@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import './InputForm.css';
-import { Tab, Tabs, Box, Typography, Button } from '@mui/material';
+import { Tab, Tabs, Box, Typography } from '@mui/material';
 import DeveloperInput from '../DeveloperInput';
 import StoryInput from '../StoryInput';
 import PropTypes from 'prop-types';
