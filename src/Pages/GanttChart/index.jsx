@@ -84,10 +84,16 @@ const GanttChart = () => {
     exporting: {
       buttons: {
         contextButton: {
-          menuItems: ['downloadPNG', 'downloadSVG'],
+          menuItems: ['downloadPNG', 'downloadSVG', 'downloadJPEG'],
         },
       },
-      sourceWidth: 1000,
+      sourceWidth: 1502,
+      scale: 1,
+      // chartOptions: {
+      //   chart: {
+      //     height: this.chartHeight,
+      //   },
+      // },
     },
     chart: {
       scrollablePlotArea: {
