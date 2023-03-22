@@ -21,6 +21,7 @@ import {
   ValidationModal,
 } from '../../Components';
 import { Button } from '@mui/material';
+import { useOktaAuth } from '@okta/okta-react';
 
 const storiesData = [
   // {
@@ -60,6 +61,7 @@ const developersData = [
 ];
 
 function EditPage() {
+  const { authState } = useOktaAuth();
   const {
     projectId,
     setProjectId,
@@ -127,7 +129,9 @@ function EditPage() {
       )}`;
       axios
         .put(url, newProject, {
-          headers: { authorization: localStorage.getItem('accessToken') },
+          headers: {
+            authorization: authState?.accessToken.accessToken,
+          },
         })
         .then((res) => {
           console.log(res);
@@ -171,7 +175,9 @@ function EditPage() {
         let url = `http://localhost:8080/api/projects/${id}`;
         axios
           .get(url, {
-            headers: { authorization: localStorage.getItem('accessToken') },
+            headers: {
+              authorization: authState?.accessToken.accessToken,
+            },
           })
           .then((res) => {
             console.log(res.data.data);

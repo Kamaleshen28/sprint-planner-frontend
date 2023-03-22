@@ -22,6 +22,7 @@ import { useOktaAuth } from '@okta/okta-react';
 
 export default function SidePanel() {
   const { setProjectId } = React.useContext(DataContext);
+  const { authState } = useOktaAuth();
   const navigate = useNavigate();
   const [state, setState] = React.useState(false);
   const [projects, setProjects] = React.useState([]);
@@ -42,7 +43,6 @@ export default function SidePanel() {
     localStorage.setItem('projectId', event.target.value);
     navigate('/');
   };
-  const { authState } = useOktaAuth();
   React.useEffect(() => {
     axios
       .get('http://localhost:8080/api/projects', {

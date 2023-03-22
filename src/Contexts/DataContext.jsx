@@ -4,6 +4,7 @@ export const DataContext = createContext({});
 import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { Token } from '@mui/icons-material';
+import { useOktaAuth } from '@okta/okta-react';
 
 const DataProvider = ({ children }) => {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ const DataProvider = ({ children }) => {
   const [apiResponse, setApiResponse] = useState({});
   const [projectId, setProjectId] = useState('');
 
+  const { authState } = useOktaAuth();
   useEffect(() => {
     // console.log('projectId', projectId);
     const projectIdLocal = localStorage.getItem('projectId');
@@ -25,7 +27,9 @@ const DataProvider = ({ children }) => {
         let url = `http://localhost:8080/api/projects/${id}`;
         axios
           .get(url, {
-            headers: { authorization: localStorage.getItem('accessToken') },
+            headers: {
+              authorization: authState?.accessToken.accessToken,
+            },
           })
           .then((res) => {
             setApiResponse(res.data.data);

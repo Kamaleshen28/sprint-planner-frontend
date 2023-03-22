@@ -26,7 +26,6 @@ function App() {
   const restoreOriginalUri = async (_oktaAuth, originalUri) => {
     history.replace(toRelativeUrl(originalUri || '/', window.location.origin));
   };
-  const navigate = useNavigate();
 
   return (
     <div className="App">

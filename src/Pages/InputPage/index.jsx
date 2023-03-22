@@ -19,6 +19,7 @@ import {
   ValidationModal,
 } from '../../Components';
 import { Button } from '@mui/material';
+import { useOktaAuth } from '@okta/okta-react';
 
 const storiesData = [
   // {
@@ -97,6 +98,7 @@ function InputPage() {
   };
 
   const handleSubmit = () => {
+    const { authState } = useOktaAuth();
     if (title && startDate && sprintDuration && storyList.length > 0) {
       const newDate = defaultFormatToUnix(startDate);
       const newProject = {
@@ -121,10 +123,13 @@ function InputPage() {
       if (developerList.length > 0) {
         newProject.developers = updateDevelopers(developerList);
       }
+      console.log(1);
       let url = 'http://localhost:8080/api/projects';
       axios
         .post(url, newProject, {
-          headers: { authorization: localStorage.getItem('accessToken') },
+          headers: {
+            authorization: authState?.accessToken.accessToken,
+          },
         })
         .then((res) => {
           if (res.data.data.developers) {
