@@ -236,7 +236,7 @@ function EditPage() {
           .then((res) => {
             if (params.auto === 'auto') {
               newFunction(res);
-              handleSubmit();
+              // handleSubmit();
             } else {
               setStoryList(getStories(res.data.data.stories));
               setDeveloperList(
