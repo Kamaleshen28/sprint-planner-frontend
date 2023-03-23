@@ -59,6 +59,7 @@ const developersData = [
 ];
 
 function InputPage() {
+  const { authState } = useOktaAuth();
   const {
     setProjectId,
     setApiResponse,
@@ -98,7 +99,6 @@ function InputPage() {
   };
 
   const handleSubmit = () => {
-    const { authState } = useOktaAuth();
     if (title && startDate && sprintDuration && storyList.length > 0) {
       const newDate = defaultFormatToUnix(startDate);
       const newProject = {
