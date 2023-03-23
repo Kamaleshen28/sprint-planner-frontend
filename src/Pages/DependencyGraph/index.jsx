@@ -97,9 +97,9 @@ const DependencyGraph = () => {
 
     return edges.map((edge) => {
       if (connectedEdges.includes(edge.id) && nodeId.node === edge.to) {
-        return { ...edge, color: '#353232', hoverWidth: 4 };
+        return { ...edge, color: '#353232', hoverWidth: 1 };
       } else {
-        return { ...edge, hoverWidth: 1 };
+        return { ...edge, hoverWidth: 1, color: '#EEEBEB' };
       }
     });
   };
