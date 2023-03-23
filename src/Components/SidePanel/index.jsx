@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Drawer from '@mui/material/Drawer';
@@ -17,7 +17,7 @@ import Select from '@mui/material/Select';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../Contexts/DataContext';
-import { Chip } from '@mui/material';
+import { Chip, Modal } from '@mui/material';
 
 export default function SidePanel() {
   const { setProjectId, projectId, updateSidebar } =
@@ -27,7 +27,14 @@ export default function SidePanel() {
   const [projects, setProjects] = React.useState([]);
   const [project, setProject] = React.useState('');
   const [plannedStatus, setPlannedStatus] = React.useState(false);
+  const [isOpen, setIsOpen] = useState({ open: false, id: null });
+
   // const location = useLocation();
+
+  const handlePopupClose = () => {
+    setIsOpen({ open: false, id: null });
+  };
+
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === 'keydown' &&
@@ -58,6 +65,8 @@ export default function SidePanel() {
   };
   const handleDeleteProject = async () => {
     try {
+      // already taken confirmation from user
+      let projectId = localStorage.getItem('projectId');
       console.log('deleting project: ', projectId);
       const res = await axios.delete(
         `http://localhost:8080/api/projects/${projectId}`,
@@ -70,14 +79,55 @@ export default function SidePanel() {
       localStorage.removeItem('projectId');
       setProject('');
       setPlannedStatus(false);
+
       navigate('/create');
     } catch (error) {
       console.log(error.message);
     }
   };
 
+  const deleteConfirmationPopup = (
+    <Modal
+      open={isOpen.open}
+      onClose={handlePopupClose}
+      aria-labelledby="modal-modal-title"
+      aria-describedby="modal-modal-description"
+    >
+      <Box
+        sx={{
+          position: 'absolute',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+          width: 400,
+          bgcolor: 'background.paper',
+          boxShadow: 24,
+          borderRadius: 2,
+          p: 4,
+        }}
+      >
+        <h2 id="modal-modal-title">
+          Are you sure you want to delete the project?
+        </h2>
+        <p id="modal-modal-description">
+          This action cannot be undone. Please confirm.
+        </p>
+        <Button
+          onClick={() => {
+            setIsOpen({ open: false });
+          }}
+        >
+          Cancel
+        </Button>
+        <Button color="error" onClick={handleDeleteProject}>
+          Delete
+        </Button>
+      </Box>
+    </Modal>
+  );
+
   React.useEffect(() => {
-    console.log('projectId SidePanel', projectId);
+    console.log('projectId', projectId);
     axios
       .get('http://localhost:8080/api/projects', {
         headers: { authorization: localStorage.getItem('accessToken') },
@@ -226,7 +276,7 @@ export default function SidePanel() {
                 sx={{ width: '90%', mx: 'auto' }}
                 variant="contained"
                 color="error"
-                onClick={handleDeleteProject}
+                onClick={() => setIsOpen({ open: true })}
               >
                 Delete Project
               </Button>
@@ -239,6 +289,7 @@ export default function SidePanel() {
 
   return (
     <div>
+      {deleteConfirmationPopup}
       <React.Fragment>
         <Button
           onClick={toggleDrawer(true)}
