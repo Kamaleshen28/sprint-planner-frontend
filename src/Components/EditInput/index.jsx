@@ -125,7 +125,7 @@ const EditInput = ({
         sx={{
           display: 'grid',
           gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
-          height: '100px',
+          height: '150px',
           width: '90%',
           alignItems: 'center',
           bgcolor: 'white',
@@ -233,7 +233,8 @@ const EditInput = ({
             errorMessages={[
               'this field is required',
               'It should be number',
-              'Number should be positive',
+              'should be positive',
+              'less than 10',
             ]}
             onChange={(e) => seteditStoryPoints(e.target.value)}
           />

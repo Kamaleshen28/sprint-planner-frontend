@@ -102,7 +102,7 @@ function EditPage() {
   const [snackMessage, setSnackMessage] = React.useState('');
   const [projectStatus, setProjectStatus] = React.useState(undefined);
   const params = useParams();
-  console.log('params', params.auto);
+  // console.log('params', params.auto);
   function SlideTransition(props) {
     return <Slide {...props} direction="down" />;
   }
@@ -122,7 +122,8 @@ function EditPage() {
         title: title,
         duration: totalDuration ? Number(totalDuration) : 0,
         sprintDuration: Number(sprintDuration),
-        sprintCapacity: getSprintCapacity(developerList),
+        // sprintCapacity: getSprintCapacity(developerList),
+        sprintCapacity: Number(sprintDuration) * 5,
         projectStartDate: newDate,
         stories: updateStories(storyList, developerList),
       };
@@ -146,7 +147,6 @@ function EditPage() {
           headers: { authorization: localStorage.getItem('accessToken') },
         })
         .then((res) => {
-          console.log(res.data.data);
           if (res.data.data.developers) {
             setProjectId(res.data.data.id);
             setApiResponse(res.data.data);
@@ -183,49 +183,19 @@ function EditPage() {
           handleOpen(err, false);
         });
     } else {
-      console.log('else', title, startDate, sprintDuration, storyList.length);
+      // console.log('else', title, startDate, sprintDuration, storyList.length);
       handleOpenValidationModal(true);
     }
   };
 
-  const newFunction = (res) => {
-    console.log('newFunction');
-    console.log('auto', res.data.data);
-    const developerRequired = res.data.data.remarks.split(' ')[2];
-    console.log('hello', developerRequired);
-    const dummyDevelopers = [];
-    for (let i = 0; i < developerRequired; i++) {
-      dummyDevelopers.push({
-        id: i,
-        developer: `Developer ${i + 1}`,
-        sprintCapacity: res.data.data.sprintDuration * 5,
-        capacity: 300,
-      });
-    }
-    setStoryList(getStories(res.data.data.stories));
-    setDeveloperList(dummyDevelopers);
-
-    setTitle(res.data.data.title);
-    const date = new Date(res.data.data.projectStartDate);
-    let formattedDate = date.toLocaleDateString();
-    formattedDate = formattedDate.split('/').reverse().join('-');
-    setStartDate(formattedDate);
-    setSprintDuration(res.data.data.sprintDuration);
-    setTotalDuration(res.data.data.givenTotalDuration);
-    setSnackMessage(res.data.data.remarks);
-    setProjectStatus(res.data.data.status);
-    // handleSubmit();
-  };
   useEffect(() => {
     setOpenSnack(true);
   }, [title, snackMessage]);
   useEffect(() => {
-    console.log('useEffect RUN');
     const projectIdLocal = localStorage.getItem('projectId');
     if (!localStorage.getItem('accessToken')) {
       navigate('/login');
     } else {
-      // console.log('projectId', projectId);
       if (projectId || projectIdLocal) {
         const id = projectId || projectIdLocal;
         let url = `http://localhost:8080/api/projects/${id}`;
@@ -235,8 +205,28 @@ function EditPage() {
           })
           .then((res) => {
             if (params.auto === 'auto') {
-              newFunction(res);
-              // handleSubmit();
+              const developerRequired = res.data.data.remarks.split(' ')[2];
+              const dummyDevelopers = [];
+              for (let i = 0; i < developerRequired; i++) {
+                dummyDevelopers.push({
+                  id: i,
+                  developer: `Developer ${i + 1}`,
+                  sprintCapacity: res.data.data.sprintDuration * 5,
+                  capacity: 300,
+                });
+              }
+              setStoryList(getStories(res.data.data.stories));
+              setDeveloperList(dummyDevelopers);
+
+              setTitle(res.data.data.title);
+              const date = new Date(res.data.data.projectStartDate);
+              let formattedDate = date.toLocaleDateString();
+              formattedDate = formattedDate.split('/').reverse().join('-');
+              setStartDate(formattedDate);
+              setSprintDuration(res.data.data.sprintDuration);
+              setTotalDuration(res.data.data.givenTotalDuration);
+              setSnackMessage(res.data.data.remarks);
+              setProjectStatus(res.data.data.status);
             } else {
               setStoryList(getStories(res.data.data.stories));
               setDeveloperList(

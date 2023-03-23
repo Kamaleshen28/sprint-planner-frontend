@@ -107,7 +107,7 @@ function InputPage() {
         duration: totalDuration ? Number(totalDuration) : 0,
         sprintDuration: Number(sprintDuration),
         // sprintCapacity: getSprintCapacity(developerList),
-        sprintCapacity: Number(sprintDuration),
+        sprintCapacity: Number(sprintDuration) * 5,
         projectStartDate: newDate,
         // givenTotalDuration: totalDuration ? Number(totalDuration) : null,
         stories: updateStories(storyList, developerList),
