@@ -13,6 +13,7 @@ const DataProvider = ({ children }) => {
   const [comments, setComments] = useState([]);
   const [apiResponse, setApiResponse] = useState({});
   const [projectId, setProjectId] = useState('');
+  const [updateSidebar, setUpdateSidebar] = useState(false);
   // const [selectedProject, setSelectedProject] = useState({});
 
   useEffect(() => {
@@ -56,6 +57,8 @@ const DataProvider = ({ children }) => {
         setProjectId,
         comments,
         setComments,
+        updateSidebar,
+        setUpdateSidebar,
       }}
     >
       {children}

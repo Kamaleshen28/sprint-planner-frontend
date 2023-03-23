@@ -20,7 +20,8 @@ import { DataContext } from '../../Contexts/DataContext';
 import { Chip } from '@mui/material';
 
 export default function SidePanel() {
-  const { setProjectId } = React.useContext(DataContext);
+  const { setProjectId, projectId, updateSidebar } =
+    React.useContext(DataContext);
   const navigate = useNavigate();
   const [state, setState] = React.useState(false);
   const [projects, setProjects] = React.useState([]);
@@ -34,7 +35,6 @@ export default function SidePanel() {
     ) {
       return;
     }
-
     setState(open);
   };
   const handleChange = (event) => {
@@ -46,39 +46,18 @@ export default function SidePanel() {
       (project) => project.id === event.target.value,
     );
     if (selectedProject.status === 'planned') {
-      navigate('/');
       setPlannedStatus(true);
+      navigate('/');
     } else {
-      navigate('/edit');
       setPlannedStatus(false);
+      navigate('/edit');
     }
+    toggleDrawer(false);
   };
-  // React.useEffect(() => {
-  //   // setProjectId(project);
-  //   const projectIdLocal = localStorage.getItem('projectId');
-  //   if (!localStorage.getItem('accessToken')) {
-  //     navigate('/login');
-  //   } else {
-  //     if (projectId || projectIdLocal) {
-  //       const id = projectId || projectIdLocal;
-  //       let url = `http://localhost:8080/api/projects/${id}`;
-  //       axios
-  //         .get(url, {
-  //           headers: { authorization: localStorage.getItem('accessToken') },
-  //         })
-  //         .then((res) => {
-  //           setApiResponse(res.data.data);
-  //           setSprints(res.data.data.sprints);
-  //           setStories(res.data.data.stories);
-  //           setDevelopers(res.data.data.developers);
-  //           setComments(res.data.data.comments);
-  //         });
-  //     } else {
-  //       navigate('/create');
-  //     }
-  //   }
-  // }, [project]);
+  // const handleDeleteProject = () => {};
+
   React.useEffect(() => {
+    console.log('projectId SidePanel', projectId);
     axios
       .get('http://localhost:8080/api/projects', {
         headers: { authorization: localStorage.getItem('accessToken') },
@@ -94,7 +73,7 @@ export default function SidePanel() {
           setPlannedStatus(selectedProject.status === 'planned');
         }
       });
-  }, []);
+  }, [projectId, updateSidebar]);
 
   const list = (anchor) => (
     <Box
@@ -222,6 +201,16 @@ export default function SidePanel() {
                 Edit Project
               </Button>
             </ListItem>
+            {/* <ListItem>
+              <Button
+                sx={{ width: '90%', mx: 'auto' }}
+                variant="contained"
+                color="error"
+                onClick={handleDeleteProject}
+              >
+                Delete Project
+              </Button>
+            </ListItem> */}
           </List>
         </>
       )}

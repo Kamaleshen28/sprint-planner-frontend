@@ -140,6 +140,7 @@ function InputPage() {
             navigate('/');
           } else {
             localStorage.setItem('projectId', res.data.data.id);
+            setProjectId(res.data.data.id);
             const customErrorMessage = {
               response: {
                 data: {
@@ -154,6 +155,7 @@ function InputPage() {
           // set project id
           console.log(err.response.data);
           localStorage.setItem('projectId', err.response.data.projectId);
+          setProjectId(err.response.data.projectId);
           handleOpen(err, false);
         });
     } else {

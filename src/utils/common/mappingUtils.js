@@ -119,14 +119,16 @@ const getStories = (stories) => {
 
 const getDevelopers = (developers, sprintCapacity) => {
   const newDevelopers = [];
-  developers.map((developer) => {
-    newDevelopers.push({
-      id: developer.id,
-      developer: developer.name,
-      capacity: developer.capacity,
-      sprintCapacity: sprintCapacity,
+  if (developers) {
+    developers.map((developer) => {
+      newDevelopers.push({
+        id: developer.id,
+        developer: developer.name,
+        capacity: developer.capacity,
+        sprintCapacity: sprintCapacity,
+      });
     });
-  });
+  }
   return newDevelopers;
 };
 

@@ -9,7 +9,7 @@ import {
 } from '../../utils/common/mappingUtils';
 import { DataContext } from '../../Contexts/DataContext';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import {
   Title,
   InputForm,
@@ -20,7 +20,8 @@ import {
   ErrorModal,
   ValidationModal,
 } from '../../Components';
-import { Button } from '@mui/material';
+import { Alert, Button, Slide } from '@mui/material';
+import Snackbar from '@mui/material/Snackbar';
 
 const storiesData = [
   // {
@@ -67,7 +68,8 @@ function EditPage() {
     setSprints,
     setDevelopers,
     setStories,
-    plannedStatus,
+    setUpdateSidebar,
+    updateSidebar,
   } = useContext(DataContext);
   const [storyList, setStoryList] = useState(storiesData);
   const [developerList, setDeveloperList] = useState(developersData);
@@ -94,6 +96,18 @@ function EditPage() {
     });
 
   const navigate = useNavigate();
+
+  const [openSnack, setOpenSnack] = React.useState(true);
+  const [snackMessage, setSnackMessage] = React.useState('');
+  const [projectStatus, setProjectStatus] = React.useState(undefined);
+  const params = useParams();
+  console.log('params', params);
+  function SlideTransition(props) {
+    return <Slide {...props} direction="down" />;
+  }
+  const handleCloseSnack = (event, reason) => {
+    setOpenSnack(false);
+  };
 
   const getSprintCapacity = (developers) => {
     if (developers.length < 1) return sprintDuration * 4;
@@ -139,11 +153,14 @@ function EditPage() {
             setSprints(res.data.data.sprints);
             setStories(res.data.data.stories);
             setDevelopers(res.data.data.developers);
-
+            setSnackMessage(res.data.data.remarks);
+            setProjectStatus(res.data.data.status);
             localStorage.setItem('projectId', res.data.data.id);
             navigate('/');
           } else {
             localStorage.setItem('projectId', res.data.data.id);
+            setProjectId(res.data.data.id);
+            setUpdateSidebar(!updateSidebar);
             const customErrorMessage = {
               response: {
                 data: {
@@ -157,13 +174,17 @@ function EditPage() {
         .catch((err) => {
           console.log(err);
           localStorage.setItem('projectId', err.response.data.projectId);
+          setProjectId(err.response.data.projectId);
+          setUpdateSidebar(!updateSidebar);
           handleOpen(err, false);
         });
     } else {
       handleOpenValidationModal(true);
     }
   };
-
+  useEffect(() => {
+    setOpenSnack(true);
+  }, [title, snackMessage]);
   useEffect(() => {
     const projectIdLocal = localStorage.getItem('projectId');
     if (!localStorage.getItem('accessToken')) {
@@ -192,6 +213,8 @@ function EditPage() {
             setStartDate(formattedDate);
             setSprintDuration(res.data.data.sprintDuration);
             setTotalDuration(res.data.data.givenTotalDuration);
+            setSnackMessage(res.data.data.remarks);
+            setProjectStatus(res.data.data.status);
           })
           .catch((err) => {
             console.log(err);
@@ -202,7 +225,6 @@ function EditPage() {
       }
     }
   }, [projectId]);
-
   return (
     <div className="home-page-wrapper">
       {open.bool && (
@@ -219,6 +241,21 @@ function EditPage() {
           setIsOpen={setOpenValidationModal}
         />
       )}
+
+      {projectStatus === 'unsupportedInput' && params.auto !== 'auto' && (
+        <Snackbar
+          open={openSnack}
+          autoHideDuration={10000}
+          onClose={handleCloseSnack}
+          TransitionComponent={SlideTransition}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        >
+          <Alert variant="filled" severity="info" color="info">
+            {snackMessage}
+          </Alert>
+        </Snackbar>
+      )}
+
       <Header value={title} setValue={setTitle} heading="Sprint Planner" />
       <div className="common-input-section">
         <div className="common-input-wrapper">
