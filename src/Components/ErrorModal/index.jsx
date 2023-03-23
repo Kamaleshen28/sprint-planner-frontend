@@ -34,6 +34,7 @@ export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
   // const handleOpen = () => setOpen(true);
   // const handleClose = () => setOpen(false);
   const handleAutoFill = () => {
+    handleClose();
     navigate('/edit/auto-fill');
   };
   const handleSaveDraft = () => {

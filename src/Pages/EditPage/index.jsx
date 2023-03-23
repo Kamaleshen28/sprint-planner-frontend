@@ -77,7 +77,7 @@ function EditPage() {
   const [startDate, setStartDate] = React.useState(null);
   const [totalDuration, setTotalDuration] = React.useState(null);
   const [sprintDuration, setSprintDuration] = React.useState(null);
-  const [state, setState] = React.useState(false);
+  // const [state, setState] = React.useState(false);
   const [open, setOpen] = React.useState({
     bool: false,
     err: null,
@@ -102,7 +102,7 @@ function EditPage() {
   const [snackMessage, setSnackMessage] = React.useState('');
   const [projectStatus, setProjectStatus] = React.useState(undefined);
   const params = useParams();
-  console.log('params', params);
+  console.log('params', params.auto);
   function SlideTransition(props) {
     return <Slide {...props} direction="down" />;
   }
@@ -137,7 +137,7 @@ function EditPage() {
       if (developerList.length > 0) {
         newProject.developers = updateDevelopers(developerList);
       }
-      console.log('asdfad', newProject);
+      // console.log('asdfad', newProject);
       let url = `http://localhost:8080/api/projects/${localStorage.getItem(
         'projectId',
       )}`;
@@ -146,7 +146,6 @@ function EditPage() {
           headers: { authorization: localStorage.getItem('accessToken') },
         })
         .then((res) => {
-          console.log(res);
           console.log(res.data.data);
           if (res.data.data.developers) {
             setProjectId(res.data.data.id);
@@ -162,6 +161,8 @@ function EditPage() {
             localStorage.setItem('projectId', res.data.data.id);
             setProjectId(res.data.data.id);
             setUpdateSidebar(!updateSidebar);
+            setSnackMessage(res.data.data.remarks);
+            setProjectStatus(res.data.data.status);
             const customErrorMessage = {
               response: {
                 data: {
@@ -176,17 +177,50 @@ function EditPage() {
           console.log(err);
           localStorage.setItem('projectId', err.response.data.projectId);
           setProjectId(err.response.data.projectId);
+          setSnackMessage(err.response.data.message);
+          setProjectStatus(err.response.data.status);
           setUpdateSidebar(!updateSidebar);
           handleOpen(err, false);
         });
     } else {
+      console.log('else', title, startDate, sprintDuration, storyList.length);
       handleOpenValidationModal(true);
     }
+  };
+
+  const newFunction = (res) => {
+    console.log('newFunction');
+    console.log('auto', res.data.data);
+    const developerRequired = res.data.data.remarks.split(' ')[2];
+    console.log('hello', developerRequired);
+    const dummyDevelopers = [];
+    for (let i = 0; i < developerRequired; i++) {
+      dummyDevelopers.push({
+        id: i,
+        developer: `Developer ${i + 1}`,
+        sprintCapacity: res.data.data.sprintDuration * 5,
+        capacity: 300,
+      });
+    }
+    setStoryList(getStories(res.data.data.stories));
+    setDeveloperList(dummyDevelopers);
+
+    setTitle(res.data.data.title);
+    const date = new Date(res.data.data.projectStartDate);
+    let formattedDate = date.toLocaleDateString();
+    formattedDate = formattedDate.split('/').reverse().join('-');
+    setStartDate(formattedDate);
+    setSprintDuration(res.data.data.sprintDuration);
+    setTotalDuration(res.data.data.givenTotalDuration);
+    setSnackMessage(res.data.data.remarks);
+    setProjectStatus(res.data.data.status);
+    // handleSubmit();
   };
   useEffect(() => {
     setOpenSnack(true);
   }, [title, snackMessage]);
   useEffect(() => {
+    console.log('useEffect RUN');
     const projectIdLocal = localStorage.getItem('projectId');
     if (!localStorage.getItem('accessToken')) {
       navigate('/login');
@@ -200,23 +234,27 @@ function EditPage() {
             headers: { authorization: localStorage.getItem('accessToken') },
           })
           .then((res) => {
-            setState(res.data.data.status);
-            setStoryList(getStories(res.data.data.stories));
-            setDeveloperList(
-              getDevelopers(
-                res.data.data.developers,
-                res.data.data.sprintCapacity,
-              ),
-            );
-            setTitle(res.data.data.title);
-            const date = new Date(res.data.data.projectStartDate);
-            var formattedDate = date.toLocaleDateString();
-            formattedDate = formattedDate.split('/').reverse().join('-');
-            setStartDate(formattedDate);
-            setSprintDuration(res.data.data.sprintDuration);
-            setTotalDuration(res.data.data.givenTotalDuration);
-            setSnackMessage(res.data.data.remarks);
-            setProjectStatus(res.data.data.status);
+            if (params.auto === 'auto') {
+              newFunction(res);
+              handleSubmit();
+            } else {
+              setStoryList(getStories(res.data.data.stories));
+              setDeveloperList(
+                getDevelopers(
+                  res.data.data.developers,
+                  res.data.data.sprintCapacity,
+                ),
+              );
+              setTitle(res.data.data.title);
+              const date = new Date(res.data.data.projectStartDate);
+              var formattedDate = date.toLocaleDateString();
+              formattedDate = formattedDate.split('/').reverse().join('-');
+              setStartDate(formattedDate);
+              setSprintDuration(res.data.data.sprintDuration);
+              setTotalDuration(res.data.data.givenTotalDuration);
+              setSnackMessage(res.data.data.remarks);
+              setProjectStatus(res.data.data.status);
+            }
           })
           .catch((err) => {
             console.log(err);
@@ -226,7 +264,8 @@ function EditPage() {
         navigate('/create');
       }
     }
-  }, [projectId]);
+  }, [projectId, params]);
+
   return (
     <div className="home-page-wrapper">
       {open.bool && (
@@ -271,8 +310,8 @@ function EditPage() {
             <Title value={title} setValue={setTitle} />
             <Chip
               style={{ width: 100, position: 'absolute', right: 0 }}
-              color={state === 'planned' ? 'success' : 'info'}
-              label={state === 'planned' ? 'planned' : 'draft'}
+              color={projectStatus === 'planned' ? 'success' : 'info'}
+              label={projectStatus === 'planned' ? 'planned' : 'draft'}
             />
           </div>
 
