@@ -56,7 +56,25 @@ export default function SidePanel() {
     }
     toggleDrawer(false);
   };
-  // const handleDeleteProject = () => {};
+  const handleDeleteProject = async () => {
+    try {
+      console.log('deleting project: ', projectId);
+      const res = await axios.delete(
+        `http://localhost:8080/api/projects/${projectId}`,
+        {
+          headers: { authorization: localStorage.getItem('accessToken') },
+        },
+      );
+      console.log(res);
+      setProjectId('');
+      localStorage.removeItem('projectId');
+      setProject('');
+      setPlannedStatus(false);
+      navigate('/create');
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
 
   React.useEffect(() => {
     console.log('projectId SidePanel', projectId);
@@ -203,7 +221,7 @@ export default function SidePanel() {
                 Edit Project
               </Button>
             </ListItem>
-            {/* <ListItem>
+            <ListItem>
               <Button
                 sx={{ width: '90%', mx: 'auto' }}
                 variant="contained"
@@ -212,7 +230,7 @@ export default function SidePanel() {
               >
                 Delete Project
               </Button>
-            </ListItem> */}
+            </ListItem>
           </List>
         </>
       )}
