@@ -20,7 +20,7 @@ import {
   ErrorModal,
   ValidationModal,
 } from '../../Components';
-import { Alert, Button, Slide } from '@mui/material';
+import { Alert, Button, Slide, Chip } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 
 const storiesData = [
@@ -77,6 +77,7 @@ function EditPage() {
   const [startDate, setStartDate] = React.useState(null);
   const [totalDuration, setTotalDuration] = React.useState(null);
   const [sprintDuration, setSprintDuration] = React.useState(null);
+  const [state, setState] = React.useState(false);
   const [open, setOpen] = React.useState({
     bool: false,
     err: null,
@@ -190,6 +191,7 @@ function EditPage() {
     if (!localStorage.getItem('accessToken')) {
       navigate('/login');
     } else {
+      // console.log('projectId', projectId);
       if (projectId || projectIdLocal) {
         const id = projectId || projectIdLocal;
         let url = `http://localhost:8080/api/projects/${id}`;
@@ -198,7 +200,7 @@ function EditPage() {
             headers: { authorization: localStorage.getItem('accessToken') },
           })
           .then((res) => {
-            console.log(res.data.data);
+            setState(res.data.data.status);
             setStoryList(getStories(res.data.data.stories));
             setDeveloperList(
               getDevelopers(
@@ -259,7 +261,21 @@ function EditPage() {
       <Header value={title} setValue={setTitle} heading="Sprint Planner" />
       <div className="common-input-section">
         <div className="common-input-wrapper">
-          <Title value={title} setValue={setTitle} />
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'flex-end',
+              position: 'relative',
+            }}
+          >
+            <Title value={title} setValue={setTitle} />
+            <Chip
+              style={{ width: 100, position: 'absolute', right: 0 }}
+              color={state === 'planned' ? 'success' : 'info'}
+              label={state === 'planned' ? 'planned' : 'draft'}
+            />
+          </div>
+
           <div className="common-input-date">
             <StartDateInput value={startDate} setValue={setStartDate} />
             <SprintDurationInput

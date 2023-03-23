@@ -46,9 +46,11 @@ export default function SidePanel() {
       (project) => project.id === event.target.value,
     );
     if (selectedProject.status === 'planned') {
+      setState(false);
       setPlannedStatus(true);
       navigate('/');
     } else {
+      setState(false);
       setPlannedStatus(false);
       navigate('/edit');
     }
@@ -82,8 +84,8 @@ export default function SidePanel() {
         maxWidth: 400,
       }}
       role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
+      // onClick={toggleDrawer(anchor, false)}
+      // onKeyDown={toggleDrawer(anchor, false)}
     >
       <Divider />
       <List
