@@ -442,6 +442,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                     'This field is required',
                     'It should be number',
                     'Number should be positive',
+                    'Number should be less than 10',
                   ]}
                   onChange={(e) => setStoryPoints(e.target.value)}
                 />
