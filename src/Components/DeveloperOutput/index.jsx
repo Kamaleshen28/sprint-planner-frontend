@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Story from '../StoryOutput';
-import { Typography } from '@mui/material';
+import { IconButton, Typography } from '@mui/material';
 import Modal from '@mui/material/Modal';
 import Tile from '../Tile';
+import CloseIcon from '@mui/icons-material/Close';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
 
 const Developer = (props) => {
@@ -56,6 +57,7 @@ const Developer = (props) => {
           <Box
             display="flex"
             sx={{
+              position: 'relative',
               bgcolor: 'black',
               color: 'white',
               width: '100%',
@@ -70,13 +72,33 @@ const Developer = (props) => {
             <Typography variant="h4" theme={theme} m="auto">
               {developerName}
             </Typography>
+            <IconButton
+              aria-label="settings"
+              onClick={handleClose}
+              sx={{
+                position: 'absolute',
+                right: 0,
+                '&:hover': { bgcolor: '#f9f9f936' },
+                p: 0,
+                height: '40px',
+                mt: '5px',
+                mr: '5px',
+              }}
+            >
+              <CloseIcon
+                sx={{
+                  color: 'white',
+                  p: 1,
+                }}
+              />
+            </IconButton>
           </Box>
           <Grid container spacing={2}>
             {content.map((story, index) => (
               <Grid item xs={12} key={index}>
                 <Story
                   title={story.title}
-                  id={story.id}
+                  id={story.id + 1}
                   dependencies={story.dependencies}
                   startDay={story.startDay}
                   endDay={story.endDay}

@@ -67,7 +67,6 @@ export default function SidePanel() {
     try {
       // already taken confirmation from user
       let projectId = localStorage.getItem('projectId');
-      console.log('deleting project: ', projectId);
       const res = await axios.delete(
         `http://localhost:8080/api/projects/${projectId}`,
         {

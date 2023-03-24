@@ -9,6 +9,8 @@ import Divider from '@mui/material/Divider';
 import Tile from '../Tile';
 import { DataContext } from '../../Contexts/DataContext';
 import { CardContent } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
 const Story = ({
   id,
@@ -19,9 +21,7 @@ const Story = ({
   title,
   assignedDeveloperId,
 }) => {
-  const { apiResponse } = useContext(DataContext);
-  // const date = Date.now();
-
+  const { apiResponse, stories } = useContext(DataContext);
   let startDate = new Date(apiResponse.projectStartDate);
   let count = 0;
   while (
@@ -80,7 +80,7 @@ const Story = ({
         <Card sx={{ ...style, minWidth: 270 }} variant="outlined">
           <CardHeader
             sx={{
-              // display: 'flex',
+              display: 'flex',
               // justifyContent: 'center',
               backgroundColor: 'black',
               // alignItems: 'center',
@@ -89,26 +89,28 @@ const Story = ({
               border: 'none',
 
               p: 0,
-              // pt: 2,
               pl: 4,
               fontSize: 18,
               fontWeight: 500,
 
               // paddingBottom: 1.5,
             }}
-            // avatar={
-            //   <Avatar
-            //     sx={{
-            //       bgcolor: red[500],
-            //       height: '50px',
-            //       width: 50,
-            //     }}
-            //     aria-label="recipe"
-            //   >
-            //     STORY {id}
-            //   </Avatar>
-            // }
             avatar={<p>STORY {id}</p>}
+            action={
+              <p style={{ marginRight: '1rem' }}>
+                <IconButton
+                  aria-label="settings"
+                  onClick={handleClose}
+                  sx={{ '&:hover': { bgcolor: '#f9f9f936' } }}
+                >
+                  <CloseIcon
+                    sx={{
+                      color: 'white',
+                    }}
+                  />
+                </IconButton>
+              </p>
+            }
           />
           <Divider variant="middle" />
           <CardContent
@@ -123,33 +125,36 @@ const Story = ({
               <b>Story ID:</b> {id}
             </p> */}
             <p>
-              <b>Title:</b> {title}
+              <b>Title: </b> {title}
             </p>
             <p>
-              <b>Dependencies(ID): </b>
+              <b>Dependencies: </b>
               {dependencies.length !== 0
                 ? dependencies.map((dependency, index) => (
-                    <li key={index}>{dependency}</li>
+                    <li
+                      key={index}
+                      style={{
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                        width: '100%',
+                      }}
+                    >
+                      {dependency}:{' '}
+                      {stories.find((story) => story.id === dependency).title}
+                    </li>
                   ))
                 : 'NA'}
             </p>
             <p>
-              <b>Start Day:</b> {startDate.toLocaleDateString()}
+              <b>Start Day: </b> {startDate.toLocaleDateString()}
             </p>
             <p>
-              <b>End Day:</b> {endDate.toLocaleDateString()}
+              <b>End Day: </b> {endDate.toLocaleDateString()}
             </p>
             <p>
-              <b>All Developers:</b>
-              {developers.map((developer, index) =>
-                developer.id === assignedDeveloperId ? (
-                  <li key={index}>
-                    <b>{developer.name}</b> (Assigned)
-                  </li>
-                ) : (
-                  <li key={index}>{developer.name}</li>
-                ),
-              )}
+              <b>Developer: </b>
+              {developers[0].name}
             </p>
           </CardContent>
         </Card>

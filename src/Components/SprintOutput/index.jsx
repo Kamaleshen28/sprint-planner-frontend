@@ -7,6 +7,8 @@ import Tile from '../Tile';
 import Modal from '@mui/material/Modal';
 import Typography from '@mui/material/Typography';
 import { createTheme, responsiveFontSizes } from '@mui/material/styles';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 
 export default function Sprint({ content, index }) {
   const [open, setOpen] = React.useState(false);
@@ -40,7 +42,7 @@ export default function Sprint({ content, index }) {
   theme = responsiveFontSizes(theme);
   return (
     <React.Fragment>
-      <Tile handleOpen={handleOpen}>SPRINT {index}</Tile>
+      <Tile handleOpen={handleOpen}>SPRINT {index + 1}</Tile>
       <Modal
         open={open}
         onClose={handleClose}
@@ -57,6 +59,7 @@ export default function Sprint({ content, index }) {
             display="flex"
             sx={{
               bgcolor: 'black',
+              position: 'relative',
               color: 'white',
               width: '100%',
               borderRadius: '6px',
@@ -67,8 +70,28 @@ export default function Sprint({ content, index }) {
             }}
           >
             <Typography variant="h4" theme={theme} m="auto">
-              SPRINT {index}
+              SPRINT {index + 1}
             </Typography>
+            <IconButton
+              aria-label="settings"
+              onClick={handleClose}
+              sx={{
+                position: 'absolute',
+                right: 0,
+                '&:hover': { bgcolor: '#f9f9f936' },
+                p: 0,
+                height: '40px',
+                mt: '5px',
+                mr: '5px',
+              }}
+            >
+              <CloseIcon
+                sx={{
+                  color: 'white',
+                  p: 1,
+                }}
+              />
+            </IconButton>
           </Box>
 
           <Grid container spacing={2}>
@@ -77,7 +100,7 @@ export default function Sprint({ content, index }) {
                 <Grid key={index} item xs={12} data-testid="stories">
                   <Story
                     title={story.title}
-                    id={story.id}
+                    id={story.id + 1}
                     dependencies={story.dependencies}
                     startDay={story.startDay}
                     endDay={story.endDay}
