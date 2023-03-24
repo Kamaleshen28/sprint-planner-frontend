@@ -22,6 +22,7 @@ import {
 } from '../../Components';
 import { Alert, Button, Slide, Chip } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
+import { useOktaAuth } from '@okta/okta-react';
 
 const storiesData = [
   // {
@@ -61,6 +62,7 @@ const developersData = [
 ];
 
 function EditPage() {
+  const { authState } = useOktaAuth();
   const {
     projectId,
     setProjectId,
@@ -144,7 +146,9 @@ function EditPage() {
       )}`;
       axios
         .put(url, newProject, {
-          headers: { authorization: localStorage.getItem('accessToken') },
+          headers: {
+            authorization: authState?.accessToken.accessToken,
+          },
         })
         .then((res) => {
           if (res.data.data.developers) {
@@ -194,14 +198,16 @@ function EditPage() {
   useEffect(() => {
     const projectIdLocal = localStorage.getItem('projectId');
     if (!localStorage.getItem('accessToken')) {
-      navigate('/login');
+      // navigate('/login');
     } else {
       if (projectId || projectIdLocal) {
         const id = projectId || projectIdLocal;
         let url = `http://localhost:8080/api/projects/${id}`;
         axios
           .get(url, {
-            headers: { authorization: localStorage.getItem('accessToken') },
+            headers: {
+              authorization: authState?.accessToken.accessToken,
+            },
           })
           .then((res) => {
             if (params.auto === 'auto') {
