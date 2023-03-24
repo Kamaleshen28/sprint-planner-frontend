@@ -156,7 +156,7 @@ function EditPage() {
             setSnackMessage(res.data.data.remarks);
             setProjectStatus(res.data.data.status);
             localStorage.setItem('projectId', res.data.data.id);
-            navigate('/');
+            navigate('/ganttChart');
           } else {
             localStorage.setItem('projectId', res.data.data.id);
             setProjectId(res.data.data.id);
@@ -212,7 +212,7 @@ function EditPage() {
                   id: i,
                   developer: `Developer ${i + 1}`,
                   sprintCapacity: res.data.data.sprintDuration * 5,
-                  capacity: 300,
+                  capacity: 100,
                 });
               }
               setStoryList(getStories(res.data.data.stories));
@@ -281,7 +281,7 @@ function EditPage() {
           TransitionComponent={SlideTransition}
           anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
         >
-          <Alert variant="filled" severity="info" color="info">
+          <Alert variant="filled" severity="info" color="warning">
             {snackMessage}
           </Alert>
         </Snackbar>

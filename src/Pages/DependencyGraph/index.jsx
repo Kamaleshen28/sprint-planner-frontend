@@ -66,7 +66,7 @@ const DependencyGraph = () => {
     const title = getEachStoryNodeTitle(storyData);
     return {
       id: storyData.id,
-      label: `    ${String(storyData.id)}    `,
+      label: `    ${String(storyData.id + 1)}    `,
       title,
       font: { size: 20 },
       shape: 'circle',
@@ -86,7 +86,7 @@ const DependencyGraph = () => {
   const renderStoryTitleWithId = stories.map((data) => {
     return (
       <span key={data.id} className="legend">
-        <b className="story-id">{data.id}</b> {data.title}
+        <b className="story-id">{data.id + 1}</b> {data.title}
         <br></br>
       </span>
     );

@@ -277,7 +277,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                           p: 1,
                         }}
                       >
-                        <Item sx={{ width: '80%' }}>{index}</Item>
+                        <Item sx={{ width: '80%' }}>{index + 1}</Item>
                         <Item sx={{ width: '80%' }}>{stories}</Item>
                         <Item sx={{ width: '80%' }}>
                           {getDependencies(dependencies).toString()}

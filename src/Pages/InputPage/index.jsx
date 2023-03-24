@@ -138,7 +138,7 @@ function InputPage() {
             setStories(res.data.data.stories);
             setDevelopers(res.data.data.developers);
             localStorage.setItem('projectId', res.data.data.id);
-            navigate('/');
+            navigate('/ganttChart');
           } else {
             localStorage.setItem('projectId', res.data.data.id);
             setProjectId(res.data.data.id);

@@ -173,7 +173,7 @@ export default function DeveloperEntry({
           // width: '70vw',
         }}
       >
-        <Item sx={{ width: '80%', mx: 'auto' }}>{index}</Item>
+        <Item sx={{ width: '80%', mx: 'auto' }}>{index + 1}</Item>
         <Item sx={{ width: '80%', mx: 'auto' }}>{developer.toString()}</Item>
         <Item sx={{ width: '80%', mx: 'auto' }}>{sprintCapacity}</Item>
         <Item sx={{ width: '80%', mx: 'auto' }}>{capacity}</Item>

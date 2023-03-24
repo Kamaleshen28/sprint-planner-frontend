@@ -30,6 +30,7 @@ const DataProvider = ({ children }) => {
             headers: { authorization: localStorage.getItem('accessToken') },
           })
           .then((res) => {
+            console.log('res.data.data', 'then');
             setApiResponse(res.data.data);
             setSprints(res.data.data.sprints || []);
             setStories(res.data.data.stories);

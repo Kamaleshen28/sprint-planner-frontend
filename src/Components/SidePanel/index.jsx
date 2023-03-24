@@ -55,7 +55,8 @@ export default function SidePanel() {
     if (selectedProject.status === 'planned') {
       setState(false);
       setPlannedStatus(true);
-      navigate('/');
+      navigate('/ganttChart');
+      window.location.reload();
     } else {
       setState(false);
       setPlannedStatus(false);

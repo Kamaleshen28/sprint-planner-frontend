@@ -302,6 +302,7 @@ const GanttChart = () => {
   //   console.log('delete chart ', chartOptions);
   //   // exportComponentAsJPEG(componentRef);
   // };
+  // window.location.reload();
   return (
     <div className="gantt-chart-page">
       <Header />
