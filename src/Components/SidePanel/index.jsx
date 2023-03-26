@@ -73,7 +73,10 @@ export default function SidePanel() {
       const res = await axios.delete(
         `http://localhost:8080/api/projects/${projectId}`,
         {
-          headers: { authorization: localStorage.getItem('accessToken') },
+          // headers: { authorization: localStorage.getItem('accessToken') },
+          headers: {
+            authorization: authState?.accessToken.accessToken,
+          },
         },
       );
       console.log(res);

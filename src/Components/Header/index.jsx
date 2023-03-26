@@ -10,10 +10,10 @@ export default function Header() {
   const { oktaAuth } = useOktaAuth();
 
   const handleSignoutClick = () => {
+    localStorage.removeItem('projectId');
     oktaAuth.signOut('/');
     // localStorage.setItem('accessToken', null);
     // localStorage.removeItem('accessToken');
-    // localStorage.removeItem('projectId');
     // navigate('/login');
   };
 
