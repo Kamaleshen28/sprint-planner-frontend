@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Header, ListView } from '../../Components';
+import { Header, OutputView } from '../../Components';
 import { DataContext } from '../../Contexts/DataContext';
 import './OutputList.css';
 
@@ -12,7 +12,7 @@ export default function OutputList() {
         <React.Fragment>
           <Header />
           <div className="list-view">
-            <ListView heading={apiResponse.title} />
+            <OutputView projectTitle={apiResponse.title} />
           </div>
         </React.Fragment>
       ) : null}
