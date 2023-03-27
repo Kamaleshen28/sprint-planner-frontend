@@ -31,8 +31,6 @@ export default function SidePanel() {
   const [plannedStatus, setPlannedStatus] = React.useState(false);
   const [isOpen, setIsOpen] = useState({ open: false, id: null });
 
-  // const location = useLocation();
-
   const handlePopupClose = () => {
     setIsOpen({ open: false, id: null });
   };
@@ -47,7 +45,6 @@ export default function SidePanel() {
     setState(open);
   };
   const handleChange = (event) => {
-    // console.log(event.target.value);
     setProjectId(event.target.value);
     setProject(event.target.value);
     localStorage.setItem('projectId', event.target.value);
@@ -68,18 +65,15 @@ export default function SidePanel() {
   };
   const handleDeleteProject = async () => {
     try {
-      // already taken confirmation from user
       let projectId = localStorage.getItem('projectId');
       const res = await axios.delete(
         `http://localhost:8080/api/projects/${projectId}`,
         {
-          // headers: { authorization: localStorage.getItem('accessToken') },
           headers: {
             authorization: authState?.accessToken.accessToken,
           },
         },
       );
-      console.log(res);
       setProjectId('');
       localStorage.removeItem('projectId');
       setProject('');
@@ -132,7 +126,6 @@ export default function SidePanel() {
   );
 
   React.useEffect(() => {
-    console.log('projectId', projectId);
     axios
       .get('http://localhost:8080/api/projects', {
         headers: {
@@ -140,7 +133,6 @@ export default function SidePanel() {
         },
       })
       .then((res) => {
-        // console.log(res.data.data);
         setProjects(res.data.data);
         const selectedProject = res.data.data.find(
           (project) => project.id === localStorage.getItem('projectId'),
@@ -159,8 +151,6 @@ export default function SidePanel() {
         maxWidth: 400,
       }}
       role="presentation"
-      // onClick={toggleDrawer(anchor, false)}
-      // onKeyDown={toggleDrawer(anchor, false)}
     >
       <Divider />
       <List

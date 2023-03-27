@@ -54,7 +54,7 @@ const DependencyGraph = () => {
     const developerName = developerStoryList[storyData.id];
     return (
       `<b>Title</b>: ${storyData.title}<br>` +
-      `<b>Developers</b>: ${developerName}<br>` +
+      `<b>Developer</b>: ${developerName}<br>` +
       `<b>Story points</b>: ${storyData.storyPoints}<br>` +
       `<b>Dependencies (id)</b>: ${
         storyData.dependencies.length ? storyData.dependencies : 'NA'

@@ -50,7 +50,6 @@ export default function InputForm({
   const [value, setValue] = useState(1);
 
   const deleteCheck = (id) => {
-    // return true if stories.developer does not contain id
     let check = true;
     storyList.forEach((story) => {
       if (story.developer.includes(id)) check = false;

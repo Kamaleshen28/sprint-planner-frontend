@@ -5,8 +5,9 @@ import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import ErrorIcon from '@mui/icons-material/Error';
 import PropTypes from 'prop-types';
-import { Check, CheckCircle, Warning } from '@mui/icons-material';
 import { useNavigate } from 'react-router';
+import { IconButton } from '@mui/material';
+import { Delete } from '@mui/icons-material';
 
 const style = {
   position: 'absolute',
@@ -29,10 +30,6 @@ const buttonHeader = {
 
 export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
   const navigate = useNavigate();
-  // const [open, setOpen] = React.useState(false);
-
-  // const handleOpen = () => setOpen(true);
-  // const handleClose = () => setOpen(false);
   const handleAutoFill = () => {
     handleClose();
     navigate('/edit/auto-fill');
@@ -51,6 +48,9 @@ export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
+        {/* <IconButton color="primary" onClick={() => {}}>
+          <Delete />
+        </IconButton> */}
         <Box sx={style}>
           <Box className="modal-header" sx={buttonHeader}>
             {open.err.response ? (
@@ -58,7 +58,6 @@ export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
             ) : (
               <ErrorIcon color="error" />
             )}
-            {/* <ErrorIcon sx={buttonStyle} /> */}
             <Typography id="modal-modal-title" variant="h6" component="h2">
               {open.err.response
                 ? open.success
@@ -67,12 +66,16 @@ export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
                 : 'Error !!'}
             </Typography>
           </Box>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography
+            component={'span'}
+            id="modal-modal-description"
+            sx={{ mt: 2 }}
+          >
             {open.err.response?.data.message
               ? open.err.response.data.message
               : open.err.message}
             <br />
-            {open.success && (
+            {open.success ? (
               <div style={{ marginTop: '20px' }}>
                 <Button onClick={() => handleSaveDraft()} color="success">
                   Save draft
@@ -81,8 +84,15 @@ export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
                   Auto-fill Developers
                 </Button>
               </div>
+            ) : (
+              <Button
+                style={{ marginTop: '20px' }}
+                onClick={() => handleSaveDraft()}
+                color="success"
+              >
+                Close
+              </Button>
             )}
-            {/* {'Error'} */}
           </Typography>
         </Box>
       </Modal>
@@ -91,7 +101,11 @@ export default function ErrorModal({ open, setOpen, handleClose, handleOpen }) {
 }
 
 ErrorModal.propTypes = {
-  open: PropTypes.bool,
+  open: PropTypes.shape({
+    bool: PropTypes.bool,
+    err: PropTypes.object,
+    success: PropTypes.bool,
+  }),
   setOpen: PropTypes.func,
   handleClose: PropTypes.func,
   handleOpen: PropTypes.func,

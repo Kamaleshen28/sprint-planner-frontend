@@ -13,16 +13,16 @@ function SprintDurationInput({ value, setValue }) {
           id="sprint-duration"
           type="number"
           placeholder="Enter Sprint Duration"
-          // defaultValue={}
           value={value || undefined}
           onChange={(e) => {
             setValue(e.target.value);
           }}
-          validators={['required', 'isNumber', 'minNumber:0']}
+          validators={['required', 'isNumber', 'minNumber:0', 'maxNumber:5']}
           errorMessages={[
             'This field is required',
             'Enter a valid number',
             'Enter a positive number',
+            'Enter a number less than 5',
           ]}
         />
       </ValidatorForm>
@@ -33,6 +33,6 @@ function SprintDurationInput({ value, setValue }) {
 export default SprintDurationInput;
 
 SprintDurationInput.propTypes = {
-  value: PropTypes.number,
+  value: PropTypes.string,
   setValue: PropTypes.func.isRequired,
 };

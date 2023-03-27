@@ -1,7 +1,6 @@
 import { Button, Box, Fab, Modal, Tooltip, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-import { useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import Chip from '@mui/material/Chip';
 import InputLabel from '@mui/material/InputLabel';
@@ -13,7 +12,6 @@ import ListItemText from '@mui/material/ListItemText';
 import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import Backdrop from '@mui/material/Backdrop';
-import Typography from '@mui/material/Typography';
 import Fade from '@mui/material/Fade';
 import './StoryInput.css';
 import EditInput from '../EditInput';
@@ -29,14 +27,6 @@ const MenuProps = {
     },
   },
 };
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
 
 function Item(props) {
   const { sx, ...other } = props;
@@ -47,13 +37,7 @@ function Item(props) {
         m: 1,
         width: 150,
         bgcolor: 'white',
-
-        // bgcolor: (theme) =>
-        //   theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
         color: 'grey.800',
-        // border: '1px solid',
-        // borderColor: (theme) =>
-        //   theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
         borderRadius: 1,
         fontSize: '0.875rem',
         fontWeight: '700',
@@ -76,8 +60,7 @@ Item.propTypes = {
 };
 
 export default function StoryInput({ storyList, setStoryList, developerList }) {
-  const theme = useTheme();
-  const [id, setId] = useState(storyList.length + 1);
+  const [id, setId] = useState(storyList.length > 0 ? storyList.length + 1 : 1);
   const [stories, setStories] = useState('');
   const [dependencies, setDependencies] = useState([]);
   const [developer, setDeveloper] = useState([]);
@@ -88,7 +71,6 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
     id: null,
     selectedStory: {},
   });
-  const [modalOpen, setModalOpen] = useState(false);
 
   const handleEditPopupOpen = (id) => {
     const selectedStory = storyList?.find((story) => story.id === id);
@@ -169,7 +151,6 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
             width: '90%',
             bgcolor: 'background.paper',
             boxShadow: 24,
-            // margin: '0 30px',
           }}
         >
           <EditInput
@@ -207,7 +188,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (id && stories && storyPoints) {
+    if (stories && storyPoints) {
       const newStory = { id, stories, dependencies, developer, storyPoints };
       setStoryList([...storyList, newStory]);
       setId(id + 1);
@@ -241,7 +222,6 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
               sx={{
                 display: 'grid',
                 gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
-                // ml: 6,
                 p: 1,
               }}
             >
@@ -269,10 +249,8 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                           backgroundColor: '#e4eef1',
                           borderRadius: '2px',
                           height: '50px',
-                          // display: 'flex',
                           alignItems: 'center',
                           justifyContent: 'center',
-                          // ml: 6,
                           mt: 1,
                           p: 1,
                         }}
@@ -320,20 +298,17 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
           <ValidatorForm
             className="story-container-form"
             onSubmit={handleSubmit}
+            // eslint-disable-next-line no-console
             onError={(errors) => console.log(errors)}
           >
             <Box
               sx={{
                 display: 'grid',
                 gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
-                // ml: 6,
                 p: 1,
                 alignItems: 'center',
               }}
             >
-              {/* <Item>
-
-              </Item> */}
               <div></div>
               <Item sx={{ width: '95%' }}>
                 <TextValidator
@@ -447,7 +422,6 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                   onChange={(e) => setStoryPoints(e.target.value)}
                 />
               </Item>
-              {/* <div></div> */}
               <Fab
                 variant="contained"
                 style={{ margin: 'auto', display: 'flex' }}

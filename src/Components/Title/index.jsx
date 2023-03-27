@@ -34,14 +34,12 @@ const InlineEdit = ({ value, setValue, isActive, setIsActive }) => {
 
   return (
     <TextField
-      // sx={{ width: '100%', textAlign: 'center' }}
       id="standard-basic"
       variant="standard"
       type="text"
       placeholder="Enter Project Name"
       aria-label="Field name"
       value={editingValue}
-      // disabled={!isActive}
       onChange={onChange}
       onKeyDown={onKeyDown}
       onBlur={onBlur}

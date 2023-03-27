@@ -24,43 +24,6 @@ import { Alert, Button, Slide, Chip } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
 import { useOktaAuth } from '@okta/okta-react';
 
-const storiesData = [
-  // {
-  //   id: 3,
-  //   stories: 'Authentication',
-  //   dependencies: [],
-  //   developer: [],
-  //   storyPoints: 4,
-  // },
-  // {
-  //   id: 6,
-  //   stories: 'Frontend',
-  //   dependencies: [3],
-  //   developer: [],
-  //   storyPoints: 4,
-  // },
-  // {
-  //   id: 7,
-  //   stories: 'BackEnd',
-  //   dependencies: [],
-  //   developer: [3],
-  //   storyPoints: 4,
-  // },
-  // {
-  //   id: 9,
-  //   stories: 'Database',
-  //   dependencies: [6, 7],
-  //   developer: [],
-  //   storyPoints: 4,
-  // },
-];
-const developersData = [
-  // { id: 1, developer: 'Harbir', sprintCapacity: 8, capacity: 14 },
-  // { id: 3, developer: 'Smita', sprintCapacity: 8, capacity: 42 },
-  // { id: 7, developer: 'Mukul', sprintCapacity: 8, capacity: 34 },
-  // { id: 9, developer: 'Kamleshan', sprintCapacity: 8, capacity: 54 },
-];
-
 function EditPage() {
   const { authState } = useOktaAuth();
   const {
@@ -73,13 +36,12 @@ function EditPage() {
     setUpdateSidebar,
     updateSidebar,
   } = useContext(DataContext);
-  const [storyList, setStoryList] = useState(storiesData);
-  const [developerList, setDeveloperList] = useState(developersData);
+  const [storyList, setStoryList] = useState([]);
+  const [developerList, setDeveloperList] = useState([]);
   const [title, setTitle] = React.useState('');
   const [startDate, setStartDate] = React.useState(null);
   const [totalDuration, setTotalDuration] = React.useState(null);
   const [sprintDuration, setSprintDuration] = React.useState(null);
-  // const [state, setState] = React.useState(false);
   const [open, setOpen] = React.useState({
     bool: false,
     err: null,
@@ -104,18 +66,19 @@ function EditPage() {
   const [snackMessage, setSnackMessage] = React.useState('');
   const [projectStatus, setProjectStatus] = React.useState(undefined);
   const params = useParams();
-  // console.log('params', params.auto);
+
   function SlideTransition(props) {
     return <Slide {...props} direction="down" />;
   }
+
   const handleCloseSnack = (event, reason) => {
     setOpenSnack(false);
   };
 
-  const getSprintCapacity = (developers) => {
-    if (developers.length < 1) return sprintDuration * 4;
-    return developers[0].sprintCapacity;
-  };
+  // const getSprintCapacity = (developers) => {
+  //   if (developers.length < 1) return sprintDuration * 4;
+  //   return developers[0].sprintCapacity;
+  // };
 
   const handleSubmit = () => {
     if (title && startDate && sprintDuration && storyList.length > 0) {
@@ -140,7 +103,6 @@ function EditPage() {
       if (developerList.length > 0) {
         newProject.developers = updateDevelopers(developerList);
       }
-      // console.log('asdfad', newProject);
       let url = `http://localhost:8080/api/projects/${localStorage.getItem(
         'projectId',
       )}`;
@@ -187,7 +149,6 @@ function EditPage() {
           handleOpen(err, false);
         });
     } else {
-      // console.log('else', title, startDate, sprintDuration, storyList.length);
       handleOpenValidationModal(true);
     }
   };
@@ -252,7 +213,6 @@ function EditPage() {
         })
         .catch((err) => {
           console.log(err);
-          // handleOpen(err, false);
         });
     }
   }, [projectId, params]);

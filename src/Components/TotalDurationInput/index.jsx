@@ -18,11 +18,12 @@ function TotalDurationInput({ value, setValue }) {
           placeholder="Enter Total Duration"
           value={value || undefined}
           onChange={(e) => setValue(e.target.value)}
-          validators={['required', 'isNumber', 'minNumber:0']}
+          validators={['required', 'isNumber', 'minNumber:0', 'maxNumber:150']}
           errorMessages={[
             'This field is required',
             'Enter a valid number',
             'Enter a number greater than 0',
+            'Enter a number less than 150',
           ]}
         />
       </ValidatorForm>
@@ -33,6 +34,6 @@ function TotalDurationInput({ value, setValue }) {
 export default TotalDurationInput;
 
 TotalDurationInput.propTypes = {
-  value: PropTypes.number,
+  value: PropTypes.string,
   setValue: PropTypes.func.isRequired,
 };
