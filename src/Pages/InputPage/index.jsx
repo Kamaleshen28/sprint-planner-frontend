@@ -21,43 +21,6 @@ import {
 import { Button } from '@mui/material';
 import { useOktaAuth } from '@okta/okta-react';
 
-const storiesData = [
-  // {
-  //   id: 3,
-  //   stories: 'Authentication',
-  //   dependencies: [],
-  //   developer: [],
-  //   storyPoints: 4,
-  // },
-  // {
-  //   id: 6,
-  //   stories: 'Frontend',
-  //   dependencies: [3],
-  //   developer: [],
-  //   storyPoints: 4,
-  // },
-  // {
-  //   id: 7,
-  //   stories: 'BackEnd',
-  //   dependencies: [],
-  //   developer: [3],
-  //   storyPoints: 4,
-  // },
-  // {
-  //   id: 9,
-  //   stories: 'Database',
-  //   dependencies: [6, 7],
-  //   developer: [],
-  //   storyPoints: 4,
-  // },
-];
-const developersData = [
-  // { id: 1, developer: 'Harbir', sprintCapacity: 8, capacity: 14 },
-  // { id: 3, developer: 'Smita', sprintCapacity: 8, capacity: 42 },
-  // { id: 7, developer: 'Mukul', sprintCapacity: 8, capacity: 34 },
-  // { id: 9, developer: 'Kamleshan', sprintCapacity: 8, capacity: 54 },
-];
-
 function InputPage() {
   const { authState } = useOktaAuth();
   const {
@@ -67,8 +30,8 @@ function InputPage() {
     setDevelopers,
     setStories,
   } = useContext(DataContext);
-  const [storyList, setStoryList] = useState(storiesData);
-  const [developerList, setDeveloperList] = useState(developersData);
+  const [storyList, setStoryList] = useState([]);
+  const [developerList, setDeveloperList] = useState([]);
   const [title, setTitle] = React.useState('');
   const [startDate, setStartDate] = React.useState(null);
   const [totalDuration, setTotalDuration] = React.useState(null);
@@ -96,10 +59,10 @@ function InputPage() {
 
   const navigate = useNavigate();
 
-  const getSprintCapacity = (developers) => {
-    if (developers.length < 1) return sprintDuration * 4;
-    return developers[0].sprintCapacity;
-  };
+  // const getSprintCapacity = (developers) => {
+  //   if (developers.length < 1) return sprintDuration * 4;
+  //   return developers[0].sprintCapacity;
+  // };
 
   const handleSubmit = () => {
     if (title && startDate && sprintDuration && storyList.length > 0) {
@@ -127,7 +90,6 @@ function InputPage() {
       if (developerList.length > 0) {
         newProject.developers = updateDevelopers(developerList);
       }
-      console.log(1);
       let url = 'http://localhost:8080/api/projects';
       axios
         .post(url, newProject, {
@@ -158,8 +120,6 @@ function InputPage() {
           }
         })
         .catch((err) => {
-          // set project id
-          console.log(err.response.data);
           localStorage.setItem('projectId', err.response.data.projectId);
           setProjectId(err.response.data.projectId);
           handleOpen(err, false);

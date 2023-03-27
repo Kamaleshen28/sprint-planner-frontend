@@ -44,14 +44,8 @@ function Item(props) {
         p: 1,
         m: 1,
         width: 200,
-        // bgcolor: (theme) =>
-        //   theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
         color: (theme) =>
           theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-        // border: '1px solid',
-        // borderColor: (theme) =>
-        //   theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
-        // borderRadius: 2,
         fontSize: '0.875rem',
         fontWeight: '700',
         ...sx,
@@ -89,14 +83,6 @@ const EditInput = ({
     seteditDependencies(value);
   };
   const handleSubmitEdit = (e) => {
-    console.log('edit');
-    console.log(
-      id,
-      editstories,
-      editdependencies,
-      editdeveloper,
-      editstoryPoints,
-    );
     e.preventDefault();
     if (editstories && editstoryPoints) {
       const newStory = {
@@ -240,7 +226,7 @@ const EditInput = ({
           />
         </Item>
         <Fab
-          // variant="contained"
+          variant="contained"
           color="primary"
           type="submit"
           aria-label="add"

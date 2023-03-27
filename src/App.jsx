@@ -3,13 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import OutputList from './Pages/OutputList';
 import DataProvider from './Contexts/DataContext';
 import './App.css';
-import Home from './Pages/InputPage';
 import { ErrorScreen, GanttChart, InputPage, EditPage } from './Pages';
 import DependencyGraph from './Pages/DependencyGraph';
 import Login from './Pages/Login';
-import NewListView from './Components/NewListView';
-// import { Navbar, Footer } from './Components';
-// import GlobalContextProvider from './Contexts';
 import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
 import { Security } from '@okta/okta-react';
 import { useNavigate } from 'react-router-dom';
@@ -41,14 +37,6 @@ function App() {
                 </SecureRoute>
               }
             />
-            <Route
-              path="/new"
-              element={
-                <SecureRoute>
-                  <NewListView />
-                </SecureRoute>
-              }
-            />
             <Route path="/login" element={<Login />} />
             <Route path="/login/callback" element={<LoginCallbackUser />} />
             <Route
@@ -72,7 +60,6 @@ function App() {
               }
             />
             <Route path="error/:errorCode?" element={<ErrorScreen />} />
-            {/* <Route path="/edit/:auto-fill?" element={<EditPage />} /> */}
             <Route
               path="/edit/:auto-fill?"
               element={

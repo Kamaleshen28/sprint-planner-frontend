@@ -13,14 +13,8 @@ function Item(props) {
         p: 1,
         m: 1,
         width: 200,
-        // height: '40px',
-        // bgcolor: (theme) =>
-        //   theme.palette.mode === 'dark' ? '#101010' : 'grey.100',
         color: (theme) =>
           theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800',
-        // border: '1px solid',
-        // borderColor: (theme) =>
-        //   theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300',
         borderRadius: 0,
         fontSize: '0.875rem',
         fontWeight: '700',
@@ -47,9 +41,7 @@ export default function DeveloperInput({
   deleteCheck,
 }) {
   const [id, setId] = useState(
-    developerList.length > 0
-      ? developerList[developerList.length - 1].id + 1
-      : 1,
+    developerList.length > 0 ? developerList.length + 1 : 1,
   );
   const [developer, setDeveloper] = useState('');
   const [sprintCapacity, setSprintCapacity] = useState(undefined);
@@ -63,7 +55,7 @@ export default function DeveloperInput({
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (id && developer && capacity && sprintCapacity) {
+    if (developer && capacity && sprintCapacity) {
       const newDeveloper = { id, developer, sprintCapacity, capacity };
       setDeveloperList((developerList) => {
         return [...developerList, newDeveloper];
@@ -72,7 +64,6 @@ export default function DeveloperInput({
       setDeveloper('');
     }
   };
-  //   console.log(developerList.length);
   return (
     <>
       <div className="dev-container">
@@ -83,13 +74,6 @@ export default function DeveloperInput({
                 display: 'grid',
                 gridTemplateColumns: '1fr 2fr 2fr repeat(3, 1fr)',
                 p: 1,
-                // ml: 6,
-                // m: 1,
-                // justifyContent: 'space-between',
-                // textAlign: 'center',
-                // bgcolor: 'background.white',
-                // borderRadius: 1,
-                // gap: '0 1rem',
               }}
             >
               <Item
@@ -173,25 +157,11 @@ export default function DeveloperInput({
           >
             <Box
               sx={{
-                // display: 'flex',
-                // flexDirection: 'row',
                 width: '100%',
                 display: 'grid',
                 gridTemplateColumns: '1fr 2fr 2fr repeat(3, 1fr)',
-                // bgcolor: 'white',
-
-                // ml: 6,
                 p: 1,
-                // p: '0 2',
-                // m: '0 4',
-                // justifyContent: 'space-around',
-                // bgcolor: '#28709e',
-                // borderRadius: '0 0 20px 20px',
-                // height: '100px',
-                // boxShadow: 1,
-                // height: '50px',
                 alignItems: 'center',
-                // height: '100%',
               }}
             >
               <div></div>
@@ -250,7 +220,6 @@ export default function DeveloperInput({
               </Tooltip>
             </Box>
           </ValidatorForm>
-          {/* </form> */}
         </Box>
       </div>
     </>

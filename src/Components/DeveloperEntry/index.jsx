@@ -1,6 +1,5 @@
 import { Box, Tooltip, IconButton, Modal, Button } from '@mui/material';
 import Backdrop from '@mui/material/Backdrop';
-import Typography from '@mui/material/Typography';
 import Fade from '@mui/material/Fade';
 import DeleteIcon from '@mui/icons-material/Delete';
 import PropTypes from 'prop-types';
@@ -17,13 +16,8 @@ function Item(props) {
         p: 1,
         m: 1,
         width: 150,
-        // bgcolor: (theme) => (theme.palette.mode === 'dark' ? '#101010' : 'grey.100'),
         bgcolor: 'white',
-        // color: (theme) => (theme.palette.mode === 'dark' ? 'grey.300' : 'grey.800'),
         color: 'grey.800',
-        // border: '1px solid',
-        // borderColor: (theme) => (theme.palette.mode === 'dark' ? 'grey.800' : 'grey.300'),
-        // borderColor: 'skyblue',
         borderRadius: 1,
         fontSize: '0.875rem',
         fontWeight: '700',
@@ -146,7 +140,6 @@ export default function DeveloperEntry({
     </Modal>
   );
   return (
-    // <div className="list-item">
     <>
       {deleteConfirmationPopup}
       {EditInputModal}
@@ -161,23 +154,14 @@ export default function DeveloperEntry({
           padding: 0,
           justifyContent: 'center',
           alignItems: 'center',
-          // ml: 6,
           mt: 1,
           p: 1,
-          // width: '100%',
-          // m: 0.5,
-          // justifyContent: 'space-between',
-          // bgcolor: 'background.white',
-          // borderRadius: 1,
-          // gap: '0 2rem',
-          // width: '70vw',
         }}
       >
         <Item sx={{ width: '80%', mx: 'auto' }}>{index + 1}</Item>
         <Item sx={{ width: '80%', mx: 'auto' }}>{developer.toString()}</Item>
         <Item sx={{ width: '80%', mx: 'auto' }}>{sprintCapacity}</Item>
         <Item sx={{ width: '80%', mx: 'auto' }}>{capacity}</Item>
-        {/* <Button onClick={() => removeItem(index)}>==</Button> */}
         {deleteCheck(id) ? (
           <Tooltip title="Delete">
             <IconButton color="primary" onClick={() => handlePopupOpen(id)}>
@@ -203,7 +187,6 @@ export default function DeveloperEntry({
 }
 
 DeveloperEntry.propTypes = {
-  // key: PropTypes.number,
   index: PropTypes.number,
   developerInfo: PropTypes.object,
   removeItem: PropTypes.func,

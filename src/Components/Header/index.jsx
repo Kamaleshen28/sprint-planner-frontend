@@ -6,15 +6,11 @@ import Button from '@mui/material/Button';
 import { useOktaAuth } from '@okta/okta-react';
 
 export default function Header() {
-  const navigate = useNavigate();
   const { oktaAuth } = useOktaAuth();
 
   const handleSignoutClick = () => {
     localStorage.removeItem('projectId');
     oktaAuth.signOut('/');
-    // localStorage.setItem('accessToken', null);
-    // localStorage.removeItem('accessToken');
-    // navigate('/login');
   };
 
   return (
@@ -22,12 +18,7 @@ export default function Header() {
       <div className="heading">
         <SidePanel />
       </div>
-      {/* <div style={{ flex: 1 }}>
-        <Title value={value} setValue={setValue} />
-      </div> */}
-
       <div className="signout-button-container" onClick={handleSignoutClick}>
-        {/* <button className="signout-button">Sign Out</button> */}
         <Button variant="contained">Sign Out</Button>
       </div>
     </div>
