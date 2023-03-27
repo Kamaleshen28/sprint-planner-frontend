@@ -8,6 +8,7 @@
 
 .sprintViewBody {
   display: flex;
+  justify-content: space-around;
   gap: 1rem;
   width: 98vw;
   overflow-x: scroll;
@@ -17,10 +18,10 @@
 .sprintBody {
   display: flex;
   flex-direction: column;
-  min-width: 30vw;
+  width: 30vw;
   align-items: center;
   gap: 1rem;
-  height: 50vh;
+  height: 60vh;
   overflow-y: scroll;
 }
 

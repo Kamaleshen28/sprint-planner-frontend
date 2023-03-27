@@ -9,9 +9,9 @@ export default function CardView(props) {
 
   return (
     <div className="sprintView">
-      <div className="sprintViewHeader">
+      {/* <div className="sprintViewHeader">
         <h1 className="sprintViewHeaderTitle">{heading}</h1>
-      </div>
+      </div> */}
       <div className="sprintViewBody">
         {content.map((sprint, index) => {
           return (
