@@ -18,10 +18,12 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { DataContext } from '../../Contexts/DataContext';
 import { Chip, Modal } from '@mui/material';
+import { useOktaAuth } from '@okta/okta-react';
 
 export default function SidePanel() {
   const { setProjectId, projectId, updateSidebar } =
     React.useContext(DataContext);
+  const { authState } = useOktaAuth();
   const navigate = useNavigate();
   const [state, setState] = React.useState(false);
   const [projects, setProjects] = React.useState([]);
@@ -71,7 +73,10 @@ export default function SidePanel() {
       const res = await axios.delete(
         `http://localhost:8080/api/projects/${projectId}`,
         {
-          headers: { authorization: localStorage.getItem('accessToken') },
+          // headers: { authorization: localStorage.getItem('accessToken') },
+          headers: {
+            authorization: authState?.accessToken.accessToken,
+          },
         },
       );
       console.log(res);
@@ -130,7 +135,9 @@ export default function SidePanel() {
     console.log('projectId', projectId);
     axios
       .get('http://localhost:8080/api/projects', {
-        headers: { authorization: localStorage.getItem('accessToken') },
+        headers: {
+          authorization: authState?.accessToken.accessToken,
+        },
       })
       .then((res) => {
         // console.log(res.data.data);

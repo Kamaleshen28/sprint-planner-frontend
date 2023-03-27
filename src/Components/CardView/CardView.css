@@ -1,0 +1,52 @@
+.sprintViewHeader {
+  text-align: left;
+  display: flex;
+  padding-left: 1vw;
+  font-size: larger;
+  align-items: center;
+}
+
+.sprintViewBody {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  width: 98vw;
+  overflow-x: scroll;
+  padding: 2vh 1vw;
+}
+
+.sprintBody {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  align-items: center;
+  gap: 1rem;
+  height: 60vh;
+  overflow-y: scroll;
+}
+
+.sprintBodyWithHeader {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 2vh 1vw;
+  background-color: white;
+}
+
+.sprintBodyWithHeader > h1 {
+  text-align: center;
+  background-color: aliceblue;
+  margin-bottom: 1vh;
+  border-radius: 5px;
+}
+
+.sprintViewBody::-webkit-scrollbar {
+  display: none;
+}
+
+.sprintBody::-webkit-scrollbar {
+  display: none;
+}
+
+.sprintView {
+  overflow: auto;
+}

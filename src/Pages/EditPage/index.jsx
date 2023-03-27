@@ -22,6 +22,7 @@ import {
 } from '../../Components';
 import { Alert, Button, Slide, Chip } from '@mui/material';
 import Snackbar from '@mui/material/Snackbar';
+import { useOktaAuth } from '@okta/okta-react';
 
 const storiesData = [
   // {
@@ -61,6 +62,7 @@ const developersData = [
 ];
 
 function EditPage() {
+  const { authState } = useOktaAuth();
   const {
     projectId,
     setProjectId,
@@ -144,7 +146,9 @@ function EditPage() {
       )}`;
       axios
         .put(url, newProject, {
-          headers: { authorization: localStorage.getItem('accessToken') },
+          headers: {
+            authorization: authState?.accessToken.accessToken,
+          },
         })
         .then((res) => {
           if (res.data.data.developers) {
@@ -193,66 +197,63 @@ function EditPage() {
   }, [title, snackMessage]);
   useEffect(() => {
     const projectIdLocal = localStorage.getItem('projectId');
-    if (!localStorage.getItem('accessToken')) {
-      navigate('/login');
-    } else {
-      if (projectId || projectIdLocal) {
-        const id = projectId || projectIdLocal;
-        let url = `http://localhost:8080/api/projects/${id}`;
-        axios
-          .get(url, {
-            headers: { authorization: localStorage.getItem('accessToken') },
-          })
-          .then((res) => {
-            if (params.auto === 'auto') {
-              const developerRequired = res.data.data.remarks.split(' ')[2];
-              const dummyDevelopers = [];
-              for (let i = 0; i < developerRequired; i++) {
-                dummyDevelopers.push({
-                  id: i,
-                  developer: `Developer ${i + 1}`,
-                  sprintCapacity: res.data.data.sprintDuration * 5,
-                  capacity: 100,
-                });
-              }
-              setStoryList(getStories(res.data.data.stories));
-              setDeveloperList(dummyDevelopers);
 
-              setTitle(res.data.data.title);
-              const date = new Date(res.data.data.projectStartDate);
-              let formattedDate = date.toLocaleDateString();
-              formattedDate = formattedDate.split('/').reverse().join('-');
-              setStartDate(formattedDate);
-              setSprintDuration(res.data.data.sprintDuration);
-              setTotalDuration(res.data.data.givenTotalDuration);
-              setSnackMessage(res.data.data.remarks);
-              setProjectStatus(res.data.data.status);
-            } else {
-              setStoryList(getStories(res.data.data.stories));
-              setDeveloperList(
-                getDevelopers(
-                  res.data.data.developers,
-                  res.data.data.sprintCapacity,
-                ),
-              );
-              setTitle(res.data.data.title);
-              const date = new Date(res.data.data.projectStartDate);
-              var formattedDate = date.toLocaleDateString();
-              formattedDate = formattedDate.split('/').reverse().join('-');
-              setStartDate(formattedDate);
-              setSprintDuration(res.data.data.sprintDuration);
-              setTotalDuration(res.data.data.givenTotalDuration);
-              setSnackMessage(res.data.data.remarks);
-              setProjectStatus(res.data.data.status);
+    if (projectId || (projectIdLocal && authState?.accessToken.accessToken)) {
+      const id = projectId || projectIdLocal;
+      let url = `http://localhost:8080/api/projects/${id}`;
+      axios
+        .get(url, {
+          headers: {
+            authorization: authState?.accessToken.accessToken,
+          },
+        })
+        .then((res) => {
+          if (params.auto === 'auto') {
+            const developerRequired = res.data.data.remarks.split(' ')[2];
+            const dummyDevelopers = [];
+            for (let i = 0; i < developerRequired; i++) {
+              dummyDevelopers.push({
+                id: i,
+                developer: `Developer ${i + 1}`,
+                sprintCapacity: res.data.data.sprintDuration * 5,
+                capacity: 100,
+              });
             }
-          })
-          .catch((err) => {
-            console.log(err);
-            // handleOpen(err, false);
-          });
-      } else {
-        navigate('/create');
-      }
+            setStoryList(getStories(res.data.data.stories));
+            setDeveloperList(dummyDevelopers);
+
+            setTitle(res.data.data.title);
+            const date = new Date(res.data.data.projectStartDate);
+            let formattedDate = date.toLocaleDateString();
+            formattedDate = formattedDate.split('/').reverse().join('-');
+            setStartDate(formattedDate);
+            setSprintDuration(res.data.data.sprintDuration);
+            setTotalDuration(res.data.data.givenTotalDuration);
+            setSnackMessage(res.data.data.remarks);
+            setProjectStatus(res.data.data.status);
+          } else {
+            setStoryList(getStories(res.data.data.stories));
+            setDeveloperList(
+              getDevelopers(
+                res.data.data.developers,
+                res.data.data.sprintCapacity,
+              ),
+            );
+            setTitle(res.data.data.title);
+            const date = new Date(res.data.data.projectStartDate);
+            var formattedDate = date.toLocaleDateString();
+            formattedDate = formattedDate.split('/').reverse().join('-');
+            setStartDate(formattedDate);
+            setSprintDuration(res.data.data.sprintDuration);
+            setTotalDuration(res.data.data.givenTotalDuration);
+            setSnackMessage(res.data.data.remarks);
+            setProjectStatus(res.data.data.status);
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          // handleOpen(err, false);
+        });
     }
   }, [projectId, params]);
 
