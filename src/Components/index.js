@@ -15,3 +15,4 @@ export { default as ErrorModal } from './ErrorModal';
 export { default as ValidationModal } from './ValidationModal';
 export { default as EditInput } from './EditInput';
 export { default as EditDeveloperInput } from './EditDeveloperInput';
+export { default as NewListView } from './NewListView';

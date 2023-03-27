@@ -7,6 +7,7 @@ import './App.css';
 import { ErrorScreen, GanttChart, InputPage, EditPage } from './Pages';
 import DependencyGraph from './Pages/DependencyGraph';
 import Login from './Pages/Login';
+import NewListView from './Components/NewListView';
 // import { Navbar, Footer } from './Components';
 // import GlobalContextProvider from './Contexts';
 
