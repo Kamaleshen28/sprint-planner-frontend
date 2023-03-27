@@ -1,0 +1,17 @@
+* {
+  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
+  font-weight: bolder;
+  text-align: left;
+}
+
+.storyCard {
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.storyDevelopers {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
