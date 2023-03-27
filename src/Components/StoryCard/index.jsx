@@ -1,14 +1,54 @@
 import React, { useContext } from 'react';
-import Card from '@mui/material/Card';
+import {
+  Card,
+  CardContent,
+  Modal,
+  Typography,
+  Avatar,
+  styled,
+} from '@mui/material';
 import PropTypes from 'prop-types';
-import Modal from '@mui/material/Modal';
 import CardHeader from '@mui/material/CardHeader';
-import Avatar from '@mui/material/Avatar';
 import Divider from '@mui/material/Divider';
 import { DataContext } from '../../Contexts/DataContext';
-import { CardContent } from '@mui/material';
 import './StoryCard.css';
+import CloseIcon from '@mui/icons-material/Close';
+import IconButton from '@mui/material/IconButton';
 
+const CardContentNoPadding = styled(CardContent)(`
+  padding: 0;
+  &:last-child {
+    padding-bottom: 0;
+  }
+`);
+function stringToColor(string) {
+  let hash = 0;
+  let i;
+
+  for (i = 0; i < string.length; i += 1) {
+    hash = string.charCodeAt(i) + ((hash << 5) - hash);
+  }
+
+  let color = '#';
+
+  for (i = 0; i < 3; i += 1) {
+    const value = (hash >> (i * 8)) & 0xff;
+    color += `00${value.toString(16)}`.slice(-2);
+  }
+
+  return color;
+}
+
+function stringAvatar(name) {
+  return {
+    sx: {
+      bgcolor: stringToColor(name),
+    },
+    children: `${name.split(' ')[0][0]}${
+      name.split(' ').length == 2 ? name.split(' ')[1][0] : ''
+    }`,
+  };
+}
 const Story = ({
   id,
   dependencies,
@@ -18,7 +58,7 @@ const Story = ({
   title,
   assignedDeveloperId,
 }) => {
-  const { apiResponse } = useContext(DataContext);
+  const { apiResponse, stories } = useContext(DataContext);
   // const date = Date.now();
 
   let startDate = new Date(apiResponse.projectStartDate);
@@ -66,37 +106,71 @@ const Story = ({
   };
   return (
     <React.Fragment>
-      <Card onClick={handleOpen} className="storyCard">
-        <CardHeader
+      <Card
+        onClick={() => handleOpen()}
+        sx={{
+          maxWidth: '100%',
+          overflow: 'visible',
+          '&:hover': {
+            bgColor: '#ffffff',
+            boxShadow: '0 8px 16px 0 rgba(0, 0, 0, 0.4)',
+            cursor: 'pointer',
+          },
+        }}
+      >
+        <CardContentNoPadding
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            backgroundColor: 'black',
-            alignItems: 'center',
-            color: 'white',
-            fontSize: 18,
             p: 0,
-            pl: 2,
-          }}
-          avatar={<p>{title}</p>}
-        />
-        <Divider variant="middle" />
-        <CardContent
-          sx={{
-            pt: 2,
-            px: 4,
-            pb: 3,
-            width: '370px',
+            paddingBottom: 0,
+            display: 'flex',
+            flexDirection: 'column',
           }}
         >
-          <p>
-            {startDate.toDateString()} - {endDate.toDateString()}
-          </p>
-          <div className="storyDevelopers">
-            <Avatar>{developers[0].name[0]}</Avatar>
-            <p>{developers[0].name}</p>
-          </div>
-        </CardContent>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="div"
+            sx={{
+              bgcolor: 'black',
+              color: 'white',
+              paddingLeft: 2,
+              paddingRight: 2,
+              mb: 0,
+              display: 'flex',
+              alignItems: 'center',
+              height: '50px',
+              justifyContent: 'space-between',
+              borderTopRightRadius: '4px',
+              borderTopLeftRadius: '4px',
+            }}
+          >
+            {title}
+          </Typography>
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              height: 100,
+              textAlign: 'center',
+              p: 2,
+              borderLeft: '4px solid',
+              borderColor: stringToColor(developers[0].name),
+              '&:hover': {
+                borderColor: '#30A3DA',
+              },
+              flexGrow: 1,
+              borderBottomLeftRadius: '4px',
+            }}
+          >
+            <p>
+              {startDate.toDateString()} - {endDate.toDateString()}
+            </p>
+            <div className="storyDevelopers">
+              <Avatar {...stringAvatar(developers[0].name)} />
+              <p>{developers[0].name}</p>
+            </div>
+          </Typography>
+        </CardContentNoPadding>
       </Card>
       <Modal
         open={open}
@@ -108,7 +182,7 @@ const Story = ({
         <Card sx={{ ...style, minWidth: 270 }} variant="outlined">
           <CardHeader
             sx={{
-              // display: 'flex',
+              display: 'flex',
               // justifyContent: 'center',
               backgroundColor: 'black',
               // alignItems: 'center',
@@ -117,26 +191,28 @@ const Story = ({
               border: 'none',
 
               p: 0,
-              // pt: 2,
               pl: 4,
               fontSize: 18,
               fontWeight: 500,
 
               // paddingBottom: 1.5,
             }}
-            // avatar={
-            //   <Avatar
-            //     sx={{
-            //       bgcolor: red[500],
-            //       height: '50px',
-            //       width: 50,
-            //     }}
-            //     aria-label="recipe"
-            //   >
-            //     STORY {id}
-            //   </Avatar>
-            // }
             avatar={<p>STORY {id}</p>}
+            action={
+              <p style={{ marginRight: '1rem' }}>
+                <IconButton
+                  aria-label="settings"
+                  onClick={handleClose}
+                  sx={{ '&:hover': { bgcolor: '#f9f9f936' } }}
+                >
+                  <CloseIcon
+                    sx={{
+                      color: 'white',
+                    }}
+                  />
+                </IconButton>
+              </p>
+            }
           />
           <Divider variant="middle" />
           <CardContent
@@ -151,33 +227,36 @@ const Story = ({
               <b>Story ID:</b> {id}
             </p> */}
             <p>
-              <b>Title:</b> {title}
+              <b>Title: </b> {title}
             </p>
             <p>
-              <b>Dependencies(ID): </b>
+              <b>Dependencies: </b>
               {dependencies.length !== 0
                 ? dependencies.map((dependency, index) => (
-                    <li key={index}>{dependency}</li>
+                    <li
+                      key={index}
+                      style={{
+                        overflow: 'hidden',
+                        whiteSpace: 'nowrap',
+                        textOverflow: 'ellipsis',
+                        width: '100%',
+                      }}
+                    >
+                      {dependency}:{' '}
+                      {stories.find((story) => story.id === dependency).title}
+                    </li>
                   ))
                 : 'NA'}
             </p>
             <p>
-              <b>Start Day:</b> {startDate.toLocaleDateString()}
+              <b>Start Day: </b> {startDate.toLocaleDateString()}
             </p>
             <p>
-              <b>End Day:</b> {endDate.toLocaleDateString()}
+              <b>End Day: </b> {endDate.toLocaleDateString()}
             </p>
             <p>
-              <b>All Developers:</b>
-              {developers.map((developer, index) =>
-                developer.id === assignedDeveloperId ? (
-                  <li key={index}>
-                    <b>{developer.name}</b> (Assigned)
-                  </li>
-                ) : (
-                  <li key={index}>{developer.name}</li>
-                ),
-              )}
+              <b>Developer: </b>
+              {developers[0].name}
             </p>
           </CardContent>
         </Card>
