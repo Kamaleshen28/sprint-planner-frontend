@@ -3,7 +3,14 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import OutputList from './Pages/OutputList';
 import DataProvider from './Contexts/DataContext';
 import './App.css';
-import { ErrorScreen, GanttChart, InputPage, EditPage } from './Pages';
+import Home from './Pages/InputPage';
+import {
+  ErrorScreen,
+  GanttChart,
+  InputPage,
+  EditPage,
+  LandingPage,
+} from './Pages';
 import DependencyGraph from './Pages/DependencyGraph';
 import Login from './Pages/Login';
 import { OktaAuth, toRelativeUrl } from '@okta/okta-auth-js';
@@ -56,6 +63,14 @@ function App() {
               element={
                 <SecureRoute>
                   <DependencyGraph />
+                </SecureRoute>
+              }
+            />
+            <Route
+              path="/landingpage"
+              element={
+                <SecureRoute>
+                  <LandingPage />
                 </SecureRoute>
               }
             />
