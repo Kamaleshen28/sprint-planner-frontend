@@ -8,8 +8,7 @@
 
 .sprintViewBody {
   display: flex;
-  justify-content: space-around;
-  gap: 1rem;
+  gap: 1vw;
   width: 98vw;
   overflow-x: scroll;
   padding: 2vh 1vw;
@@ -20,13 +19,13 @@
   flex-direction: column;
   width: 30vw;
   align-items: center;
-  gap: 1rem;
+  gap: 1vh;
   height: 60vh;
   overflow-y: scroll;
 }
 
 .sprintBodyWithHeader {
-  border: 1px solid black;
+  /* border: 1px solid black; */
   border-radius: 5px;
   padding: 2vh 1vw;
   background-color: white;
@@ -35,6 +34,7 @@
 .sprintBodyWithHeader > h1 {
   text-align: center;
   background-color: aliceblue;
+  margin: 0;
   margin-bottom: 1vh;
   border-radius: 5px;
 }

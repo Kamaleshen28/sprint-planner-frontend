@@ -41,6 +41,14 @@ function App() {
                 </SecureRoute>
               }
             />
+            <Route
+              path="/new"
+              element={
+                <SecureRoute>
+                  <NewListView />
+                </SecureRoute>
+              }
+            />
             <Route path="/login" element={<Login />} />
             <Route path="/login/callback" element={<LoginCallbackUser />} />
             <Route

@@ -1,9 +1,3 @@
-* {
-  font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-  font-weight: bolder;
-  /* text-align: left; */
-}
-
 .storyCard {
   cursor: pointer;
   padding: 0;
