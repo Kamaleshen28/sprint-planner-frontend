@@ -118,9 +118,16 @@ export default function OutputView(props) {
               width: 300,
               marginLeft: '24px',
               backgroundColor: 'white',
+              height: '43px',
+              my: 'auto',
+              borderRadius: '4px',
             }}
             renderInput={(params) => (
-              <TextField {...params} label="Select Developer" />
+              <TextField
+                {...params}
+                label="Select Developer"
+                variant="outlined"
+              />
             )}
             value={selectedDeveloper}
             isOptionEqualToValue={(option, value) =>
