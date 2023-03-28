@@ -39,6 +39,17 @@ export default function CardView(props) {
     });
   };
 
+  const handleScroll = () => {
+    let dots = document.querySelectorAll('.dot');
+    dots.forEach((dot) => {
+      dot.className = 'dot';
+    });
+    let container = document.querySelector('.sprintViewBody');
+    let scrollLeft = container.scrollLeft;
+    let sprintScroll = Math.floor(scrollLeft / (window.innerWidth * 0.33));
+    dots[sprintScroll].className = 'dot active';
+  };
+
   // const listWidth = document.querySelector('.sprintViewBody').innerWidth;
   const totalDots = Math.max(content.length - 2, 1);
 
@@ -66,7 +77,7 @@ export default function CardView(props) {
         <h1 className="sprintViewHeaderTitle">{heading}</h1>
       </div> */}
 
-      <div className="sprintViewBody">
+      <div className="sprintViewBody" onScroll={handleScroll}>
         {content.map((sprint, index) => {
           return (
             sprint.length > 0 && (
