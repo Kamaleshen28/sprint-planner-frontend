@@ -40,13 +40,11 @@ margin-left: 140px;
 }
 .input-search{
   height: 30px;
-  width: 170px;
+  width: 200px;
   border-style: none;
   padding: 10px;
   font-size: 18px;
-  letter-spacing: 2px;
   outline: none;
-  border-radius: 25px;
   transition: all .5s ease-in-out;
   background-color: white;
   padding-right: 40px;
@@ -55,7 +53,6 @@ margin-left: 140px;
 .input-search::placeholder{
   color:rgb(26, 68, 92);
   font-size: 18px;
-  letter-spacing: 2px;
   font-weight: 100;
 }
 .btn-search{
@@ -66,7 +63,6 @@ margin-left: 140px;
   font-weight: bold;
   outline: none;
   cursor: pointer;
-  border-radius: 50%;
   position: absolute;
   right: 0px;
   color:rgb(26, 68, 92);
@@ -92,7 +88,6 @@ margin-left: 140px;
 .input-search::placeholder:focus{
   color:black;
   font-size: 18px;
-  letter-spacing: 2px;
   font-weight: 100;
 }
 .filter-search {
