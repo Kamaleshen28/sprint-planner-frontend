@@ -46,11 +46,9 @@ export default function CardView(props) {
     });
     let container = document.querySelector('.sprintViewBody');
     let scrollLeft = container.scrollLeft;
-    let sprintScroll = Math.floor(scrollLeft / (window.innerWidth * 0.33));
+    let sprintScroll = Math.round(scrollLeft / (window.innerWidth * 0.33));
     dots[sprintScroll].className = 'dot active';
   };
-
-  // const listWidth = document.querySelector('.sprintViewBody').innerWidth;
   const totalDots = Math.max(content.length - 2, 1);
 
   let html = [];
