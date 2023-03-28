@@ -25,17 +25,47 @@ export default function CardView(props) {
     });
   }
 
+  const handleScrollByDot = (event, index) => {
+    let dots = document.querySelectorAll('.dot');
+    dots.forEach((dot) => {
+      dot.className = 'dot';
+    });
+    event.target.className = 'dot active';
+    let container = document.querySelector('.sprintViewBody');
+    container.scrollTo({
+      left: index * window.innerWidth * 0.33,
+      top: 0,
+      behavior: 'smooth',
+    });
+  };
+
+  // const listWidth = document.querySelector('.sprintViewBody').innerWidth;
+  const totalDots = Math.max(content.length - 2, 1);
+
+  let html = [];
+  for (let i = 0; i < totalDots; i++) {
+    html.push(1);
+  }
+
+  const renderDots = html.map((dot, index) => {
+    return (
+      <span
+        key={index}
+        className="dot"
+        onClick={(event) => handleScrollByDot(event, index)}
+      ></span>
+    );
+  });
+  React.useEffect(() => {
+    let dots = document.querySelectorAll('.dot');
+    dots[0].className = 'dot active';
+  }, []);
   return (
     <div className="sprintView">
       {/* <div className="sprintViewHeader">
         <h1 className="sprintViewHeaderTitle">{heading}</h1>
       </div> */}
-      <button className="leftButton" onClick={clickLeft}>
-        {'<'}
-      </button>
-      <button className="rightButton" onClick={clickRight}>
-        {'>'}
-      </button>
+
       <div className="sprintViewBody">
         {content.map((sprint, index) => {
           return (
@@ -69,6 +99,15 @@ export default function CardView(props) {
             )
           );
         })}
+      </div>
+      <div className="sprintViewScrollDiv">
+        <button className="leftButton" onClick={clickLeft}>
+          {'<'}
+        </button>
+        <div className="dots">{renderDots}</div>
+        <button className="rightButton" onClick={clickRight}>
+          {'>'}
+        </button>
       </div>
     </div>
   );
