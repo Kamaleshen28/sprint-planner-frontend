@@ -49,15 +49,7 @@ function stringAvatar(name) {
     }`,
   };
 }
-const Story = ({
-  id,
-  dependencies,
-  startDay,
-  endDay,
-  developers,
-  title,
-  assignedDeveloperId,
-}) => {
+const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
   const { apiResponse, stories } = useContext(DataContext);
   // const date = Date.now();
 
@@ -124,6 +116,7 @@ const Story = ({
             paddingBottom: 0,
             display: 'flex',
             flexDirection: 'column',
+            width: '100%',
           }}
         >
           <Typography
@@ -136,12 +129,13 @@ const Story = ({
               paddingLeft: 2,
               paddingRight: 2,
               mb: 0,
-              display: 'flex',
-              alignItems: 'center',
               height: '50px',
-              justifyContent: 'space-between',
               borderTopRightRadius: '4px',
               borderTopLeftRadius: '4px',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              verticalAlign: 'middle',
             }}
           >
             {title}
@@ -150,7 +144,7 @@ const Story = ({
             variant="body2"
             color="text.secondary"
             sx={{
-              height: 100,
+              height: 130,
               textAlign: 'center',
               p: 2,
               borderLeft: '4px solid',
@@ -163,7 +157,12 @@ const Story = ({
             }}
           >
             <p>
-              {startDate.toDateString()} - {endDate.toDateString()}
+              <b>From:</b>
+              {startDate.toDateString()}
+            </p>
+            <p>
+              <b>To:</b>
+              {endDate.toDateString()}
             </p>
             <div className="storyDevelopers">
               <Avatar {...stringAvatar(developers[0].name)} />
@@ -242,7 +241,7 @@ const Story = ({
                         width: '100%',
                       }}
                     >
-                      {dependency}:{' '}
+                      {/* {dependency}:{' '} */}
                       {stories.find((story) => story.id === dependency).title}
                     </li>
                   ))

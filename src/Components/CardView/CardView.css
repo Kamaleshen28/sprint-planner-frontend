@@ -29,8 +29,7 @@
   /* border: 1px solid black; */
   border-radius: 5px;
   padding: 2vh 1vw;
-  background-color: white;
-  /* scroll-snap-align: start; */
+  background-color: rgb(244, 245, 247);
 }
 
 .sprintBodyWithHeader > h1 {

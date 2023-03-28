@@ -1,7 +1,6 @@
 import React, { createContext, useState, useEffect } from 'react';
 import axios from 'axios';
 export const DataContext = createContext({});
-import { useNavigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useOktaAuth } from '@okta/okta-react';
 

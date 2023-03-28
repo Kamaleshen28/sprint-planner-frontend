@@ -1,14 +1,21 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DataContext } from '../../Contexts/DataContext';
-import { Tab, Tabs, Box, Typography } from '@mui/material';
+import {
+  Tab,
+  Tabs,
+  Box,
+  Typography,
+  Autocomplete,
+  TextField,
+} from '@mui/material';
 import CardView from '../CardView';
 import PropTypes from 'prop-types';
 import './OutputView.css';
+import { ElectricalServices } from '@mui/icons-material';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
   return (
     <div
       role="tabpanel"
@@ -40,10 +47,14 @@ function a11yProps(index) {
 }
 
 export default function OutputView(props) {
+  const [selectedDeveloper, setSelectedDeveloper] = React.useState({
+    label: 'All',
+  });
   const { projectTitle } = props;
   const { sprints } = React.useContext(DataContext);
-
+  const [filteredSprints, setFilteredSprints] = React.useState(sprints);
   const developerIdMapping = {};
+
   const storiesPerDeveloper = sprints.reduce((acc, sprint) => {
     sprint.forEach((story) => {
       story.developers.forEach((developer) => {
@@ -58,12 +69,32 @@ export default function OutputView(props) {
     return acc;
   }, []);
 
+  useEffect(() => {
+    if (selectedDeveloper?.label && selectedDeveloper?.label !== 'All') {
+      const filteredSprints = sprints.map((sprint) =>
+        sprint.filter((story) =>
+          story.developers.find(
+            (developer) => developer.name === selectedDeveloper?.label,
+          ),
+        ),
+      );
+      setFilteredSprints(filteredSprints);
+    } else {
+      setFilteredSprints(sprints);
+    }
+  }, [selectedDeveloper]);
+
+  const allDevelopers = [
+    { label: 'All' },
+    ...Object.keys(developerIdMapping).map((key) => ({
+      label: developerIdMapping[key],
+    })),
+  ];
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-
   return (
     <Box sx={{ width: '100%' }}>
       <h1 className="projectTitle">{projectTitle}</h1>
@@ -72,10 +103,34 @@ export default function OutputView(props) {
           borderBottom: 1,
           borderColor: 'divider',
           display: 'flex',
-          flexDirection: 'row-reverse',
+          // flexDirection: 'row-reverse',
         }}
       >
+        {value == 0 && allDevelopers.length !== 0 && (
+          <Autocomplete
+            disablePortal
+            id="combo-box-demo"
+            options={allDevelopers}
+            onChange={(event, newValue) => {
+              setSelectedDeveloper(newValue);
+            }}
+            sx={{
+              width: 300,
+              marginLeft: '24px',
+              backgroundColor: 'white',
+            }}
+            renderInput={(params) => (
+              <TextField {...params} label="Select Developer" />
+            )}
+            value={selectedDeveloper}
+            isOptionEqualToValue={(option, value) =>
+              option.value === value.value
+            }
+          />
+        )}
+
         <Tabs
+          sx={{ marginLeft: 'auto' }}
           value={value}
           onChange={handleChange}
           aria-label="basic tabs example"
@@ -86,7 +141,7 @@ export default function OutputView(props) {
       </Box>
       <TabPanel value={value} index={0}>
         <CardView
-          content={sprints}
+          content={filteredSprints}
           developerIdMapping={developerIdMapping}
           heading="Sprints"
         />
