@@ -35,6 +35,28 @@ export default function SidePanel() {
     setIsOpen({ open: false, id: null });
   };
 
+  const downloadHandler = async () => {
+    const projectId = localStorage.getItem('projectId');
+    try {
+      const res = await axios.get(
+        `http://localhost:8080/api/projects/${projectId}/save`,
+        {
+          headers: {
+            authorization: authState?.accessToken.accessToken,
+          },
+        },
+      );
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', 'project.csv');
+      document.body.appendChild(link);
+      link.click();
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === 'keydown' &&
@@ -276,6 +298,16 @@ export default function SidePanel() {
                 onClick={() => setIsOpen({ open: true })}
               >
                 Delete Project
+              </Button>
+            </ListItem>
+            <ListItem>
+              <Button
+                sx={{ width: '90%', mx: 'auto' }}
+                variant="contained"
+                color="success"
+                onClick={downloadHandler}
+              >
+                Download Project
               </Button>
             </ListItem>
           </List>
