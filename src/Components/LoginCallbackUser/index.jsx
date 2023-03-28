@@ -7,7 +7,7 @@ export default function LoginCallbackUser() {
   const navigate = useNavigate();
   const { authState } = useOktaAuth();
 
-  if (authState?.isAuthenticated) navigate('/landingpage');
+  if (authState?.isAuthenticated) navigate('/');
 
   return <LoginCallback />;
 }

@@ -37,7 +37,7 @@ function App() {
         <DataProvider>
           <Routes>
             <Route
-              path="/"
+              path="/list"
               element={
                 <SecureRoute>
                   <OutputList />
@@ -67,7 +67,7 @@ function App() {
               }
             />
             <Route
-              path="/landingpage"
+              path="/"
               element={
                 <SecureRoute>
                   <LandingPage />

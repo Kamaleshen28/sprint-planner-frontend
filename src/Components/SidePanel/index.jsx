@@ -256,7 +256,7 @@ export default function SidePanel() {
           <List>
             <ListItem disablePadding>
               <ListItemButton
-                onClick={() => navigate('/')}
+                onClick={() => navigate('/list')}
                 disabled={!plannedStatus}
                 data-testid="list-view-button"
               >
