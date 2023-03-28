@@ -7,11 +7,35 @@ import './CardView.css';
 export default function CardView(props) {
   const { content, developerIdMapping, heading } = props;
 
+  function clickLeft() {
+    let container = document.querySelector('.sprintViewBody');
+    container.scrollTo({
+      left: container.scrollLeft - window.innerWidth * 0.33,
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+
+  function clickRight() {
+    let container = document.querySelector('.sprintViewBody');
+    container.scrollTo({
+      left: container.scrollLeft + window.innerWidth * 0.33,
+      top: 0,
+      behavior: 'smooth',
+    });
+  }
+
   return (
     <div className="sprintView">
       {/* <div className="sprintViewHeader">
         <h1 className="sprintViewHeaderTitle">{heading}</h1>
       </div> */}
+      <button className="leftButton" onClick={clickLeft}>
+        {'<'}
+      </button>
+      <button className="rightButton" onClick={clickRight}>
+        {'>'}
+      </button>
       <div className="sprintViewBody">
         {content.map((sprint, index) => {
           return (

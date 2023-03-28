@@ -12,6 +12,7 @@
   width: 98vw;
   overflow-x: scroll;
   padding: 2vh 1vw;
+  /* scroll-snap-type: x mandatory; */
 }
 
 .sprintBody {
@@ -29,6 +30,7 @@
   border-radius: 5px;
   padding: 2vh 1vw;
   background-color: white;
+  /* scroll-snap-align: start; */
 }
 
 .sprintBodyWithHeader > h1 {
@@ -49,4 +51,28 @@
 
 .sprintView {
   overflow: auto;
+}
+
+.leftButton {
+  position: absolute;
+  left: 0;
+  bottom: 1vh;
+  z-index: 1;
+  border: none;
+  padding: 1vh 1vw;
+  font-size: 2rem;
+  cursor: pointer;
+  margin-left: 1vw;
+}
+
+.rightButton {
+  position: absolute;
+  right: 0;
+  bottom: 1vh;
+  z-index: 1;
+  border: none;
+  padding: 1vh 1vw;
+  font-size: 2rem;
+  cursor: pointer;
+  margin-right: 1vw;
 }
