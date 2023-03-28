@@ -10,6 +10,7 @@ import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { Chip } from '@mui/material';
 import DraftsIcon from '@mui/icons-material/Drafts';
 import './ProjectCard.css';
 
@@ -33,9 +34,8 @@ export default function ProjectCard({ project }) {
             variant="h5"
             component="div"
             sx={{
-              color: 'white',
+              color: 'black',
               height: '5vh',
-              backgroundColor: 'black',
               p: 2,
             }}
           >
@@ -46,15 +46,10 @@ export default function ProjectCard({ project }) {
             {new Date(project.projectStartDate).toDateString()}
           </Typography>
           <div className="card-footer">
-            <Typography variant="body2" sx={{ mt: 2, fontSize: '20px' }}>
-              {project.status === 'planned' ? 'Planned' : 'Draft'}
-            </Typography>
             {project.status === 'planned' ? (
-              <CheckCircleOutlineIcon
-                style={{ fontSize: '40px', color: 'green' }}
-              />
+              <Chip style={{ width: 100 }} color="success" label="Planned" />
             ) : (
-              <DraftsIcon style={{ fontSize: '40px' }} />
+              <Chip style={{ width: 100 }} label="Draft" />
             )}
           </div>
         </CardContent>
