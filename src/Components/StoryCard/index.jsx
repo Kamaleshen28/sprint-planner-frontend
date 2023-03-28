@@ -220,6 +220,9 @@ const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
               px: 4,
               pb: 3,
               width: '370px',
+              height: '230px',
+              overflowY: 'scroll',
+              // mb: 3,
             }}
           >
             {/* <p>
@@ -227,6 +230,16 @@ const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
             </p> */}
             <p>
               <b>Title: </b> {title}
+            </p>
+            <p>
+              <b>Start Day: </b> {startDate.toLocaleDateString()}
+            </p>
+            <p>
+              <b>End Day: </b> {endDate.toLocaleDateString()}
+            </p>
+            <p>
+              <b>Developer: </b>
+              {developers[0].name}
             </p>
             <p>
               <b>Dependencies: </b>
@@ -246,16 +259,6 @@ const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
                     </li>
                   ))
                 : 'NA'}
-            </p>
-            <p>
-              <b>Start Day: </b> {startDate.toLocaleDateString()}
-            </p>
-            <p>
-              <b>End Day: </b> {endDate.toLocaleDateString()}
-            </p>
-            <p>
-              <b>Developer: </b>
-              {developers[0].name}
             </p>
           </CardContent>
         </Card>
