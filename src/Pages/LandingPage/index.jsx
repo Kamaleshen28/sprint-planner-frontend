@@ -95,13 +95,14 @@ export default function LandingPage() {
           </div>
           <div className="filter-search">
             <FormControl
-              sx={{ m: 1, width: 300, display: 'flex' }}
+              sx={{ width: 200, display: 'flex', height: '40px' }}
               style={{ backgroundColor: 'white', borderRadius: '10px' }}
             >
               <InputLabel
                 variant="standard"
                 htmlFor="uncontrolled-native"
-                sx={{ ml: 2, pb: 2 }}
+                style={{ marginTop: '-13px' }}
+                sx={{ ml: 2, height: '40px' }}
               >
                 Select Status
               </InputLabel>
@@ -111,6 +112,7 @@ export default function LandingPage() {
                 value={filterType === 'unsupportedInput' ? 'draft' : filterType}
                 label="Select Status"
                 onChange={handleChange}
+                sx={{ height: '40px' }}
               >
                 <MenuItem value={'All'}>All</MenuItem>
                 <MenuItem value={'planned'}>Planned</MenuItem>
