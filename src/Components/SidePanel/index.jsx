@@ -198,6 +198,12 @@ export default function SidePanel() {
 
       <List>
         <ListItem>
+          {/* <ListItemButton
+            onClick={() => navigate('/')}
+            data-testid="list-view-button"
+          >
+            <ListItemText primary="All Projects" />
+          </ListItemButton> */}
           <Box sx={{ width: '100%' }}>
             <FormControl fullWidth>
               <InputLabel id="demo-simple-select-label">Project</InputLabel>

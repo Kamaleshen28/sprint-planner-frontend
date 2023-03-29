@@ -9,16 +9,17 @@
 .sprintViewBody {
   display: flex;
   gap: 1vw;
-  width: 98vw;
+  width: 88vw;
   overflow-x: scroll;
   padding: 2vh 1vw 0 1vw;
+  margin: 0 4.5vw;
   /* scroll-snap-type: x mandatory; */
 }
 
 .sprintBody {
   display: flex;
   flex-direction: column;
-  width: 30vw;
+  width: 27vw;
   align-items: center;
   gap: 1vh;
   height: 60vh;
@@ -40,6 +41,9 @@
   border-radius: 5px;
 }
 
+.sprintView::-webkit-scrollbar {
+  display: none;
+}
 .sprintViewBody::-webkit-scrollbar {
   display: none;
 }
@@ -49,7 +53,7 @@
 }
 
 .sprintView {
-  overflow: auto;
+  /* overflow: auto; */
   position: relative;
 }
 
@@ -68,10 +72,11 @@
 }
 
 .sprintViewScrollDiv {
-  width: 98vw;
+  width: 87vw;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0 1vw;
+  margin: 0 4.5vw;
 }
 
 .dots {

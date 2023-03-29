@@ -127,13 +127,13 @@ export default function CardView(props) {
         })}
       </div>
       <div className="sprintViewScrollDiv">
-        <button className="leftButton" onClick={clickLeft}>
+        {/* <button className="leftButton" onClick={clickLeft}>
           {'<'}
-        </button>
+        </button> */}
         <div className="dots">{renderDots}</div>
-        <button className="rightButton" onClick={clickRight}>
+        {/* <button className="rightButton" onClick={clickRight}>
           {'>'}
-        </button>
+        </button> */}
       </div>
     </div>
   );

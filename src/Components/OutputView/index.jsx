@@ -116,7 +116,7 @@ export default function OutputView(props) {
             }}
             sx={{
               width: 300,
-              marginLeft: '24px',
+              marginLeft: '5.5vw',
               backgroundColor: 'white',
               height: '43px',
               my: 'auto',

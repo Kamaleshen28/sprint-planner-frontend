@@ -102,6 +102,7 @@ const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
         onClick={() => handleOpen()}
         sx={{
           maxWidth: '100%',
+          mx: 'auto',
           overflow: 'visible',
           '&:hover': {
             bgColor: '#ffffff',
