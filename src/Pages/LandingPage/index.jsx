@@ -128,25 +128,20 @@ export default function LandingPage() {
         ) : (
           <Box sx={{ flexGrow: 1, width: '80%', margin: 'auto' }}>
             <Grid container rowSpacing={2} sx={{ mt: 2 }}>
-              {filteredProjects.map(
-                (project) => (
-                  console.log(project),
-                  (
-                    <Grid
-                      key={project.id}
-                      onClick={() => handleClick(project.id)}
-                      xs={12}
-                      md={4}
-                      sx={{ mt: 2 }}
-                    >
-                      <ProjectCard
-                        project={project}
-                        // onClick={() => handleClick(project.id)}
-                      />
-                    </Grid>
-                  )
-                ),
-              )}
+              {filteredProjects.map((project) => (
+                <Grid
+                  key={project.id}
+                  onClick={() => handleClick(project.id)}
+                  xs={12}
+                  md={4}
+                  sx={{ mt: 2 }}
+                >
+                  <ProjectCard
+                    project={project}
+                    //onClick={() => handleClick(project.id)}
+                  />
+                </Grid>
+              ))}
             </Grid>
           </Box>
         )}
