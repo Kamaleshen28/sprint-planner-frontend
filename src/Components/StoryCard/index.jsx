@@ -122,7 +122,7 @@ const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
           <Typography
             gutterBottom
             variant="h5"
-            component="div"
+            component="span"
             sx={{
               bgcolor: 'black',
               color: 'white',
@@ -145,6 +145,7 @@ const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
           <Typography
             variant="body2"
             color="text.secondary"
+            component="span"
             sx={{
               height: 130,
               textAlign: 'center',
@@ -234,10 +235,10 @@ const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
               <b>Title: </b> {title}
             </p>
             <p>
-              <b>Start Day: </b> {startDate.toLocaleDateString()}
+              <b>Start Date: </b> {startDate.toDateString()}
             </p>
             <p>
-              <b>End Day: </b> {endDate.toLocaleDateString()}
+              <b>End Date: </b> {endDate.toDateString()}
             </p>
             <p>
               <b>Developer: </b>

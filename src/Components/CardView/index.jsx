@@ -3,6 +3,8 @@ import React from 'react';
 import StoryCard from '../StoryCard';
 import Grid from '@mui/material/Grid';
 import './CardView.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
 export default function CardView(props) {
   const { content, developerIdMapping, heading } = props;
@@ -10,7 +12,7 @@ export default function CardView(props) {
   function clickLeft() {
     let container = document.querySelector('.sprintViewBody');
     container.scrollTo({
-      left: container.scrollLeft - window.innerWidth * 0.33,
+      left: container.scrollLeft - window.innerWidth * 0.3,
       top: 0,
       behavior: 'smooth',
     });
@@ -19,7 +21,7 @@ export default function CardView(props) {
   function clickRight() {
     let container = document.querySelector('.sprintViewBody');
     container.scrollTo({
-      left: container.scrollLeft + window.innerWidth * 0.33,
+      left: container.scrollLeft + window.innerWidth * 0.3,
       top: 0,
       behavior: 'smooth',
     });
@@ -33,7 +35,7 @@ export default function CardView(props) {
     event.target.className = 'dot active';
     let container = document.querySelector('.sprintViewBody');
     container.scrollTo({
-      left: index * window.innerWidth * 0.33,
+      left: index * window.innerWidth * 0.3,
       top: 0,
       behavior: 'smooth',
     });
@@ -46,7 +48,7 @@ export default function CardView(props) {
     });
     let container = document.querySelector('.sprintViewBody');
     let scrollLeft = container.scrollLeft;
-    let sprintScroll = Math.round(scrollLeft / (window.innerWidth * 0.33));
+    let sprintScroll = Math.round(scrollLeft / (window.innerWidth * 0.3));
     dots[sprintScroll].className = 'dot active';
   };
   const totalDots = Math.max(content.length - 2, 1);
@@ -76,6 +78,21 @@ export default function CardView(props) {
       </div> */}
 
       <div className="sprintViewBody" onScroll={handleScroll}>
+        <div
+          tabIndex="1"
+          className="scroll-button scroll-left"
+          onClick={clickLeft}
+        >
+          <FontAwesomeIcon icon={faAngleLeft} />
+        </div>
+        <div
+          tabIndex="0"
+          className="scroll-button scroll-right"
+          onClick={clickRight}
+        >
+          <FontAwesomeIcon icon={faAngleRight} />
+        </div>
+
         {content.map((sprint, index) => {
           return (
             sprint.length > 0 && (

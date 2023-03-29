@@ -50,6 +50,7 @@
 
 .sprintView {
   overflow: auto;
+  position: relative;
 }
 
 .rightButton {
@@ -91,4 +92,27 @@
 .active {
   background-color: #717171;
   transform: scale(1.5);
+}
+.scroll-button {
+  font-size: 2rem;
+  position: fixed;
+  top: 50%;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+}
+.scroll-button:hover {
+  cursor: pointer;
+  background-color: rgba(189, 195, 199, 0.4);
+}
+.scroll-button:active {
+  background-color: rgba(189, 195, 199, 0.9);
+}
+
+.scroll-left {
+  left: 0.2vw;
+}
+.scroll-right {
+  right: 0.2vw;
 }
