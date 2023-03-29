@@ -23,6 +23,7 @@ export default function LandingPage() {
   const { setProjectId, projectId } = React.useContext(DataContext);
   const [filteredProjects, setFilteredProjects] = React.useState(projects);
   const [bookmarked, setBookmarked] = React.useState(false);
+  const [onChange, setOnChange] = React.useState(false);
   const [query, setQuery] = React.useState('');
   React.useEffect(() => {
     axios
@@ -32,17 +33,12 @@ export default function LandingPage() {
       .then((res) => {
         setProjects(res.data.data);
         setFilteredProjects(res.data.data);
+        setOnChange(!onChange);
       })
       .catch((error) => {
         console.log(error);
       });
-  }, []);
-  // const handleSearch = () => {
-  //   const results = projects.filter((project) =>
-  //     project.title.toLowerCase().includes(query.toLowerCase()),
-  //   );
-  //   setFilteredProjects(results);
-  // };
+  }, [bookmarked]);
   React.useEffect(() => {
     let results = projects.filter((project) =>
       project.title.toLowerCase().includes(query.toLowerCase()),
@@ -58,7 +54,7 @@ export default function LandingPage() {
       });
     }
     setFilteredProjects(results);
-  }, [query, filterType, bookmarked]);
+  }, [query, filterType, onChange]);
 
   const handleClick = (id) => {
     setProjectId(id);
