@@ -300,16 +300,18 @@ export default function SidePanel() {
                 Delete Project
               </Button>
             </ListItem>
-            <ListItem>
-              <Button
-                sx={{ width: '90%', mx: 'auto' }}
-                variant="contained"
-                color="success"
-                onClick={downloadHandler}
-              >
-                Download Project
-              </Button>
-            </ListItem>
+            {plannedStatus && (
+              <ListItem>
+                <Button
+                  sx={{ width: '90%', mx: 'auto' }}
+                  variant="contained"
+                  color="success"
+                  onClick={downloadHandler}
+                >
+                  Download Project
+                </Button>
+              </ListItem>
+            )}
           </List>
         </>
       )}
