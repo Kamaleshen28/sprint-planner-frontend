@@ -105,7 +105,10 @@ export default function ProjectCard({ project }) {
                     'NA'}
                 </span>
               }
-              <span className="">DEVELOPERS: {project.developers.length}</span>
+              <span className="">
+                DEVELOPERS:{' '}
+                {plannedDetails.length != 0 && plannedDetails.developers.length}
+              </span>
             </Box>
             <Box id="content-middle-section">
               <span className="project-start-date">
