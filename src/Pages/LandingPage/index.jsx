@@ -90,7 +90,7 @@ export default function LandingPage() {
               type="text"
               className="input-search"
               placeholder="Search Project"
-              onChange={(e) => setQuery(e.target.value)}
+              onChange={(e) => setQuery(e.target.value.toLowerCase())}
             />
           </div>
           <div className="filter-search">
