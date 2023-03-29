@@ -44,7 +44,7 @@ export default function LandingPage() {
   // };
   React.useEffect(() => {
     let results = projects.filter((project) =>
-      project.title.toLowerCase().includes(query),
+      project.title.toLowerCase().includes(query.toLowerCase()),
     );
     if (filterType !== '' && filterType !== 'All') {
       results = results.filter((project) => {
