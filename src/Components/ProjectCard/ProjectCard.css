@@ -40,7 +40,7 @@
 #content-bottom-section{
         margin-bottom: 10px;
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         padding: 0 20px 0 20px;
 }
 

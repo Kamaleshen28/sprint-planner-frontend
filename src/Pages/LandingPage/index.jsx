@@ -18,7 +18,7 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const { authState } = useOktaAuth();
   const [projects, setProjects] = React.useState([]);
-  const [filterType, setFilterType] = React.useState('');
+  const [filterType, setFilterType] = React.useState('All');
   const { setProjectId, projectId } = React.useContext(DataContext);
   const [filteredProjects, setFilteredProjects] = React.useState(projects);
   const [query, setQuery] = React.useState('');
@@ -112,9 +112,6 @@ export default function LandingPage() {
                 label="Select Status"
                 onChange={handleChange}
               >
-                <MenuItem value="">
-                  <em>None</em>
-                </MenuItem>
                 <MenuItem value={'All'}>All</MenuItem>
                 <MenuItem value={'planned'}>Planned</MenuItem>
                 <MenuItem value={'draft'}>Draft</MenuItem>
