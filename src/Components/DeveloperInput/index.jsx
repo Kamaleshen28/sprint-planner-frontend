@@ -40,9 +40,7 @@ export default function DeveloperInput({
   setDeveloperList,
   deleteCheck,
 }) {
-  const [id, setId] = useState(
-    developerList.length > 0 ? developerList.length + 1 : 1,
-  );
+  const [id, setId] = useState(developerList.length + 1);
   const [developer, setDeveloper] = useState('');
   const [sprintCapacity, setSprintCapacity] = useState(undefined);
   const [capacity, setCapacity] = useState(undefined);

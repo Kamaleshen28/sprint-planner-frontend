@@ -60,7 +60,7 @@ Item.propTypes = {
 };
 
 export default function StoryInput({ storyList, setStoryList, developerList }) {
-  const [id, setId] = useState(storyList.length > 0 ? storyList.length + 1 : 1);
+  const [id, setId] = useState(storyList.length + 1);
   const [stories, setStories] = useState('');
   const [dependencies, setDependencies] = useState([]);
   const [developer, setDeveloper] = useState([]);

@@ -188,8 +188,8 @@ function EditPage() {
             let formattedDate = date.toLocaleDateString();
             formattedDate = formattedDate.split('/').reverse().join('-');
             setStartDate(formattedDate);
-            setSprintDuration(res.data.data.sprintDuration);
-            setTotalDuration(res.data.data.givenTotalDuration);
+            setSprintDuration(res.data.data.sprintDuration.toString());
+            setTotalDuration(res.data.data.givenTotalDuration.toString());
             setSnackMessage(res.data.data.remarks);
             setProjectStatus(res.data.data.status);
           } else {
@@ -205,8 +205,8 @@ function EditPage() {
             var formattedDate = date.toLocaleDateString();
             formattedDate = formattedDate.split('/').reverse().join('-');
             setStartDate(formattedDate);
-            setSprintDuration(res.data.data.sprintDuration);
-            setTotalDuration(res.data.data.givenTotalDuration);
+            setSprintDuration(res.data.data.sprintDuration.toString());
+            setTotalDuration(res.data.data.givenTotalDuration.toString());
             setSnackMessage(res.data.data.remarks);
             setProjectStatus(res.data.data.status);
           }
@@ -217,83 +217,87 @@ function EditPage() {
     }
   }, [projectId, params]);
 
-  return (
-    <div className="home-page-wrapper">
-      {open.bool && (
-        <ErrorModal
-          open={open}
-          setOpen={setOpen}
-          handleClose={handleClose}
-          handleOpen={handleOpen}
-        />
-      )}
-      {openValidationModal && (
-        <ValidationModal
-          isOpen={openValidationModal}
-          setIsOpen={setOpenValidationModal}
-        />
-      )}
+  if (title !== '') {
+    return (
+      <div className="home-page-wrapper">
+        {open.bool && (
+          <ErrorModal
+            open={open}
+            setOpen={setOpen}
+            handleClose={handleClose}
+            handleOpen={handleOpen}
+          />
+        )}
+        {openValidationModal && (
+          <ValidationModal
+            isOpen={openValidationModal}
+            setIsOpen={setOpenValidationModal}
+          />
+        )}
 
-      {projectStatus === 'unsupportedInput' && params.auto !== 'auto' && (
-        <Snackbar
-          open={openSnack}
-          autoHideDuration={10000}
-          onClose={handleCloseSnack}
-          TransitionComponent={SlideTransition}
-          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-        >
-          <Alert variant="filled" severity="info" color="warning">
-            {snackMessage}
-          </Alert>
-        </Snackbar>
-      )}
-
-      <Header value={title} setValue={setTitle} heading="Sprint Planner" />
-      <div className="common-input-section">
-        <div className="common-input-wrapper">
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'flex-end',
-              position: 'relative',
-            }}
+        {projectStatus === 'unsupportedInput' && params.auto !== 'auto' && (
+          <Snackbar
+            open={openSnack}
+            autoHideDuration={10000}
+            onClose={handleCloseSnack}
+            TransitionComponent={SlideTransition}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
           >
-            <Title value={title} setValue={setTitle} />
-            <Chip
-              style={{ width: 100, position: 'absolute', right: 0 }}
-              color={projectStatus === 'planned' ? 'success' : 'info'}
-              label={projectStatus === 'planned' ? 'planned' : 'draft'}
-            />
-          </div>
+            <Alert variant="filled" severity="info" color="warning">
+              {snackMessage}
+            </Alert>
+          </Snackbar>
+        )}
 
-          <div className="common-input-date">
-            <StartDateInput value={startDate} setValue={setStartDate} />
-            <SprintDurationInput
-              value={sprintDuration}
-              setValue={setSprintDuration}
-            />
-            <TotalDurationInput
-              value={totalDuration}
-              setValue={setTotalDuration}
-            />
+        <Header value={title} setValue={setTitle} heading="Sprint Planner" />
+        <div className="common-input-section">
+          <div className="common-input-wrapper">
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'flex-end',
+                position: 'relative',
+              }}
+            >
+              <Title value={title} setValue={setTitle} />
+              <Chip
+                style={{ width: 100, position: 'absolute', right: 0 }}
+                color={projectStatus === 'planned' ? 'success' : 'info'}
+                label={projectStatus === 'planned' ? 'planned' : 'draft'}
+              />
+            </div>
+
+            <div className="common-input-date">
+              <StartDateInput value={startDate} setValue={setStartDate} />
+              <SprintDurationInput
+                value={sprintDuration}
+                setValue={setSprintDuration}
+              />
+              <TotalDurationInput
+                value={totalDuration}
+                setValue={setTotalDuration}
+              />
+            </div>
           </div>
         </div>
+        <InputForm
+          storyList={storyList}
+          setStoryList={setStoryList}
+          developerList={developerList}
+          setDeveloperList={setDeveloperList}
+        />
+        <Button
+          sx={{ width: '10%', mx: 'auto', mb: '2rem' }}
+          variant="contained"
+          onClick={handleSubmit}
+        >
+          Submit
+        </Button>
       </div>
-      <InputForm
-        storyList={storyList}
-        setStoryList={setStoryList}
-        developerList={developerList}
-        setDeveloperList={setDeveloperList}
-      />
-      <Button
-        sx={{ width: '10%', mx: 'auto', mb: '2rem' }}
-        variant="contained"
-        onClick={handleSubmit}
-      >
-        Submit
-      </Button>
-    </div>
-  );
+    );
+  } else {
+    return <div>Loading...</div>;
+  }
 }
 
 export default EditPage;
