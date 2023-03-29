@@ -9,6 +9,8 @@ import './ProjectCard.css';
 import axios from 'axios';
 import { useOktaAuth } from '@okta/okta-react';
 import { CardContent } from '@mui/material';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -37,6 +39,26 @@ export default function ProjectCard({ project }) {
     );
     // console.log('CHK: ', projectPlannedDetails.data.data);
     setPlannedDetails(projectPlannedDetails.data.data);
+  };
+  const toggleBookmark = async () => {
+    try {
+      const projectPlannedDetails = await axios.put(
+        `http://localhost:8080/api/projects/${project.id}/bookmark`,
+        {
+          isBookmarked: !plannedDetails.isBookmarked,
+        },
+        {
+          headers: { authorization: authState?.accessToken.accessToken },
+        },
+      );
+      // console.log('CHK: ', projectPlannedDetails.data.data);
+      setPlannedDetails({
+        ...plannedDetails,
+        isBookmarked: !plannedDetails.isBookmarked,
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
   useEffect(() => {
     fetchData();
@@ -128,6 +150,20 @@ export default function ProjectCard({ project }) {
               }
             </Box>
             <Box id="content-bottom-section">
+              <span
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleBookmark();
+                }}
+              >
+                {/* {' '}
+                {console.log('isBookmarked?', plannedDetails.isBookmarked)} */}
+                {plannedDetails.isBookmarked ? (
+                  <BookmarkIcon />
+                ) : (
+                  <BookmarkBorderIcon />
+                )}
+              </span>
               <span
                 className={
                   project.status === 'planned'
