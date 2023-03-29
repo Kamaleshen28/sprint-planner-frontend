@@ -63,7 +63,6 @@ export default function ProjectCard({ project }) {
   useEffect(() => {
     fetchData();
   }, []);
-  console.log('CHK: ', plannedDetails);
 
   return (
     <>

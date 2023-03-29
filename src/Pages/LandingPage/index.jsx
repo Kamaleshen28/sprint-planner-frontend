@@ -3,6 +3,7 @@ import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { DataContext } from '../../Contexts/DataContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Switch from '@mui/material/Switch';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -21,6 +22,7 @@ export default function LandingPage() {
   const [filterType, setFilterType] = React.useState('All');
   const { setProjectId, projectId } = React.useContext(DataContext);
   const [filteredProjects, setFilteredProjects] = React.useState(projects);
+  const [bookmarked, setBookmarked] = React.useState(false);
   const [query, setQuery] = React.useState('');
   React.useEffect(() => {
     axios
@@ -35,7 +37,6 @@ export default function LandingPage() {
         console.log(error);
       });
   }, []);
-  console.log('FPS: ', filteredProjects);
   // const handleSearch = () => {
   //   const results = projects.filter((project) =>
   //     project.title.toLowerCase().includes(query.toLowerCase()),
@@ -50,11 +51,15 @@ export default function LandingPage() {
       results = results.filter((project) => {
         return project.status === filterType;
       });
-      setFilteredProjects(results);
-    } else {
-      setFilteredProjects(results);
     }
-  }, [query, filterType]);
+    if (bookmarked) {
+      results = results.filter((project) => {
+        return project.isBookmarked === bookmarked;
+      });
+    }
+    setFilteredProjects(results);
+  }, [query, filterType, bookmarked]);
+
   const handleClick = (id) => {
     setProjectId(id);
     localStorage.setItem('projectId', id);
@@ -72,6 +77,10 @@ export default function LandingPage() {
     setFilterType(
       event.target.value === 'draft' ? 'unsupportedInput' : event.target.value,
     );
+  };
+
+  const handleBookmark = () => {
+    setBookmarked(!bookmarked);
   };
   return (
     <>
@@ -91,6 +100,15 @@ export default function LandingPage() {
               className="input-search"
               placeholder="Search Project"
               onChange={(e) => setQuery(e.target.value.toLowerCase())}
+            />
+          </div>
+          <div className="bookmark-switch">
+            Bookmarked
+            <Switch
+              checked={bookmarked === true}
+              value={bookmarked}
+              onChange={handleBookmark}
+              inputProps={{ 'aria-label': 'controlled' }}
             />
           </div>
           <div className="filter-search">
