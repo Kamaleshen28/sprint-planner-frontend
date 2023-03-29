@@ -136,9 +136,11 @@ const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
               whiteSpace: 'nowrap',
               textOverflow: 'ellipsis',
               verticalAlign: 'middle',
+              display: 'flex',
+              alignItems: 'center',
             }}
           >
-            {title}
+            <p className="story-title">{title}</p>
           </Typography>
           <Typography
             variant="body2"

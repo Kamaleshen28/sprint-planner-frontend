@@ -39,7 +39,7 @@ margin-left: 140px;
   margin-right: 120px;
 }
 .input-search{
-  height: 30px;
+  height: 20px;
   width: 200px;
   border-style: none;
   padding: 10px;
@@ -49,6 +49,7 @@ margin-left: 140px;
   background-color: white;
   padding-right: 40px;
   color:rgb(26, 68, 92);
+  border-radius: 4px;
 }
 .input-search::placeholder{
   color:rgb(26, 68, 92);
@@ -68,6 +69,7 @@ margin-left: 140px;
   color:rgb(26, 68, 92);
   background-color:transparent;
   pointer-events: painted;  
+  padding-bottom: 10px;
 }
 .btn-search:focus ~ .input-search{
   width: 300px;

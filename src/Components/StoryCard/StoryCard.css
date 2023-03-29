@@ -9,3 +9,9 @@
   align-items: center;
   gap: 1rem;
 }
+
+.story-title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

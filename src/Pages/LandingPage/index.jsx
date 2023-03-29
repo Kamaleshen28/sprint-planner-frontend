@@ -35,6 +35,7 @@ export default function LandingPage() {
         console.log(error);
       });
   }, []);
+  console.log('FPS: ', filteredProjects);
   // const handleSearch = () => {
   //   const results = projects.filter((project) =>
   //     project.title.toLowerCase().includes(query.toLowerCase()),
@@ -94,13 +95,13 @@ export default function LandingPage() {
           </div>
           <div className="filter-search">
             <FormControl
-              sx={{ m: 1, width: 300 }}
+              sx={{ m: 1, width: 300, display: 'flex' }}
               style={{ backgroundColor: 'white', borderRadius: '10px' }}
             >
               <InputLabel
                 variant="standard"
                 htmlFor="uncontrolled-native"
-                sx={{ mb: 1.4, ml: 2 }}
+                sx={{ ml: 2, pb: 2 }}
               >
                 Select Status
               </InputLabel>

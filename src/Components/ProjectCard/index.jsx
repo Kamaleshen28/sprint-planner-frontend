@@ -1,18 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
-import Grid from '@mui/material/Grid';
 import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import { Chip } from '@mui/material';
-import DraftsIcon from '@mui/icons-material/Drafts';
 import './ProjectCard.css';
+import axios from 'axios';
+import { useOktaAuth } from '@okta/okta-react';
+import { CardContent } from '@mui/material';
 
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -22,37 +18,125 @@ const Item = styled(Paper)(({ theme }) => ({
   color: theme.palette.text.secondary,
 }));
 
+const CardContentNoPadding = styled(CardContent)(`
+padding: 0;
+&:last-child {
+  padding-bottom: 0;
+}
+`);
 export default function ProjectCard({ project }) {
+  const { authState } = useOktaAuth();
+
+  const [plannedDetails, setPlannedDetails] = useState([]);
+  const fetchData = async () => {
+    const projectPlannedDetails = await axios.get(
+      `http://localhost:8080/api/projects/${project.id}`,
+      {
+        headers: { authorization: authState?.accessToken.accessToken },
+      },
+    );
+    // console.log('CHK: ', projectPlannedDetails.data.data);
+    setPlannedDetails(projectPlannedDetails.data.data);
+  };
+  useEffect(() => {
+    fetchData();
+  }, []);
+  console.log('CHK: ', plannedDetails);
+
   return (
     <>
       <Card
-        className="project-card"
-        sx={{ width: '95%', height: '40vh', borderRadius: 0 }}
+        sx={{
+          width: '95%',
+          height: '20vh',
+          overflow: 'visible',
+          '&:hover': {
+            bgColor: '#ffffff',
+            boxShadow: '0 8px 16px 0 rgba(0, 0, 0, 0.4)',
+            cursor: 'pointer',
+          },
+        }}
       >
-        <CardContent sx={{ padding: 0 }}>
+        <CardContentNoPadding
+          sx={{
+            p: 0,
+            paddingBottom: 0,
+            display: 'flex',
+            flexDirection: 'column',
+            width: '100%',
+            height: '100%',
+          }}
+        >
           <Typography
+            gutterBottom
             variant="h5"
             component="div"
             sx={{
-              color: 'black',
-              height: '5vh',
-              p: 2,
+              bgcolor: 'black',
+              color: 'white',
+              paddingLeft: 2,
+              paddingRight: 2,
+              mb: 0,
+              height: '50px',
+              borderTopRightRadius: '4px',
+              borderTopLeftRadius: '4px',
+              overflow: 'hidden',
+              whiteSpace: 'nowrap',
+              textOverflow: 'ellipsis',
+              verticalAlign: 'middle',
+              display: 'flex',
+              alignItems: 'center',
+              paddingTop: 0.5,
+              paddingBottom: 0.5,
             }}
           >
-            {project.title}
+            <p className="project-title">{project.title.toUpperCase()}</p>
           </Typography>
-          <Typography sx={{ mb: 1.5, mt: 4 }} color="text.secondary">
-            Project Start Date:{' '}
-            {new Date(project.projectStartDate).toDateString()}
+          <Typography id="content-section">
+            <Box id="content-top-section">
+              {
+                <span className="">
+                  SPRINTS:{' '}
+                  {plannedDetails.length != 0 &&
+                    plannedDetails.status != 'unsupportedInput' &&
+                    plannedDetails.sprints.length}
+                  {plannedDetails.length != 0 &&
+                    plannedDetails.status === 'unsupportedInput' &&
+                    'NA'}
+                </span>
+              }
+              <span className="">DEVELOPERS: {project.developers.length}</span>
+            </Box>
+            <Box id="content-middle-section">
+              <span className="project-start-date">
+                START DATE: {project.projectStartDate.slice(0, 10)}
+              </span>
+              {
+                <span className="project-start-date">
+                  TOTAL DURATION:{' '}
+                  {plannedDetails.length != 0 &&
+                    plannedDetails.status != 'unsupportedInput' &&
+                    plannedDetails.sprints.length *
+                      plannedDetails.sprintDuration}
+                  {plannedDetails.length != 0 &&
+                    plannedDetails.status === 'unsupportedInput' &&
+                    'NA'}
+                </span>
+              }
+            </Box>
+            <Box id="content-bottom-section">
+              <span
+                className={
+                  project.status === 'planned'
+                    ? 'project-status-bottom-section'
+                    : 'project-status-bottom-section-draft'
+                }
+              >
+                {project.status === 'planned' ? 'Planned' : 'Draft'}
+              </span>
+            </Box>
           </Typography>
-          <div className="card-footer">
-            {project.status === 'planned' ? (
-              <Chip style={{ width: 100 }} color="success" label="Planned" />
-            ) : (
-              <Chip style={{ width: 100 }} label="Draft" />
-            )}
-          </div>
-        </CardContent>
+        </CardContentNoPadding>
       </Card>
     </>
   );
