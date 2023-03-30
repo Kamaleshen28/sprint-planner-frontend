@@ -52,6 +52,9 @@
         border-radius: 20px;
         color: white;
         font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 }
 .project-status-bottom-section-draft{
         background-color: rgba(0, 0, 0, 0.08);
@@ -61,6 +64,9 @@
         border-radius: 20px;
         color: black;
         font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
 }
 
 .project-start-date{

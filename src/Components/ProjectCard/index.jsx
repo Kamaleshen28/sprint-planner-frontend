@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Paper from '@mui/material/Paper';
 import PropTypes from 'prop-types';
 import Card from '@mui/material/Card';
 import Typography from '@mui/material/Typography';
@@ -11,14 +10,6 @@ import { useOktaAuth } from '@okta/okta-react';
 import { CardContent } from '@mui/material';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
 const CardContentNoPadding = styled(CardContent)(`
 padding: 0;
@@ -37,7 +28,6 @@ export default function ProjectCard({ project }) {
         headers: { authorization: authState?.accessToken.accessToken },
       },
     );
-    // console.log('CHK: ', projectPlannedDetails.data.data);
     setPlannedDetails(projectPlannedDetails.data.data);
   };
   const toggleBookmark = async () => {
@@ -51,7 +41,6 @@ export default function ProjectCard({ project }) {
           headers: { authorization: authState?.accessToken.accessToken },
         },
       );
-      // console.log('CHK: ', projectPlannedDetails.data.data);
       setPlannedDetails({
         ...plannedDetails,
         isBookmarked: !plannedDetails.isBookmarked,
@@ -111,40 +100,42 @@ export default function ProjectCard({ project }) {
               paddingBottom: 0.5,
             }}
           >
-            <p className="project-title">{project.title.toUpperCase()}</p>
+            <p className="project-title">{project.title}</p>
           </Typography>
           <Typography id="content-section">
             <Box id="content-top-section">
               {
                 <span className="">
-                  SPRINTS:{' '}
+                  Sprints:{' '}
                   {plannedDetails.length != 0 &&
                     plannedDetails.status != 'unsupportedInput' &&
                     plannedDetails.sprints.length}
                   {plannedDetails.length != 0 &&
-                    plannedDetails.status === 'unsupportedInput' &&
-                    'NA'}
+                    plannedDetails.status === 'unsupportedInput' && (
+                      <i>{'NA'}</i>
+                    )}
                 </span>
               }
               <span className="">
-                DEVELOPERS:{' '}
+                Developers:{' '}
                 {plannedDetails.length != 0 && plannedDetails.developers.length}
               </span>
             </Box>
             <Box id="content-middle-section">
               <span className="project-start-date">
-                START DATE: {project.projectStartDate.slice(0, 10)}
+                Start Date: {new Date(project.projectStartDate).toDateString()}
               </span>
               {
                 <span className="project-start-date">
-                  TOTAL DURATION:{' '}
+                  Total Duration:{' '}
                   {plannedDetails.length != 0 &&
                     plannedDetails.status != 'unsupportedInput' &&
                     plannedDetails.sprints.length *
                       plannedDetails.sprintDuration}
                   {plannedDetails.length != 0 &&
-                    plannedDetails.status === 'unsupportedInput' &&
-                    'NA'}
+                    plannedDetails.status === 'unsupportedInput' && (
+                      <i>{'NA'}</i>
+                    )}
                 </span>
               }
             </Box>
