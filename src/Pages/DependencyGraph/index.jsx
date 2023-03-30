@@ -50,6 +50,10 @@ const DependencyGraph = () => {
     return { ...result, ...developerList };
   }, {});
 
+  const getIncermentedDependencies = (dependencies) => {
+    return dependencies.map((dependency) => dependency + 1);
+  };
+
   const getEachStoryNodeTitle = (storyData) => {
     const developerName = developerStoryList[storyData.id];
     return (
@@ -57,7 +61,9 @@ const DependencyGraph = () => {
       `<b>Developer</b>: ${developerName}<br>` +
       `<b>Story points</b>: ${storyData.storyPoints}<br>` +
       `<b>Dependencies (id)</b>: ${
-        storyData.dependencies.length ? storyData.dependencies : 'NA'
+        storyData.dependencies.length
+          ? getIncermentedDependencies(storyData.dependencies)
+          : 'NA'
       }<br>`
     );
   };
@@ -180,7 +186,6 @@ const DependencyGraph = () => {
         hover: { background: '#707196', border: '#1B0508' },
       },
     },
-    height: '550px',
     physics: {
       stabilization: false,
       barnesHut: {
@@ -237,7 +242,7 @@ const DependencyGraph = () => {
                   />
                 </div>
                 <div className="zoom-button-wrapper">
-                  <div className="span">Dragview</div>
+                  <div className="span">Dragview </div>
                   <Switch
                     checked={isDragView}
                     onChange={handleDragToggleClick}
