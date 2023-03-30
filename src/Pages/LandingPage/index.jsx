@@ -24,8 +24,10 @@ export default function LandingPage() {
   const [filteredProjects, setFilteredProjects] = React.useState(projects);
   const [bookmarked, setBookmarked] = React.useState(false);
   const [onChange, setOnChange] = React.useState(false);
+  // const [bookmarkChange, setBookmarkChange] = React.useState(undefined);
   const [query, setQuery] = React.useState('');
   React.useEffect(() => {
+    console.log('Landing Page: axios');
     axios
       .get('http://localhost:8080/api/projects', {
         headers: { authorization: authState?.accessToken.accessToken },
@@ -38,8 +40,17 @@ export default function LandingPage() {
       .catch((error) => {
         console.log(error);
       });
-  }, [bookmarked]);
+    // const requiredProjects = projects.find(
+    //   (project) => project.id === bookmarkChange,
+    // );
+    // requiredProjects.isBookmarked = !requiredProjects.isBookmarked;
+  }, []);
+  // React.useEffect(() => {
+  //   if (bookmarkChange === undefined) return;
+  // }, [bookmarkChange]);
+
   React.useEffect(() => {
+    console.log('Landing Page: filter');
     let results = projects.filter((project) =>
       project.title.toLowerCase().includes(query.toLowerCase()),
     );
@@ -54,8 +65,35 @@ export default function LandingPage() {
       });
     }
     setFilteredProjects(results);
-  }, [query, filterType, onChange]);
+  }, [query, filterType, onChange, bookmarked, projects]);
 
+  const handleBookmarkChange = async (id) => {
+    console.log('Here in change function');
+    const requiredProject = projects.find((project) => project.id === id);
+    console.log('requiredProject', requiredProject);
+    // requiredProject.isBookmarked = !requiredProject.isBookmarked;
+    const updatedProject = {
+      ...requiredProject,
+      isBookmarked: !requiredProject.isBookmarked,
+    };
+    console.log('updatedProject', updatedProject);
+    await axios.put(
+      `http://localhost:8080/api/projects/${id}/bookmark`,
+      {
+        isBookmarked: !requiredProject.isBookmarked,
+      },
+      {
+        headers: { authorization: authState?.accessToken.accessToken },
+      },
+    );
+    const newProjects = projects.map((project) => {
+      if (project.id === id) {
+        return updatedProject;
+      }
+      return project;
+    });
+    setProjects(newProjects);
+  };
   const handleClick = (id) => {
     setProjectId(id);
     localStorage.setItem('projectId', id);
@@ -78,6 +116,7 @@ export default function LandingPage() {
   const handleBookmark = () => {
     setBookmarked(!bookmarked);
   };
+  console.log('landing page');
   return (
     <>
       <Header />
@@ -151,6 +190,7 @@ export default function LandingPage() {
                 >
                   <ProjectCard
                     project={project}
+                    handleBookmarkChange={handleBookmarkChange}
                     //onClick={() => handleClick(project.id)}
                   />
                 </Grid>

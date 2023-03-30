@@ -26,7 +26,7 @@ padding: 0;
   padding-bottom: 0;
 }
 `);
-export default function ProjectCard({ project }) {
+export default function ProjectCard({ project, handleBookmarkChange }) {
   const { authState } = useOktaAuth();
 
   const [plannedDetails, setPlannedDetails] = useState([]);
@@ -40,30 +40,37 @@ export default function ProjectCard({ project }) {
     // console.log('CHK: ', projectPlannedDetails.data.data);
     setPlannedDetails(projectPlannedDetails.data.data);
   };
-  const toggleBookmark = async () => {
-    try {
-      const projectPlannedDetails = await axios.put(
-        `http://localhost:8080/api/projects/${project.id}/bookmark`,
-        {
-          isBookmarked: !plannedDetails.isBookmarked,
-        },
-        {
-          headers: { authorization: authState?.accessToken.accessToken },
-        },
-      );
-      // console.log('CHK: ', projectPlannedDetails.data.data);
-      setPlannedDetails({
-        ...plannedDetails,
-        isBookmarked: !plannedDetails.isBookmarked,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const toggleBookmark = async () => {
+  //   try {
+  //     const projectPlannedDetails = await axios.put(
+  //       `http://localhost:8080/api/projects/${project.id}/bookmark`,
+  //       {
+  //         isBookmarked: !plannedDetails.isBookmarked,
+  //       },
+  //       {
+  //         headers: { authorization: authState?.accessToken.accessToken },
+  //       },
+  //     );
+  //     // console.log('CHK: ', projectPlannedDetails.data.data);
+  //     setPlannedDetails({
+  //       ...plannedDetails,
+  //       isBookmarked: !plannedDetails.isBookmarked,
+  //     });
+  //     if (project.id === bookmarkChange) {
+  //       setBookmarkChange(undefined);
+  //     } else {
+  //       setBookmarkChange(project.id);
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
   useEffect(() => {
+    console.log('PROJECT CARD: EFFECT1');
     fetchData();
   }, []);
 
+  console.log('PROJECT CARD: RENDER');
   return (
     <>
       <Card
@@ -152,7 +159,7 @@ export default function ProjectCard({ project }) {
               <span
                 onClick={(e) => {
                   e.stopPropagation();
-                  toggleBookmark();
+                  handleBookmarkChange(project.id);
                 }}
               >
                 {/* {' '}
@@ -182,4 +189,5 @@ export default function ProjectCard({ project }) {
 
 ProjectCard.propTypes = {
   project: PropTypes.object,
+  handleBookmarkChange: PropTypes.func,
 };
