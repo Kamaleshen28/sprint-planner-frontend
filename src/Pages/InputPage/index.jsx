@@ -166,6 +166,10 @@ function InputPage() {
         setStoryList={setStoryList}
         developerList={developerList}
         setDeveloperList={setDeveloperList}
+        setTitle={setTitle}
+        setStartDate={setStartDate}
+        setTotalDuration={setTotalDuration}
+        setSprintDuration={setSprintDuration}
       />
       <Button
         sx={{ width: '10%', mx: 'auto', mb: '2rem' }}
