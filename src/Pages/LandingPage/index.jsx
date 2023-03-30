@@ -50,7 +50,6 @@ export default function LandingPage() {
   // }, [bookmarkChange]);
 
   React.useEffect(() => {
-    console.log('Landing Page: filter');
     let results = projects.filter((project) =>
       project.title.toLowerCase().includes(query.toLowerCase()),
     );
@@ -68,9 +67,7 @@ export default function LandingPage() {
   }, [query, filterType, onChange, bookmarked, projects]);
 
   const handleBookmarkChange = async (id) => {
-    console.log('Here in change function');
     const requiredProject = projects.find((project) => project.id === id);
-    console.log('requiredProject', requiredProject);
     // requiredProject.isBookmarked = !requiredProject.isBookmarked;
     const updatedProject = {
       ...requiredProject,

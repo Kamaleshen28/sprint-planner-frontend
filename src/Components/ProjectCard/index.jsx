@@ -37,7 +37,6 @@ export default function ProjectCard({ project, handleBookmarkChange }) {
         headers: { authorization: authState?.accessToken.accessToken },
       },
     );
-    // console.log('CHK: ', projectPlannedDetails.data.data);
     setPlannedDetails(projectPlannedDetails.data.data);
   };
   // const toggleBookmark = async () => {
@@ -51,7 +50,6 @@ export default function ProjectCard({ project, handleBookmarkChange }) {
   //         headers: { authorization: authState?.accessToken.accessToken },
   //       },
   //     );
-  //     // console.log('CHK: ', projectPlannedDetails.data.data);
   //     setPlannedDetails({
   //       ...plannedDetails,
   //       isBookmarked: !plannedDetails.isBookmarked,
@@ -66,11 +64,8 @@ export default function ProjectCard({ project, handleBookmarkChange }) {
   //   }
   // };
   useEffect(() => {
-    console.log('PROJECT CARD: EFFECT1');
     fetchData();
   }, []);
-
-  console.log('PROJECT CARD: RENDER');
   return (
     <>
       <Card
@@ -162,9 +157,8 @@ export default function ProjectCard({ project, handleBookmarkChange }) {
                   handleBookmarkChange(project.id);
                 }}
               >
-                {/* {' '}
-                {console.log('isBookmarked?', plannedDetails.isBookmarked)} */}
-                {plannedDetails.isBookmarked ? (
+                {' '}
+                {project.isBookmarked ? (
                   <BookmarkIcon />
                 ) : (
                   <BookmarkBorderIcon />
