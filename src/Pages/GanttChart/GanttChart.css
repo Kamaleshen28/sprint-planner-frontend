@@ -8,9 +8,13 @@
   overflow: auto;
 }
 
-.gantt-chart {
-  padding: 20px 24px 20px 24px;
-  height: 90%;
+.gantt-chart{
+    padding: 20px 24px 20px 24px;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    gap: 6vh;
+ 
 }
 
 .export-button-gantt {
@@ -18,4 +22,7 @@
   padding: 0 24px 0 24px;
   display: flex;
   justify-content: flex-end;
+}
+.sprint-chart:hover{
+    box-shadow: 0px 0px 20px -8px #000000;
 }

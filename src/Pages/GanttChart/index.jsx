@@ -221,20 +221,16 @@ const GanttChart = () => {
     const element = document.getElementById(sprint);
     const container = document.getElementsByClassName('gantt-chart-wrapper')[0];
     const elementPosition = element.getBoundingClientRect().top;
-    // const containerPosition = container.getBoundingClientRect().top;
+
     const startPosition = document
       .getElementById('sprint-0')
       .getBoundingClientRect();
-    console.log('startPosition', startPosition);
-    console.log('elementPosition', elementPosition);
+
     let offset = elementPosition - startPosition.top;
-    console.log(offset);
+
     if (offset < 0) {
       offset = elementPosition;
     }
-    console.log('offset', offset);
-    console.log('elementPosition', elementPosition);
-    // console.log('containerPosition', containerPosition);
 
     container.scrollTo({
       top: offset,
@@ -265,23 +261,7 @@ const GanttChart = () => {
           </Select>
         </FormControl>
       </Box>
-      {/* <select name="ganttChartSprintFilter">
-        {sprints.map((sprint, index) => {
-          return (
-            <option>
-              <button
-                onClick={() => {
-                  const element = document.getElementById(index);
-                  console.log(element);
-                  element.scrollIntoView();
-                }}
-              >
-                Sprint {index + 1}
-              </button>
-            </option>
-          );
-        })}
-      </select> */}
+
       <div className="gantt-chart-wrapper">
         <div className="gantt-chart">
           {sprints.map((sprint, index) => {
