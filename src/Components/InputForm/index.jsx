@@ -5,6 +5,7 @@ import { Tab, Tabs, Box, Typography } from '@mui/material';
 import DeveloperInput from '../DeveloperInput';
 import StoryInput from '../StoryInput';
 import PropTypes from 'prop-types';
+import CSVInput from '../CSVInput';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -46,6 +47,10 @@ export default function InputForm({
   setStoryList,
   developerList,
   setDeveloperList,
+  setTitle,
+  setStartDate,
+  setTotalDuration,
+  setSprintDuration,
 }) {
   const [value, setValue] = useState(1);
 
@@ -79,6 +84,7 @@ export default function InputForm({
           >
             <Tab label="Stories" {...a11yProps(0)} />
             <Tab label="Developers" {...a11yProps(1)} sx={{ pr: 0 }} />
+            <Tab label="Import CSV" {...a11yProps(1)} sx={{ pr: 0 }} />
           </Tabs>
         </Box>
         <TabPanel value={value} index={0}>
@@ -95,6 +101,17 @@ export default function InputForm({
             deleteCheck={deleteCheck}
           />
         </TabPanel>
+        <TabPanel value={value} index={2}>
+          <CSVInput
+            setDeveloperList={setDeveloperList}
+            handleChange={handleChange}
+            setStoryList={setStoryList}
+            setTitle={setTitle}
+            setStartDate={setStartDate}
+            setTotalDuration={setTotalDuration}
+            setSprintDuration={setSprintDuration}
+          />
+        </TabPanel>
       </Box>
     </>
   );
@@ -105,4 +122,8 @@ InputForm.propTypes = {
   setStoryList: PropTypes.func,
   developerList: PropTypes.arrayOf(PropTypes.object),
   setDeveloperList: PropTypes.func,
+  setTitle: PropTypes.func,
+  setStartDate: PropTypes.func,
+  setTotalDuration: PropTypes.func,
+  setSprintDuration: PropTypes.func,
 };
