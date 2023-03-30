@@ -99,6 +99,9 @@
   transform: scale(1.5);
 }
 .scroll-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 2rem;
   position: fixed;
   top: 50%;

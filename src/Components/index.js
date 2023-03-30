@@ -15,7 +15,6 @@ export { default as ErrorModal } from './ErrorModal';
 export { default as ValidationModal } from './ValidationModal';
 export { default as EditInput } from './EditInput';
 export { default as EditDeveloperInput } from './EditDeveloperInput';
-export { default as NewListView } from './NewListView';
 export { default as CardView } from './CardView';
 export { default as OutputView } from './OutputView';
 export { default as ProjectCard } from './ProjectCard';

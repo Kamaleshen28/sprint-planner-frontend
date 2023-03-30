@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Header, NewListView, OutputView } from '../../Components';
+import { Header, OutputView } from '../../Components';
 import { DataContext } from '../../Contexts/DataContext';
 import './OutputList.css';
 

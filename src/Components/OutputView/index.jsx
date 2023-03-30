@@ -1,4 +1,4 @@
-/* eslint-disable react/prop-types */
+import PropTypes from 'prop-types';
 import React, { useEffect } from 'react';
 import { DataContext } from '../../Contexts/DataContext';
 import {
@@ -10,9 +10,7 @@ import {
   TextField,
 } from '@mui/material';
 import CardView from '../CardView';
-import PropTypes from 'prop-types';
 import './OutputView.css';
-import { ElectricalServices } from '@mui/icons-material';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -163,3 +161,6 @@ export default function OutputView(props) {
     </Box>
   );
 }
+OutputView.propTypes = {
+  projectTitle: PropTypes.string.isRequired,
+};

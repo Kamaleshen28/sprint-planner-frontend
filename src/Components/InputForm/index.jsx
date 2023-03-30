@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import './InputForm.css';
 import { Tab, Tabs, Box, Typography } from '@mui/material';
@@ -26,12 +25,10 @@ function TabPanel(props) {
   );
 }
 
-TabPanel.proptypes = {
-  props: PropTypes.shape({
-    children: PropTypes.node,
-    index: PropTypes.number.isRequired,
-    value: PropTypes.number.isRequired,
-  }),
+TabPanel.propTypes = {
+  children: PropTypes.node.isRequired,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
 };
 
 function a11yProps(index) {

@@ -1,10 +1,10 @@
-/* eslint-disable react/prop-types */
 import React from 'react';
 import StoryCard from '../StoryCard';
 import Grid from '@mui/material/Grid';
 import './CardView.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import PropTypes from 'prop-types';
 
 export default function CardView(props) {
   const { content, developerIdMapping, heading } = props;
@@ -138,3 +138,8 @@ export default function CardView(props) {
     </div>
   );
 }
+CardView.propTypes = {
+  content: PropTypes.array,
+  developerIdMapping: PropTypes.object,
+  heading: PropTypes.string,
+};
