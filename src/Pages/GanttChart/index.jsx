@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import React from 'react';
 import Highcharts from 'highcharts/highcharts-gantt';
 import HighchartsReact from 'highcharts-react-official';
@@ -5,7 +6,7 @@ import getGanttChartFormatData from '../../Assets/dataMapper';
 import { Header } from '../../Components';
 import './GanttChart.css';
 import { useContext } from 'react';
-
+import { FormControl, InputLabel, MenuItem, Select, Box } from '@mui/material';
 import { DataContext } from '../../Contexts/DataContext';
 import exporting from 'highcharts/modules/exporting';
 
@@ -34,15 +35,12 @@ const dateDuration = (sprintDuration, projectStartDate) => {
 
 const GanttChart = () => {
   const { apiResponse, sprints, stories } = useContext(DataContext);
-  console.log('response', apiResponse);
   const colors = ['#05445e', '#189ab4', '#75e6da', '#d4f1f4'];
   const storyColors = {};
 
-  console.log('stories', stories);
   stories.map((story) => {
     storyColors[story.id] = colors[story.id % 4];
   });
-  console.log('storyColors', storyColors);
 
   var plots = [];
   const startDate = new Date(apiResponse.projectStartDate).getTime();
@@ -187,7 +185,7 @@ const GanttChart = () => {
     xAxis: [
       {
         labels: {
-          format: '{value:%e, %a}',
+          format: '{value:%e %b}',
         },
         tickInterval: 1000 * 60 * 60 * 24,
         plotBands: plots,
@@ -215,9 +213,75 @@ const GanttChart = () => {
     series: [],
   };
 
+  const [scrollSprint, setScrollSprint] = React.useState('sprint-0');
+
+  const handleScroll = (e) => {
+    const sprint = e.target.value;
+    setScrollSprint(sprint);
+    const element = document.getElementById(sprint);
+    const container = document.getElementsByClassName('gantt-chart-wrapper')[0];
+    const elementPosition = element.getBoundingClientRect().top;
+    // const containerPosition = container.getBoundingClientRect().top;
+    const startPosition = document
+      .getElementById('sprint-0')
+      .getBoundingClientRect();
+    console.log('startPosition', startPosition);
+    console.log('elementPosition', elementPosition);
+    let offset = elementPosition - startPosition.top;
+    console.log(offset);
+    if (offset < 0) {
+      offset = elementPosition;
+    }
+    console.log('offset', offset);
+    console.log('elementPosition', elementPosition);
+    // console.log('containerPosition', containerPosition);
+
+    container.scrollTo({
+      top: offset,
+      behavior: 'smooth',
+    });
+  };
+
   return (
     <div className="gantt-chart-page">
       <Header />
+      <Box sx={{ minWidth: 120 }}>
+        <FormControl fullWidth>
+          <InputLabel id="demo-simple-select-label">sprint</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={scrollSprint}
+            label="Age"
+            onChange={handleScroll}
+          >
+            {sprints.map((sprint, index) => {
+              return (
+                <MenuItem value={`sprint-${index}`}>
+                  Sprint {index + 1}
+                </MenuItem>
+              );
+            })}
+          </Select>
+        </FormControl>
+      </Box>
+      {/* <select name="ganttChartSprintFilter">
+        {sprints.map((sprint, index) => {
+          return (
+            <option>
+              <button
+                onClick={() => {
+                  const element = document.getElementById(index);
+                  console.log(element);
+                  element.scrollIntoView();
+                }}
+              >
+                Sprint {index + 1}
+              </button>
+            </option>
+          );
+        })}
+      </select> */}
       <div className="gantt-chart-wrapper">
         <div className="gantt-chart">
           {sprints.map((sprint, index) => {
@@ -233,12 +297,13 @@ const GanttChart = () => {
               title: { text: `Sprint ${sprintWeek++}` },
             };
             return (
-              // eslint-disable-next-line react/jsx-key
-              <HighchartsReact
-                highcharts={Highcharts}
-                constructorType={'ganttChart'}
-                options={newOptions}
-              />
+              <div className="sprint-chart" id={'sprint-' + index}>
+                <HighchartsReact
+                  highcharts={Highcharts}
+                  constructorType={'ganttChart'}
+                  options={newOptions}
+                />
+              </div>
             );
           })}
         </div>

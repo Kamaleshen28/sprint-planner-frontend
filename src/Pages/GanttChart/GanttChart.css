@@ -1,18 +1,19 @@
-.gantt-chart-page{
+.gantt-chart-page {
   background-color: #e4eef1;
   min-height: 100vh;
 }
 
-.gantt-chart-wrapper{
-  min-height: 90vh;
+.gantt-chart-wrapper {
+  height: 80vh;
+  overflow: auto;
 }
 
-.gantt-chart{
-    padding: 20px 24px 20px 24px;
-    height: 90%;
+.gantt-chart {
+  padding: 20px 24px 20px 24px;
+  height: 90%;
 }
 
-.export-button-gantt{
+.export-button-gantt {
   margin-top: 20px;
   padding: 0 24px 0 24px;
   display: flex;

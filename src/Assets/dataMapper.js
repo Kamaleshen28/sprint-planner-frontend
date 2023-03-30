@@ -10,8 +10,6 @@ import { useContext } from 'react';
 const getGanttChartFormatData = (sprint, sprintNum, storyColors) => {
   const { apiResponse, sprints } = useContext(DataContext);
 
-  console.log('apiResponse', apiResponse);
-
   const toReturn = []; // 1-D array
   let storyYAxis = 0;
   const range = apiResponse.sprintDuration * 5;
