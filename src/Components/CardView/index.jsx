@@ -27,12 +27,8 @@ export default function CardView(props) {
     });
   }
 
-  const handleScrollByDot = (event, index) => {
-    let dots = document.querySelectorAll('.dot');
-    dots.forEach((dot) => {
-      dot.className = 'dot';
-    });
-    event.target.className = 'dot active';
+  const handleScrollByDot = (index) => {
+    // event.target.className = 'dot active';
     let container = document.querySelector('.sprintViewBody');
     container.scrollTo({
       left: index * window.innerWidth * 0.3,
@@ -62,8 +58,11 @@ export default function CardView(props) {
     return (
       <span
         key={index}
+        id={`dot-${index}`}
         className="dot"
-        onClick={(event) => handleScrollByDot(event, index)}
+        onClick={() => {
+          handleScrollByDot(index);
+        }}
       ></span>
     );
   });
