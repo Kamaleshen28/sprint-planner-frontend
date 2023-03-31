@@ -9,6 +9,7 @@ import { useContext } from 'react';
 import { FormControl, InputLabel, MenuItem, Select, Box } from '@mui/material';
 import { DataContext } from '../../Contexts/DataContext';
 import exporting from 'highcharts/modules/exporting';
+import PropTypes from 'prop-types';
 
 exporting(Highcharts);
 
@@ -33,7 +34,7 @@ const dateDuration = (sprintDuration, projectStartDate) => {
   return milliseconds + twoWeeksMs; // Add two weeks and convert back to Unix timestamp
 };
 
-const GanttChartSprintView = () => {
+const GanttChartSprintView = ({ setScrollSprint }) => {
   const { apiResponse, sprints, stories } = useContext(DataContext);
   const colors = ['#05445e', '#189ab4', '#75e6da', '#d4f1f4'];
   const storyColors = {};
@@ -213,9 +214,33 @@ const GanttChartSprintView = () => {
     series: [],
   };
 
+  const [sprintWidth, setSprintWidth] = React.useState([]);
+  const handleManualScroll = (e) => {
+    for (let i = sprintWidth.length - 1; i >= 0; i--) {
+      if (e.target.scrollTop < sprintWidth[i]) {
+        setScrollSprint(`sprint-${i}`);
+      }
+    }
+  };
+
+  React.useEffect(() => {
+    const sprintWidth = [];
+    sprints.forEach((sprint, index) => {
+      const width =
+        document.getElementById(`sprint-${index}`).offsetHeight +
+        window.innerHeight * 0.05;
+      if (index === 0) {
+        sprintWidth.push(width);
+      } else {
+        sprintWidth.push(sprintWidth[index - 1] + width);
+      }
+    });
+    setSprintWidth(sprintWidth);
+  }, [sprints]);
+
   return (
     <div className="gantt-chart-page">
-      <div className="gantt-chart-wrapper">
+      <div className="gantt-chart-wrapper" onScroll={handleManualScroll}>
         <div className="gantt-chart">
           {sprints.map((sprint, index) => {
             // eslint-disable-next-line react/jsx-key
@@ -246,3 +271,7 @@ const GanttChartSprintView = () => {
 };
 
 export default GanttChartSprintView;
+
+GanttChartSprintView.propTypes = {
+  setScrollSprint: PropTypes.func,
+};
