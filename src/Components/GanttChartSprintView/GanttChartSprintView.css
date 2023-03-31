@@ -1,20 +1,17 @@
 .gantt-chart-page {
   background-color: #e4eef1;
-  min-height: 100vh;
 }
 
 .gantt-chart-wrapper {
-  height: 80vh;
   overflow: auto;
 }
 
-.gantt-chart{
-    padding: 20px 24px 20px 24px;
-    height: 90%;
-    display: flex;
-    flex-direction: column;
-    gap: 6vh;
- 
+.gantt-chart {
+  padding: 20px 24px 20px 24px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  gap: 6vh;
 }
 
 .export-button-gantt {
@@ -23,9 +20,9 @@
   display: flex;
   justify-content: flex-end;
 }
-.sprint-chart:hover{
-    box-shadow: 0px 0px 20px -8px #000000;
-    border-radius: 10px;
+.sprint-chart:hover {
+  box-shadow: 0px 0px 20px -8px #000000;
+  border-radius: 10px;
 }
 .highcharts-container {
   position: relative;
@@ -36,7 +33,8 @@
   line-height: normal;
   z-index: 0; /* #1072 */
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  font-family: "Lucida Grande", "Lucida Sans Unicode", Arial, Helvetica, sans-serif;
+  font-family: 'Lucida Grande', 'Lucida Sans Unicode', Arial, Helvetica,
+    sans-serif;
   font-size: 12px;
   user-select: none;
   touch-action: manipulation;
