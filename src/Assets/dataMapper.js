@@ -7,9 +7,12 @@ import { useContext } from 'react';
 
 // import { v4 } from 'uuid';
 
-const getGanttChartFormatData = (sprint, sprintNum, storyColors) => {
-  const { apiResponse, sprints } = useContext(DataContext);
-
+const getGanttChartFormatData = (
+  apiResponse,
+  sprint,
+  sprintNum,
+  storyColors,
+) => {
   const toReturn = []; // 1-D array
   let storyYAxis = 0;
   const range = apiResponse.sprintDuration * 5;

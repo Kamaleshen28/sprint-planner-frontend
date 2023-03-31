@@ -3,10 +3,10 @@ import React from 'react';
 import Highcharts from 'highcharts/highcharts-gantt';
 import HighchartsReact from 'highcharts-react-official';
 import getGanttChartFormatData from '../../Assets/dataMapper';
-import { Header } from '..';
+
 import './GanttChartSprintView.css';
 import { useContext } from 'react';
-import { FormControl, InputLabel, MenuItem, Select, Box } from '@mui/material';
+
 import { DataContext } from '../../Contexts/DataContext';
 import exporting from 'highcharts/modules/exporting';
 import PropTypes from 'prop-types';
@@ -36,6 +36,7 @@ const dateDuration = (sprintDuration, projectStartDate) => {
 
 const GanttChartSprintView = ({ setScrollSprint }) => {
   const { apiResponse, sprints, stories } = useContext(DataContext);
+
   const colors = ['#05445e', '#189ab4', '#75e6da', '#d4f1f4'];
   const storyColors = {};
 
@@ -69,8 +70,6 @@ const GanttChartSprintView = ({ setScrollSprint }) => {
       weekends.push(date);
     }
   }
-
-  // console.log(new Date(saturdays * 1000), new Dasundays());
 
   for (var i = 0; i < weekends.length; i += 2) {
     // var start = new Date(data.series[0].data[i].start);
@@ -108,11 +107,6 @@ const GanttChartSprintView = ({ setScrollSprint }) => {
       },
       sourceWidth: 4500,
       scale: 1,
-      // chartOptions: {
-      //   chart: {
-      //     height: this.chartHeight,
-      //   },
-      // },
     },
     chart: {
       scrollablePlotArea: {
@@ -138,8 +132,6 @@ const GanttChartSprintView = ({ setScrollSprint }) => {
       },
 
       grid: {
-        //background color for highcharts
-
         columns: [
           {
             title: {
@@ -244,7 +236,12 @@ const GanttChartSprintView = ({ setScrollSprint }) => {
         <div className="gantt-chart">
           {sprints.map((sprint, index) => {
             // eslint-disable-next-line react/jsx-key
-            let data = getGanttChartFormatData(sprint, index, storyColors);
+            let data = getGanttChartFormatData(
+              apiResponse,
+              sprint,
+              index,
+              storyColors,
+            );
             delete options['colors'];
 
             delete options['series'];

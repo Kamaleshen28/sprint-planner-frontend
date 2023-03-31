@@ -15,6 +15,10 @@ const DataProvider = ({ children }) => {
   const { authState } = useOktaAuth();
 
   useEffect(() => {
+    console.log('apiResponse UseEffect', apiResponse);
+  }, [apiResponse]);
+
+  useEffect(() => {
     const projectIdLocal = localStorage.getItem('projectId');
     if (projectId || (projectIdLocal && authState?.accessToken.accessToken)) {
       const id = projectId || projectIdLocal;

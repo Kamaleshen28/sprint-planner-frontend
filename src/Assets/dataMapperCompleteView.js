@@ -1,18 +1,9 @@
-// import * as response from './sampleData.json';
-// const { sprints, title: projectTitle, sprintDuration } = response;
-// const tempDate = new Date(new Date().toISOString().substring(0, 10));
-// const projectStartDate = tempDate.getTime();
-import { DataContext } from '../Contexts/DataContext';
-import { useContext } from 'react';
-
-// import { v4 } from 'uuid';
 const dateDuration = (sprintDuration, projectStartDate) => {
   const milliseconds = projectStartDate; // Convert Unix timestamp to milliseconds
   const twoWeeksMs = 7 * sprintDuration * 24 * 60 * 60 * 1000; // Calculate two weeks in milliseconds
   return milliseconds + twoWeeksMs; // Add two weeks and convert back to Unix timestamp
 };
-const getGanttChartFormatDataComplete = () => {
-  const { apiResponse, sprints } = useContext(DataContext);
+const getGanttChartFormatDataComplete = (apiResponse, sprints) => {
   let date = new Date(apiResponse.projectStartDate);
   let projectStartDate = date.getTime();
   let sprintArrayLength = 0;
