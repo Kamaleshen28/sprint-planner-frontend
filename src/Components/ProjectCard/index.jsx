@@ -72,7 +72,8 @@ export default function ProjectCard({
           This action cannot be undone. Please confirm.
         </p>
         <Button
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             setIsOpen({ open: false });
           }}
         >
