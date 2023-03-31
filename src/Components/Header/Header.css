@@ -13,6 +13,11 @@
   box-sizing: border-box;
   z-index: 100;
 }
+.left-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
 
 .heading {
   display: flex;
@@ -24,7 +29,6 @@
 .dashboard-icon {
   display: flex;
   gap: 10px;
-  margin-left: 880px;
 }
 .dashboard-icon-button {
   font-size: 20px;
@@ -32,6 +36,7 @@
 
 .dashboard-icon-button:hover {
 cursor: pointer;
+
 }
 
 .signout-button {

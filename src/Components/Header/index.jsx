@@ -17,18 +17,20 @@ export default function Header() {
 
   return (
     <div className="header">
-      <div className="heading">
-        <SidePanel />
-      </div>
-      <div className="dashboard-icon">
-        <p>
-          <b>All Projects</b>
-        </p>
-        <DashboardIcon
-          className="dashboard-icon-button"
-          onClick={() => navigate('/')}
-          style={{ marginTop: '10px', fontSize: '30px' }}
-        />
+      <div className="left-section">
+        <div className="heading">
+          <SidePanel />
+        </div>
+        <div className="dashboard-icon">
+          <p>
+            <b>All Projects</b>
+          </p>
+          <DashboardIcon
+            className="dashboard-icon-button"
+            onClick={() => navigate('/')}
+            style={{ marginTop: '10px', fontSize: '30px' }}
+          />
+        </div>
       </div>
       <div className="signout-button-container" onClick={handleSignoutClick}>
         <Button variant="contained">Sign Out</Button>
