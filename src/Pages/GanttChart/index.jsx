@@ -84,7 +84,11 @@ const GanttChart = () => {
           )}
         </div>
       </div>
-      {ganttChartView ? <GanttChartSprintView /> : <GanttChartCompleteView />}
+      {ganttChartView ? (
+        <GanttChartSprintView setScrollSprint={setScrollSprint} />
+      ) : (
+        <GanttChartCompleteView />
+      )}
     </>
   );
 };
