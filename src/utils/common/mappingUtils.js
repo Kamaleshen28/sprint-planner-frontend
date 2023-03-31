@@ -179,7 +179,17 @@ const parseImportedCSV = (csvString) => {
           ? story.dependencies.split('-').map((d) => Number(d))
           : [];
         console.log('after typecasting dependencies:', story.dependencies);
-        story.preAssignedDeveloperId = Number(story.preAssignedDeveloper);
+        console.log(
+          `${story.title}: before typecasting developer:${story.preAssignedDeveloperId}`,
+        );
+        story.preAssignedDeveloperId = story.preAssignedDeveloperId.length
+          ? Number(story.preAssignedDeveloperId)
+          : null;
+        console.log(
+          `${story.title}: after typecasting developerId:`,
+          story.preAssignedDeveloperId,
+          'q',
+        );
         story.id = Number(story.id);
         story.storyPoints = Number(story.storyPoints);
 

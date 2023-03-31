@@ -5,9 +5,11 @@ import DeveloperInput from '../DeveloperInput';
 import StoryInput from '../StoryInput';
 import PropTypes from 'prop-types';
 import CSVInput from '../CSVInput';
+import { useLocation } from 'react-router-dom';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
+  // url location ends with /edit
 
   return (
     <div
@@ -49,6 +51,10 @@ export default function InputForm({
   setTotalDuration,
   setSprintDuration,
 }) {
+  const location = useLocation();
+  console.log('location', location);
+  const isEditUrl = location.pathname.endsWith('/edit');
+  console.log('isEditUrl', isEditUrl);
   const [value, setValue] = useState(1);
 
   const deleteCheck = (id) => {
@@ -71,6 +77,7 @@ export default function InputForm({
             borderColor: 'divider',
             display: 'flex',
             flexDirection: 'row-reverse',
+            justifyContent: 'space-between',
           }}
         >
           <Tabs
@@ -81,8 +88,19 @@ export default function InputForm({
           >
             <Tab label="Stories" {...a11yProps(0)} />
             <Tab label="Developers" {...a11yProps(1)} sx={{ pr: 0 }} />
-            <Tab label="Import CSV" {...a11yProps(1)} sx={{ pr: 0 }} />
+            {/* <Tab label="Import CSV" {...a11yProps(1)} sx={{ pr: 0 }} /> */}
           </Tabs>
+          {!isEditUrl && (
+            <CSVInput
+              setDeveloperList={setDeveloperList}
+              handleChange={handleChange}
+              setStoryList={setStoryList}
+              setTitle={setTitle}
+              setStartDate={setStartDate}
+              setTotalDuration={setTotalDuration}
+              setSprintDuration={setSprintDuration}
+            />
+          )}
         </Box>
         <TabPanel value={value} index={0}>
           <StoryInput
@@ -98,7 +116,7 @@ export default function InputForm({
             deleteCheck={deleteCheck}
           />
         </TabPanel>
-        <TabPanel value={value} index={2}>
+        {/* <TabPanel value={value} index={2}>
           <CSVInput
             setDeveloperList={setDeveloperList}
             handleChange={handleChange}
@@ -108,7 +126,7 @@ export default function InputForm({
             setTotalDuration={setTotalDuration}
             setSprintDuration={setSprintDuration}
           />
-        </TabPanel>
+        </TabPanel> */}
       </Box>
     </>
   );

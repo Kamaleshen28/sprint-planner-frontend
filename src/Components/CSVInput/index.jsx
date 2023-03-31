@@ -1,7 +1,7 @@
-import { Box, Fab, Tooltip } from '@mui/material';
+import { Box, Fab, Tooltip, Button } from '@mui/material';
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import PropTypes from 'prop-types';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DeveloperEntry from '../DeveloperEntry';
 import './CSVInput.css';
 import {
@@ -20,6 +20,25 @@ export default function CSVInput({
   setSprintDuration,
 }) {
   const [data, setData] = useState(null);
+
+  const handleImport = () => {
+    if (!data) {
+      alert('no data yet!');
+      return;
+    }
+    setDeveloperList(
+      getDevelopers(data.developers, data.projectMetaData.sprintCapacity),
+    );
+    console.log('setting story list', getStories(data.stories));
+    setStoryList(getStories(data.stories));
+    setTitle(data.projectMetaData.title);
+    setStartDate(data.projectMetaData.projectStartDate);
+    setTotalDuration(data.projectMetaData.duration);
+    setSprintDuration(data.projectMetaData.sprintDuration);
+    // imported successfully
+    handleChange(null, 1);
+  };
+
   const handleUpload = (event) => {
     const file = event.target.files[0];
     const reader = new FileReader();
@@ -32,29 +51,21 @@ export default function CSVInput({
     };
     reader.readAsText(file);
   };
-  const handleImport = () => {
-    if (!data) {
-      alert('no data yet!');
-      return;
+  useEffect(() => {
+    if (data) {
+      handleImport();
     }
-    setDeveloperList(
-      getDevelopers(data.developers, data.projectMetaData.sprintCapacity),
-    );
-    setStoryList(getStories(data.stories));
-    setTitle(data.projectMetaData.title);
-    setStartDate(data.projectMetaData.projectStartDate);
-    setTotalDuration(data.projectMetaData.duration);
-    setSprintDuration(data.projectMetaData.sprintDuration);
-    // imported successfully
-    handleChange(null, 1);
-  };
+  }, [data]);
   return (
-    <>
+    <div className="csv-input-container-outer">
       <div className="csv-input-container">
-        <input type="file" accept=".csv" onChange={handleUpload} />
-        <button onClick={handleImport}>Import</button>
+        <Button variant="outlined" component="label">
+          Import CSV
+          <input type="file" accept=".csv" onChange={handleUpload} hidden />
+        </Button>
+        {/* <button onClick={handleImport}>Import</button> */}
       </div>
-    </>
+    </div>
   );
 }
 
