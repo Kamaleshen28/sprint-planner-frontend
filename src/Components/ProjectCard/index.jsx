@@ -30,58 +30,17 @@ export default function ProjectCard({ project, handleBookmarkChange }) {
     );
     setPlannedDetails(projectPlannedDetails.data.data);
   };
-  // const toggleBookmark = async () => {
-  //   try {
-  //     const projectPlannedDetails = await axios.put(
-  //       `http://localhost:8080/api/projects/${project.id}/bookmark`,
-  //       {
-  //         isBookmarked: !plannedDetails.isBookmarked,
-  //       },
-  //       {
-  //         headers: { authorization: authState?.accessToken.accessToken },
-  //       },
-  //     );
-  //     setPlannedDetails({
-  //       ...plannedDetails,
-  //       isBookmarked: !plannedDetails.isBookmarked,
-  //     });
-  //     if (project.id === bookmarkChange) {
-  //       setBookmarkChange(undefined);
-  //     } else {
-  //       setBookmarkChange(project.id);
-  //     }
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-  const toggleBookmark = async () => {
-    try {
-      const projectPlannedDetails = await axios.put(
-        `http://localhost:8080/api/projects/${project.id}/bookmark`,
-        {
-          isBookmarked: !plannedDetails.isBookmarked,
-        },
-        {
-          headers: { authorization: authState?.accessToken.accessToken },
-        },
-      );
-      setPlannedDetails({
-        ...plannedDetails,
-        isBookmarked: !plannedDetails.isBookmarked,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
   useEffect(() => {
     fetchData();
   }, []);
+
   return (
     <>
       <Card
         sx={{
-          width: '95%',
-          height: '20vh',
+          width: '100%',
+          height: '100%',
           overflow: 'visible',
           '&:hover': {
             bgColor: '#ffffff',
@@ -125,11 +84,11 @@ export default function ProjectCard({ project, handleBookmarkChange }) {
           >
             <p className="project-title">{project.title}</p>
           </Typography>
-          <Typography id="content-section">
+          <Typography variant="body2" id="content-section">
             <Box id="content-top-section">
               {
                 <span className="">
-                  Sprints:{' '}
+                  <b>Sprints:</b>{' '}
                   {plannedDetails.length != 0 &&
                     plannedDetails.status != 'unsupportedInput' &&
                     plannedDetails.sprints.length}
@@ -140,21 +99,21 @@ export default function ProjectCard({ project, handleBookmarkChange }) {
                 </span>
               }
               <span className="">
-                Developers:{' '}
+                <b>Developers:</b>{' '}
                 {plannedDetails.length != 0 && plannedDetails.developers.length}
               </span>
-            </Box>
-            <Box id="content-middle-section">
               <span className="project-start-date">
-                Start Date: {new Date(project.projectStartDate).toDateString()}
+                <b>Start Date:</b>{' '}
+                {new Date(project.projectStartDate).toDateString()}
               </span>
               {
                 <span className="project-start-date">
-                  Total Duration:{' '}
+                  <b>Total Duration:</b>{' '}
                   {plannedDetails.length != 0 &&
                     plannedDetails.status != 'unsupportedInput' &&
                     plannedDetails.sprints.length *
-                      plannedDetails.sprintDuration}
+                      plannedDetails.sprintDuration +
+                      ' Weeks'}
                   {plannedDetails.length != 0 &&
                     plannedDetails.status === 'unsupportedInput' && (
                       <i>{'NA'}</i>

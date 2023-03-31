@@ -40,6 +40,13 @@
   margin-bottom: 1vh;
   border-radius: 5px;
 }
+.sprintBodyWithHeader > h2 {
+  text-align: center;
+  background-color: #e4eef1;
+  margin: 0;
+  margin-bottom: 1vh;
+  border-radius: 5px;
+}
 
 .sprintView::-webkit-scrollbar {
   display: none;

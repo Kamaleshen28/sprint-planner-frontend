@@ -16,24 +16,22 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  font-size: 17px;
-  font-weight: bold;
 }
 #content-section{
         text-align: left;
-        color: black;
+        /* color: black; */
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         height: 100%;
-        font-size: 14px;
+        /* font-size: 14px; */
 }
 
 #content-top-section{
         display: flex;
+        flex-direction: column;
         justify-content: space-between;
         padding: 0 20px 0 20px;
-        font-weight: bold;
         margin-top: 10px;
 }
 
@@ -69,8 +67,3 @@
         justify-content: center;
 }
 
-.project-start-date{
-        font-weight: bold;
-        display: flex;
-        justify-content: center;
-}

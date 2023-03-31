@@ -97,9 +97,9 @@ export default function CardView(props) {
             sprint.length > 0 && (
               <div key={index} className="sprintBodyWithHeader">
                 {heading === 'Sprints' ? (
-                  <h1>{`Sprint ${index + 1}`}</h1>
+                  <h2>{`Sprint ${index + 1}`}</h2>
                 ) : (
-                  <h1>{developerIdMapping[sprint[0].assignedDeveloperId]}</h1>
+                  <h2>{developerIdMapping[sprint[0].assignedDeveloperId]}</h2>
                 )}
                 <div className="sprintBody">
                   <Grid container spacing={2}>

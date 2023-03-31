@@ -1,11 +1,9 @@
 import React from 'react';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import { DataContext } from '../../Contexts/DataContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Switch from '@mui/material/Switch';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
@@ -19,15 +17,13 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const { authState } = useOktaAuth();
   const [projects, setProjects] = React.useState([]);
-  const [filterType, setFilterType] = React.useState('All');
+  const [filterType, setFilterType] = React.useState('Select Status');
   const { setProjectId, projectId } = React.useContext(DataContext);
   const [filteredProjects, setFilteredProjects] = React.useState(projects);
   const [bookmarked, setBookmarked] = React.useState(false);
   const [onChange, setOnChange] = React.useState(false);
-  // const [bookmarkChange, setBookmarkChange] = React.useState(undefined);
   const [query, setQuery] = React.useState('');
   React.useEffect(() => {
-    console.log('Landing Page: axios');
     axios
       .get('http://localhost:8080/api/projects', {
         headers: { authorization: authState?.accessToken.accessToken },
@@ -40,20 +36,13 @@ export default function LandingPage() {
       .catch((error) => {
         console.log(error);
       });
-    // const requiredProjects = projects.find(
-    //   (project) => project.id === bookmarkChange,
-    // );
-    // requiredProjects.isBookmarked = !requiredProjects.isBookmarked;
   }, []);
-  // React.useEffect(() => {
-  //   if (bookmarkChange === undefined) return;
-  // }, [bookmarkChange]);
 
   React.useEffect(() => {
     let results = projects.filter((project) =>
       project.title.toLowerCase().includes(query.toLowerCase()),
     );
-    if (filterType !== '' && filterType !== 'All') {
+    if (filterType !== '' && filterType !== 'Select Status') {
       results = results.filter((project) => {
         return project.status === filterType;
       });
@@ -68,12 +57,10 @@ export default function LandingPage() {
 
   const handleBookmarkChange = async (id) => {
     const requiredProject = projects.find((project) => project.id === id);
-    // requiredProject.isBookmarked = !requiredProject.isBookmarked;
     const updatedProject = {
       ...requiredProject,
       isBookmarked: !requiredProject.isBookmarked,
     };
-    console.log('updatedProject', updatedProject);
     await axios.put(
       `http://localhost:8080/api/projects/${id}/bookmark`,
       {
@@ -113,88 +100,94 @@ export default function LandingPage() {
   const handleBookmark = () => {
     setBookmarked(!bookmarked);
   };
-  console.log('landing page');
   return (
     <>
       <Header />
       <div className="landing-page">
-        <div className="landing-page-header">
-          <h1 className="landing-page-title">Projects</h1>
-          <div className="search-box">
-            <button className="btn-search">
-              <FontAwesomeIcon
-                icon={faSearch}
-                style={{ marginTop: '0px', fontSize: '20px' }}
-              />
-            </button>
-            <input
-              type="text"
-              className="input-search"
-              placeholder="Search Project"
-              onChange={(e) => setQuery(e.target.value.toLowerCase())}
-            />
-          </div>
-          <div className="bookmark-switch">
-            Bookmarked
-            <Switch
-              checked={bookmarked === true}
-              value={bookmarked}
-              onChange={handleBookmark}
-              inputProps={{ 'aria-label': 'controlled' }}
-            />
-          </div>
-          <div className="filter-search">
-            <FormControl
-              sx={{ width: 200, display: 'flex', height: '40px' }}
-              style={{ backgroundColor: 'white', borderRadius: '10px' }}
-            >
-              <InputLabel
-                variant="standard"
-                htmlFor="uncontrolled-native"
-                style={{ marginTop: '-13px' }}
-                sx={{ ml: 2, height: '40px' }}
-              >
-                Select Status
-              </InputLabel>
-              <Select
-                labelId="demo-select-small"
-                id="demo-select-small"
-                value={filterType === 'unsupportedInput' ? 'draft' : filterType}
-                label="Select Status"
-                onChange={handleChange}
-                sx={{ height: '40px' }}
-              >
-                <MenuItem value={'All'}>All</MenuItem>
-                <MenuItem value={'planned'}>Planned</MenuItem>
-                <MenuItem value={'draft'}>Draft</MenuItem>
-              </Select>
-            </FormControl>
-          </div>
-        </div>
-
-        {filteredProjects.length === 0 ? (
-          <div>No Projects</div>
-        ) : (
-          <Box sx={{ flexGrow: 1, width: '80%', margin: 'auto' }}>
-            <Grid container rowSpacing={2} sx={{ mt: 2 }}>
-              {filteredProjects.map((project) => (
-                <Grid
-                  key={project.id}
-                  onClick={() => handleClick(project.id)}
-                  xs={12}
-                  md={4}
-                  sx={{ mt: 2 }}
-                >
-                  <ProjectCard
-                    project={project}
-                    handleBookmarkChange={handleBookmarkChange}
-                    //onClick={() => handleClick(project.id)}
+        <div className="landing-page-wrapper">
+          <div className="landing-page-header">
+            <div className="landing-page-header-top-section">
+              <h1 className="landing-page-title">Projects</h1>
+              <div className="search-box">
+                <button className="btn-search">
+                  <FontAwesomeIcon
+                    icon={faSearch}
+                    style={{ marginTop: '0px', fontSize: '20px' }}
                   />
-                </Grid>
-              ))}
-            </Grid>
-          </Box>
-        )}
+                </button>
+                <input
+                  type="text"
+                  className="input-search"
+                  placeholder="Search Project"
+                  onChange={(e) => setQuery(e.target.value.toLowerCase())}
+                />
+              </div>
+            </div>
+            <div className="landing-page-header-bottom-section">
+              <div className="bookmark-switch">
+                <b>BOOKMARKED</b>
+                <Switch
+                  checked={bookmarked === true}
+                  value={bookmarked}
+                  onChange={handleBookmark}
+                  inputProps={{ 'aria-label': 'controlled' }}
+                />
+              </div>
+
+              <div className="filter-search">
+                <FormControl
+                  sx={{ width: 200, display: 'flex', height: '40px' }}
+                  style={{ backgroundColor: 'white', borderRadius: '4px' }}
+                >
+                  <Select
+                    value={
+                      filterType === 'unsupportedInput' ? 'draft' : filterType
+                    }
+                    onChange={handleChange}
+                    sx={{ height: '40px' }}
+                  >
+                    <MenuItem value={'Select Status'}>Select Status</MenuItem>
+                    <MenuItem value={'planned'}>Planned</MenuItem>
+                    <MenuItem value={'draft'}>Draft</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+            </div>
+          </div>
+
+          {filteredProjects.length === 0 ? (
+            <div>No Projects</div>
+          ) : (
+            <Box
+              sx={{
+                flexGrow: 1,
+                width: '100%',
+                bgcolor: 'white',
+                height: '100%',
+                pt: '30px',
+                pb: '20px',
+                display: 'flex',
+                flexWrap: 'wrap',
+                justifyContent: 'center',
+              }}
+            >
+              <Box id="project-card-container">
+                {filteredProjects.map((project) => (
+                  <Box
+                    key={project.id}
+                    onClick={() => handleClick(project.id)}
+                    sx={{ width: '30%', minWidth: '350px', height: '20vh' }}
+                  >
+                    <ProjectCard
+                      project={project}
+                      handleBookmarkChange={handleBookmarkChange}
+                    />
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+          )}
+        </div>
       </div>
     </>
   );
