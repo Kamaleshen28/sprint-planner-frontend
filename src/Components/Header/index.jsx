@@ -21,13 +21,12 @@ export default function Header() {
         <div className="heading">
           <SidePanel />
         </div>
-        <div className="dashboard-icon">
+        <div className="dashboard-icon" onClick={() => navigate('/')}>
           <p>
             <b>All Projects</b>
           </p>
           <DashboardIcon
             className="dashboard-icon-button"
-            onClick={() => navigate('/')}
             style={{ marginTop: '10px', fontSize: '30px' }}
           />
         </div>

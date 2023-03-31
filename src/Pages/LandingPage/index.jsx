@@ -100,6 +100,25 @@ export default function LandingPage() {
   const handleBookmark = () => {
     setBookmarked(!bookmarked);
   };
+  const handleDeleteProject = async (projectId) => {
+    try {
+      const res = await axios.delete(
+        `http://localhost:8080/api/projects/${projectId}`,
+        {
+          headers: {
+            authorization: authState?.accessToken.accessToken,
+          },
+        },
+      );
+      const newProjects = projects.filter(
+        (project) => project.id !== projectId,
+      );
+      setProjects(newProjects);
+      setFilteredProjects(newProjects);
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   return (
     <>
       <Header />
@@ -176,11 +195,12 @@ export default function LandingPage() {
                   <Box
                     key={project.id}
                     onClick={() => handleClick(project.id)}
-                    sx={{ width: '30%', minWidth: '350px', height: '20vh' }}
+                    sx={{ width: '30%', minWidth: '350px', height: '30vh' }}
                   >
                     <ProjectCard
                       project={project}
                       handleBookmarkChange={handleBookmarkChange}
+                      handleDeleteProject={handleDeleteProject}
                     />
                   </Box>
                 ))}

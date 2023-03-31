@@ -11,6 +11,14 @@
         margin-top: 100px;
         padding :  0  1rem;
 }
+.title-header { 
+        display :  flex;
+        justify-content: space-between;
+        background-color: black;
+}
+.bookmark-icon {
+       color: white;
+}
 
 .project-title{
   white-space: nowrap;
@@ -66,4 +74,3 @@
         align-items: center;
         justify-content: center;
 }
-
