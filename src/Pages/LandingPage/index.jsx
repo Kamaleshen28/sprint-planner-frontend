@@ -195,7 +195,11 @@ export default function LandingPage() {
                   <Box
                     key={project.id}
                     onClick={() => handleClick(project.id)}
-                    sx={{ width: '30%', minWidth: '350px', height: '30vh' }}
+                    sx={{
+                      width: '30%',
+                      minWidth: '350px',
+                      height: '250px',
+                    }}
                   >
                     <ProjectCard
                       project={project}

@@ -152,10 +152,20 @@ export default function ProjectCard({
             >
               {' '}
               {project.isBookmarked ? (
-                <BookmarkIcon style={{ fontSize: '30px', marginTop: '10px' }} />
+                <BookmarkIcon
+                  style={{
+                    fontSize: '30px',
+                    marginTop: '10px',
+                    color: '#DAA520',
+                  }}
+                />
               ) : (
                 <BookmarkBorderIcon
-                  style={{ fontSize: '30px', marginTop: '10px' }}
+                  style={{
+                    fontSize: '30px',
+                    marginTop: '10px',
+                    color: '#DAA520',
+                  }}
                 />
               )}
             </div>
