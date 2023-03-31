@@ -12,12 +12,13 @@ import axios from 'axios';
 import { ProjectCard, Header } from '../../Components';
 import './LandingPage.css';
 import { useOktaAuth } from '@okta/okta-react';
+import InputLabel from '@mui/material/InputLabel';
 
 export default function LandingPage() {
   const navigate = useNavigate();
   const { authState } = useOktaAuth();
   const [projects, setProjects] = React.useState([]);
-  const [filterType, setFilterType] = React.useState('Select Status');
+  const [filterType, setFilterType] = React.useState('All');
   const { setProjectId, projectId } = React.useContext(DataContext);
   const [filteredProjects, setFilteredProjects] = React.useState(projects);
   const [bookmarked, setBookmarked] = React.useState(false);
@@ -42,7 +43,7 @@ export default function LandingPage() {
     let results = projects.filter((project) =>
       project.title.toLowerCase().includes(query.toLowerCase()),
     );
-    if (filterType !== '' && filterType !== 'Select Status') {
+    if (filterType !== '' && filterType !== 'All') {
       results = results.filter((project) => {
         return project.status === filterType;
       });
@@ -158,14 +159,25 @@ export default function LandingPage() {
                   sx={{ width: 200, display: 'flex', height: '40px' }}
                   style={{ backgroundColor: 'white', borderRadius: '4px' }}
                 >
+                  <InputLabel
+                    variant="standard"
+                    htmlFor="uncontrolled-native"
+                    style={{ marginTop: '-13px' }}
+                    sx={{ ml: 2, height: '40px', mt: -1 }}
+                  >
+                    Select Status
+                  </InputLabel>
                   <Select
                     value={
                       filterType === 'unsupportedInput' ? 'draft' : filterType
                     }
                     onChange={handleChange}
                     sx={{ height: '40px' }}
+                    labelId="demo-select-small"
+                    id="demo-select-small"
+                    label="Select Status"
                   >
-                    <MenuItem value={'Select Status'}>Select Status</MenuItem>
+                    <MenuItem value={'All'}>All</MenuItem>
                     <MenuItem value={'planned'}>Planned</MenuItem>
                     <MenuItem value={'draft'}>Draft</MenuItem>
                   </Select>

@@ -185,23 +185,20 @@ const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
           <CardHeader
             sx={{
               display: 'flex',
-              // justifyContent: 'center',
               backgroundColor: 'black',
-              // alignItems: 'center',
+              alignItems: 'center',
               color: 'white',
-              mx: 'auto',
+              // mx: 'auto',
               border: 'none',
-
               p: 0,
               pl: 4,
-              fontSize: 18,
-              fontWeight: 500,
-
-              // paddingBottom: 1.5,
+              height: '50px',
+              // fontSize: 18,
+              // fontWeight: 500,
             }}
-            avatar={<p>STORY {id}</p>}
+            avatar={<Typography variant="h5">Story {id}</Typography>}
             action={
-              <p style={{ marginRight: '1rem' }}>
+              <p style={{ marginRight: '1rem', marginTop: '0.5rem' }}>
                 <IconButton
                   aria-label="settings"
                   onClick={handleClose}
@@ -225,44 +222,42 @@ const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
               width: '370px',
               height: '230px',
               overflowY: 'scroll',
-              // mb: 3,
             }}
           >
-            {/* <p>
-              <b>Story ID:</b> {id}
-            </p> */}
-            <p>
-              <b>Title: </b> {title}
-            </p>
-            <p>
-              <b>Start Date: </b> {startDate.toDateString()}
-            </p>
-            <p>
-              <b>End Date: </b> {endDate.toDateString()}
-            </p>
-            <p>
-              <b>Developer: </b>
-              {developers[0].name}
-            </p>
-            <p>
-              <b>Dependencies: </b>
-              {dependencies.length !== 0
-                ? dependencies.map((dependency, index) => (
-                    <li
-                      key={index}
-                      style={{
-                        overflow: 'hidden',
-                        whiteSpace: 'nowrap',
-                        textOverflow: 'ellipsis',
-                        width: '100%',
-                      }}
-                    >
-                      {/* {dependency}:{' '} */}
-                      {stories.find((story) => story.id === dependency).title}
-                    </li>
-                  ))
-                : 'NA'}
-            </p>
+            <Typography variant="body2">
+              <p>
+                <b>Title: </b> {title}
+              </p>
+              <p>
+                <b>Start Date: </b> {startDate.toDateString()}
+              </p>
+              <p>
+                <b>End Date: </b> {endDate.toDateString()}
+              </p>
+              <p>
+                <b>Developer: </b>
+                {developers[0].name}
+              </p>
+              <p>
+                <b>Dependencies: </b>
+                {dependencies.length !== 0
+                  ? dependencies.map((dependency, index) => (
+                      <li
+                        key={index}
+                        style={{
+                          overflow: 'hidden',
+                          whiteSpace: 'nowrap',
+                          textOverflow: 'ellipsis',
+                          width: '100%',
+                        }}
+                      >
+                        {/* {dependency}:{' '} */}
+                        {stories.find((story) => story.id === dependency).title}
+                      </li>
+                    ))
+                  : 'NA'}
+              </p>
+            </Typography>
           </CardContent>
         </Card>
       </Modal>
