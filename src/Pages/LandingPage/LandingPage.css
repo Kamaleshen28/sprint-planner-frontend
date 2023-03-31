@@ -2,8 +2,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem;
-  padding-bottom: 0;
+  margin: 20px 0 30px 0;
+  flex-direction: column;
 }
 
 .search-input {
@@ -22,26 +22,21 @@
 .landing-container {
   padding: 20px;
 }
-.landing-page-title{
-font-family: 'Roboto', 'Helvetica', 'Arial', sans-serif;
-margin-top: 65px;
-margin-left: 140px;
-}
+
 .landing-page {
   background-color: #e4eef1;
-  min-height: 100vh;
+  min-height: 92vh;
+  width:100%;
 }
 .search-box{
   width: fit-content;
   height: fit-content;
   position: relative;
-  margin-top: 40px;
-  margin-right: 120px;
 }
 .input-search{
-  height: 20px;
-  width: 200px;
-  border-style: none;
+  height: 19px;
+  width: 220px;
+  border: 1px solid rgba(196,196,196,255);
   padding: 10px;
   font-size: 18px;
   outline: none;
@@ -73,18 +68,14 @@ margin-left: 140px;
 }
 .btn-search:focus ~ .input-search{
   width: 300px;
-  border-radius: 0px;
+  border-radius: 4px;
   color: black;
-  background-color: transparent;
-  border-bottom:1px solid rgba(255,255,255,.5);
   transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
 }
 .input-search:focus{
   width: 300px;
-  border-radius: 0px;
+  border-radius: 4px;
   color: black;
-  background-color: transparent;
-  border-bottom:1px solid rgba(255,255,255,.5);
   transition: all 500ms cubic-bezier(0, 0.110, 0.35, 2);
 }
 .input-search::placeholder:focus{
@@ -95,8 +86,6 @@ margin-left: 140px;
 .filter-search {
   display: flex;
   gap: 5px;
-  margin-top: 40px;
-  margin-right: 150px;
 }
 .status-radio-btn {
   display: flex;
@@ -106,5 +95,49 @@ margin-left: 140px;
   margin-left: 78%;
 }
 .bookmark-switch {
-  margin-top: 40px;
+  width: 200px;
+  display: flex;
+  /* justify-content: space-between; */
+  align-items: center;
+  font-size: 16px;
 }
+
+.landing-page-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 92vh;
+  font-size: 14px;
+  padding: 0px 24px 0 24px ;
+}
+
+.landing-page-header-top-section{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin: 15px 0 10px 0;
+
+}
+
+.landing-page-header-bottom-section{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+
+}
+
+.landing-page-title{
+  margin: 0;
+}
+
+#project-card-container{ 
+  display: flex;
+  flex-wrap: wrap;
+  width: 97%;
+  gap:20px;
+  row-gap: 30px;
+  align-content: flex-start;
+} 
+

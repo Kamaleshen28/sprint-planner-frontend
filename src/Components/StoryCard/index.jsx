@@ -145,7 +145,6 @@ const Story = ({ id, dependencies, startDay, endDay, developers, title }) => {
           </Typography>
           <Typography
             variant="body2"
-            color="text.secondary"
             component="span"
             sx={{
               height: 130,
