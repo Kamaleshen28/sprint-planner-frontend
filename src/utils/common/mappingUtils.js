@@ -167,6 +167,7 @@ const parseImportedCSV = (csvString) => {
       let storyKeys = currLine;
       ++lineNumber;
       while (lineNumber < csvArray.length) {
+        console.log(csvArray[lineNumber]);
         currLine = csvArray[lineNumber].split(',');
         if (currLine[0] === '') break;
         let storyValues = currLine;
@@ -174,22 +175,22 @@ const parseImportedCSV = (csvString) => {
         storyKeys.forEach((key, index) => {
           story[key] = storyValues[index];
         });
-        console.log('before typecasting dependencies:', story.dependencies);
+        // console.log('before typecasting dependencies:', story.dependencies);
         story.dependencies = story.dependencies.length
           ? story.dependencies.split('-').map((d) => Number(d))
           : [];
-        console.log('after typecasting dependencies:', story.dependencies);
-        console.log(
-          `${story.title}: before typecasting developer:${story.preAssignedDeveloperId}`,
-        );
+        // console.log('after typecasting dependencies:', story.dependencies);
+        // console.log(
+        // `${story.title}: before typecasting developer:${story.preAssignedDeveloperId}`,
+        // );
         story.preAssignedDeveloperId = story.preAssignedDeveloperId.length
           ? Number(story.preAssignedDeveloperId)
           : null;
-        console.log(
-          `${story.title}: after typecasting developerId:`,
-          story.preAssignedDeveloperId,
-          'q',
-        );
+        // console.log(
+        //   `${story.title}: after typecasting developerId:`,
+        //   story.preAssignedDeveloperId,
+        //   'q',
+        // );
         story.id = Number(story.id);
         story.storyPoints = Number(story.storyPoints);
 

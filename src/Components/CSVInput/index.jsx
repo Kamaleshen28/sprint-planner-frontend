@@ -29,7 +29,7 @@ export default function CSVInput({
     setDeveloperList(
       getDevelopers(data.developers, data.projectMetaData.sprintCapacity),
     );
-    console.log('setting story list', getStories(data.stories));
+    // console.log('setting story list', getStories(data.stories));
     setStoryList(getStories(data.stories));
     setTitle(data.projectMetaData.title);
     setStartDate(data.projectMetaData.projectStartDate);
@@ -57,15 +57,14 @@ export default function CSVInput({
     }
   }, [data]);
   return (
-    <div className="csv-input-container-outer">
-      <div className="csv-input-container">
-        <Button variant="outlined" component="label">
-          Import CSV
-          <input type="file" accept=".csv" onChange={handleUpload} hidden />
-        </Button>
-        {/* <button onClick={handleImport}>Import</button> */}
-      </div>
-    </div>
+    <Button
+      variant="outlined"
+      component="label"
+      sx={{ ml: '24px', mt: '5px', mb: '5px' }}
+    >
+      Import CSV
+      <input type="file" accept=".csv" onChange={handleUpload} hidden />
+    </Button>
   );
 }
 
