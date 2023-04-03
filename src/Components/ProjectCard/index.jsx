@@ -156,7 +156,7 @@ export default function ProjectCard({
                   style={{
                     fontSize: '30px',
                     marginTop: '10px',
-                    color: 'red',
+                    color: '#EE4A52',
                   }}
                 />
               ) : (
@@ -164,7 +164,7 @@ export default function ProjectCard({
                   style={{
                     fontSize: '30px',
                     marginTop: '10px',
-                    color: 'red',
+                    color: '#EE4A52',
                   }}
                 />
               )}
