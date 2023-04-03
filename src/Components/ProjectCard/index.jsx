@@ -156,7 +156,7 @@ export default function ProjectCard({
                   style={{
                     fontSize: '30px',
                     marginTop: '10px',
-                    color: '#DAA520',
+                    color: 'red',
                   }}
                 />
               ) : (
@@ -164,7 +164,7 @@ export default function ProjectCard({
                   style={{
                     fontSize: '30px',
                     marginTop: '10px',
-                    color: '#DAA520',
+                    color: 'red',
                   }}
                 />
               )}
@@ -174,7 +174,7 @@ export default function ProjectCard({
             <Box id="content-top-section">
               {
                 <span className="">
-                  <b>Sprints:</b>{' '}
+                  <b>Sprint(s):</b>{' '}
                   {plannedDetails.length != 0 &&
                     plannedDetails.status != 'unsupportedInput' &&
                     plannedDetails.sprints.length}
@@ -185,7 +185,7 @@ export default function ProjectCard({
                 </span>
               }
               <span className="">
-                <b>Developers:</b>{' '}
+                <b>Developer(s):</b>{' '}
                 {plannedDetails.length != 0 && plannedDetails.developers.length}
               </span>
               <span className="project-start-date">

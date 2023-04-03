@@ -118,8 +118,8 @@ const EditDeveloperInput = ({
             name="developer"
             defaultValue="Disabled"
             value={editdeveloper}
-            validators={['required', 'matchRegexp:^[a-zA-Z ]*$']}
-            errorMessages={['this field is required', 'Not a valid name']}
+            validators={['required']}
+            errorMessages={['this field is required']}
             onChange={(e) => seteditDeveloper(e.target.value)}
           />
         </Item>
