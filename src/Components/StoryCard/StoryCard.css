@@ -1,0 +1,17 @@
+.storyCard {
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.storyDevelopers {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.story-title{
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

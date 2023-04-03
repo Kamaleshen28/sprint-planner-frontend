@@ -1,0 +1,10 @@
+.csv-input-container-outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10vw;
+  margin-left: 24px;
+  height: 3vh;
+  margin-top: 1.5vh;
+  border: 1px solid red;
+}

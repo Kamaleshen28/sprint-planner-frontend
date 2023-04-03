@@ -1,0 +1,48 @@
+Project Metadata
+title,sprintDuration,totalDuration,sprintCapacity,projectStartDate
+Innovative Ecommerce App,2,32,10,2023-04-01
+
+Developers
+id,name,capacity
+0,John,150
+1,Jack,150
+2,Joe,150
+3,Jane,150
+4,Rachel,150
+5,Michael,150
+
+Stories
+id,title,dependencies,preAssignedDeveloperId,storyPoints,description
+0,User Registration,,,5,Users can register for an account
+1,User Login,0,,3,Registered users can login
+2,User Profile,1,4,8,Users can view and edit their profile information
+3,Product Catalog,,,13,Display a list of products available for purchase
+4,Product Search,3,,8,Users can search for products
+5,Product Filtering,3,4,5,Users can filter products by various attributes
+6,Product Sorting,3,,3,Users can sort products by price,popularity,etc.
+7,Add to Cart,3,1,5,Users can add products to their shopping cart
+8,Remove from Cart,7,2,3,Users can remove products from their shopping cart
+9,Cart Management,7-8,,8,Users can view,update and empty their shopping cart
+10,Guest Checkout,7,3,5,Non-registered users can checkout as guests
+11,User Checkout,7,4,10,Registered users can checkout and save their shipping information
+12,Payment Integration,11,0,13,Integrate with a payment gateway to process payments
+13,Order Confirmation,12,2,5,Display a confirmation message after successful checkout
+14,Order History,11,1,8,Registered users can view their order history
+15,Order Tracking,14,5,10,Users can track the status of their orders
+16,Product Reviews,3,3,8,Users can leave product reviews and ratings
+17,Product Recommendations,3,0,5,Suggest similar products based on user browsing history
+18,Customer Support,,4,,Users can contact customer support for assistance
+19,Frequently Asked Questions,,5,3,Display a list of commonly asked questions and answers
+20,Return Policy,,0,3,Display the company's return policy
+21,Shipping Information,,,3,Display information about shipping rates and delivery times
+22,Sales Reporting,13,2,13,Generate reports on sales and revenue
+23,Inventory Management,3,3,10,Keep track of product inventory levels and restock as necessary
+24,Product Images,3,,5,Display high-quality images of products
+25,Product Videos,3,5,8,Display videos of products in action
+26,Product Comparisons,3,,5,Users can compare multiple products side-by-side
+27,Wishlist,,1,5,Users can save products to a wishlist for future reference
+28,Product Sharing,3,,3,Users can share products on social media
+29,Affiliate Marketing,,,
+
+
+

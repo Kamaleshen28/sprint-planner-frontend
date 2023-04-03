@@ -1,0 +1,133 @@
+.sprintViewHeader {
+  text-align: left;
+  display: flex;
+  padding-left: 1vw;
+  font-size: larger;
+  align-items: center;
+}
+
+.sprintViewBody {
+  display: flex;
+  gap: 1vw;
+  width: 88vw;
+  overflow-x: scroll;
+  padding: 2vh 1vw 0 1vw;
+  margin: 0 4.5vw;
+  /* scroll-snap-type: x mandatory; */
+}
+
+.sprintBody {
+  display: flex;
+  flex-direction: column;
+  width: 27vw;
+  align-items: center;
+  gap: 1vh;
+  height: 60vh;
+  overflow-y: scroll;
+}
+
+.sprintBodyWithHeader {
+  /* border: 1px solid black; */
+  border-radius: 5px;
+  padding: 2vh 1vw;
+  background-color: rgb(244, 245, 247);
+}
+
+.sprintBodyWithHeader > h1 {
+  text-align: center;
+  background-color: #e4eef1;
+  margin: 0;
+  margin-bottom: 1vh;
+  border-radius: 5px;
+}
+.sprintBodyWithHeader > h2 {
+  text-align: center;
+  background-color: #e4eef1;
+  margin: 0;
+  margin-bottom: 1vh;
+  border-radius: 5px;
+}
+
+.sprintView::-webkit-scrollbar {
+  display: none;
+}
+.sprintViewBody::-webkit-scrollbar {
+  display: none;
+}
+
+.sprintBody::-webkit-scrollbar {
+  display: none;
+}
+
+.sprintView {
+  /* overflow: auto; */
+  position: relative;
+}
+
+.rightButton {
+  font-size: 3vh;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.leftButton {
+  font-size: 3vh;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.sprintViewScrollDiv {
+  width: 87vw;
+  display: flex;
+  justify-content: center;
+  padding: 0 1vw;
+  margin: 1vw 4.5vw 0 4.5vw;
+}
+
+.dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1vw;
+}
+
+.dot {
+  height: 1vh;
+  width: 1vh;
+  border-radius: 50%;
+  background-color: #bbb;
+  cursor: pointer;
+}
+
+.active {
+  background-color: #717171;
+  transform: scale(1.5);
+}
+.scroll-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  position: fixed;
+  top: 50%;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+}
+.scroll-button:hover {
+  cursor: pointer;
+  background-color: rgba(189, 195, 199, 0.4);
+}
+.scroll-button:active {
+  background-color: rgba(189, 195, 199, 0.9);
+}
+
+.scroll-left {
+  left: 0.2vw;
+}
+.scroll-right {
+  right: 0.2vw;
+}

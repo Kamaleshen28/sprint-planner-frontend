@@ -1,0 +1,81 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login should render correctly 1`] = `
+<div>
+  <div
+    class="login-page"
+  >
+    <div
+      class="left-top-decor"
+    />
+    <div
+      class="right-top-decor"
+    />
+    <div
+      class="left-bottom-decor"
+    />
+    <div
+      class="right-bottom-decor"
+    />
+    <div
+      class="login-wrapper"
+    >
+      <div
+        class="login-image-container"
+      />
+      <div
+        class="form-container"
+      >
+        <form
+          class="form"
+        >
+          <span
+            class="username-text"
+          >
+            Username
+          </span>
+          <input
+            class="form-input"
+            name="username"
+            type="text"
+            value=""
+          />
+          <br />
+          <span
+            class="password-text"
+          >
+            Password
+          </span>
+          <input
+            class="form-input"
+            name="password"
+            type="password"
+            value=""
+          />
+          <br />
+          <button
+            class="submit-button"
+          >
+            Login
+          </button>
+        </form>
+        <div
+          class="confirmation-text"
+        >
+          <span
+            class="register-confirmation"
+          >
+            Don't have an account?
+             
+            <span
+              class="register-text"
+            >
+              Register
+            </span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

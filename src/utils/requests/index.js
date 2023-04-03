@@ -4,7 +4,7 @@ const makeRequest = async (
   method,
   url,
   data = {},
-  headers = {},
+  headers = { authorization: localStorage.getItem('accessToken') },
   navigate = null,
 ) => {
   try {

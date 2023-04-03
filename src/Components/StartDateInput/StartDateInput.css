@@ -1,0 +1,7 @@
+.start-date-input {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  gap: 1rem;
+}

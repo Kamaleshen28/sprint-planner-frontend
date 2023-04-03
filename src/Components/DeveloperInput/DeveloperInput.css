@@ -1,0 +1,53 @@
+.dev-container {
+  display: flex;
+  box-sizing: border-box;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /* align-content: center; */
+  /* min-height: 57vh; */
+  /* width: 100vw; */
+  border-radius: 2px;
+  background-color: white;
+  box-shadow: 0px 0px 11px -8px #000000;
+  padding: 0 20px 0 20px;
+}
+
+.developer-container-form {
+  width: 100%;
+  /* height: 15vh; */
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  justify-content: center;
+  align-items: center;
+  border-radius: 2px;
+  box-shadow: 0px 0px 11px -8px #000000;
+  /* margin-top:30px; */
+  min-height: 60px;
+}
+.dev-container form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 80px;
+  margin-bottom: 20px;
+  /* align-content: space-between; */
+  /* justify-content: space-around; */
+}
+
+.dev-list {
+  max-height: 50vh;
+  /* border-radius: 20px; */
+  /* box-shadow: 1px 1px 5px 1px rgba(0, 0, 0, 0.2); */
+  /* border: 1px solid lightblue; */
+  /* add scroll */
+  overflow-y: scroll;
+  margin-bottom: 10px;
+}
+.dev-list::-webkit-scrollbar {
+  display: none;
+}
+.dev-list:hover::-webkit-scrollbar {
+  display: block;
+}
