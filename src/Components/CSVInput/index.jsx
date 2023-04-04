@@ -56,15 +56,49 @@ export default function CSVInput({
       handleImport();
     }
   }, [data]);
+  const handleDownload = () => {
+    const sampleCSV = `Project Metadata
+    title,sprintDuration,totalDuration,sprintCapacity,projectStartDate
+    <project title>,<sprint duration in weeks>,<total duration in weeks>,<sprint capacity in days>,<project start date>
+    
+    Developers
+    id,name,capacity
+    <developer id>,<developer name>,<developer capacity in days>
+    <developer id>,<developer name>,<developer capacity in days>
+
+    Stories
+    id,title,dependencies,preAssignedDeveloperId,storyPoints,description
+    <story id>,<story title>,<story dependencies ids seperated by -  if any>,<story preassigned developer id if any>,<story points>,<story description>
+    <story id>,<story title>,<story dependencies ids seperated by - if any>,<story preassigned developer id if any>,<story points>,<story description>`;
+
+    const downloadLink = document.createElement('a');
+    const blob = new Blob([sampleCSV]);
+    const url = URL.createObjectURL(blob);
+    downloadLink.href = url;
+    downloadLink.download = 'sample.csv';
+    document.body.appendChild(downloadLink);
+    downloadLink.click();
+    document.body.removeChild(downloadLink);
+  };
   return (
-    <Button
-      variant="outlined"
-      component="label"
-      sx={{ ml: '24px', mt: '5px', mb: '5px' }}
-    >
-      Import CSV
-      <input type="file" accept=".csv" onChange={handleUpload} hidden />
-    </Button>
+    <div>
+      <Button
+        variant="outlined"
+        component="label"
+        sx={{ ml: '24px', mt: '5px', mb: '5px' }}
+      >
+        Import CSV
+        <input type="file" accept=".csv" onChange={handleUpload} hidden />
+      </Button>
+      <Button
+        variant="outlined"
+        component="label"
+        sx={{ ml: '24px', mt: '5px', mb: '5px' }}
+        onClick={handleDownload}
+      >
+        Download sample CSV
+      </Button>
+    </div>
   );
 }
 

@@ -52,7 +52,7 @@ export default function InputForm({
   setSprintDuration,
 }) {
   const location = useLocation();
-  const isEditUrl = location.pathname.endsWith('/edit');
+  const isEditUrl = location.pathname.includes('/edit');
   const [value, setValue] = useState(1);
 
   const deleteCheck = (id) => {
