@@ -45,3 +45,9 @@
 .story-list:hover::-webkit-scrollbar {
   display: block;
 }
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .story-header {
+    margin: auto;
+    width: 80%;
+  }
+}

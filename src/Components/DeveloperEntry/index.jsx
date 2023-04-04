@@ -159,7 +159,17 @@ export default function DeveloperEntry({
         }}
       >
         <Item sx={{ width: '80%', mx: 'auto' }}>{index + 1}</Item>
-        <Item sx={{ width: '80%', mx: 'auto' }}>{developer.toString()}</Item>
+        <Item
+          sx={{
+            width: '80%',
+            mx: 'auto',
+            textOverflow: 'ellipsis',
+            overflow: 'hidden',
+          }}
+          className="developer-name"
+        >
+          {developer.toString()}
+        </Item>
         <Item sx={{ width: '80%', mx: 'auto' }}>{sprintCapacity}</Item>
         <Item sx={{ width: '80%', mx: 'auto' }}>{capacity}</Item>
         {deleteCheck(id) ? (
