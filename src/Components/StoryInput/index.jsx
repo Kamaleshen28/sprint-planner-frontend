@@ -224,6 +224,7 @@ export default function StoryInput({ storyList, setStoryList, developerList }) {
                 gridTemplateColumns: '1fr repeat(4, 2fr) 1fr 1fr',
                 p: 1,
               }}
+              className="story-header"
             >
               <Item sx={{ width: '70%' }}>SERIAL NO.</Item>
               <Item sx={{ width: '70%' }}>STORIES</Item>

@@ -33,8 +33,23 @@
   background-color: white;
   align-items: center;
 }
+@media only screen and (min-width: 481px) and (max-width: 768px) {
+  .common-input-date { 
+    flex-direction: column;
+    gap: 10px;
+  }
+  .common-input-wrapper {
+    align-items: flex-start;
+  }
+}
 
 .home-page-wrapper {
   background-color: #e4eef1;
   min-height: 100vh;
+}
+
+.total-duration-estimate {
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }

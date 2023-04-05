@@ -117,7 +117,7 @@ export default function ProjectCard({
           }}
         >
           <div className="title-header">
-            <div>
+            <div style={{ width: '250px' }}>
               <Typography
                 gutterBottom
                 variant="h5"
@@ -130,9 +130,9 @@ export default function ProjectCard({
                   height: '50px',
                   borderTopRightRadius: '4px',
                   borderTopLeftRadius: '4px',
+                  textOverflow: 'ellipsis',
                   overflow: 'hidden',
                   whiteSpace: 'nowrap',
-                  textOverflow: 'ellipsis',
                   verticalAlign: 'middle',
                   display: 'flex',
                   alignItems: 'center',
@@ -199,7 +199,7 @@ export default function ProjectCard({
                     plannedDetails.status != 'unsupportedInput' &&
                     plannedDetails.sprints.length *
                       plannedDetails.sprintDuration +
-                      ' Weeks'}
+                      ' Week(s)'}
                   {plannedDetails.length != 0 &&
                     plannedDetails.status === 'unsupportedInput' && (
                       <i>{'NA'}</i>
