@@ -187,6 +187,7 @@ function EditPage() {
       // console.log(value);
       setSnackMessageEstimate(`Estimated Duration: ${value} week(s)`);
       setOpenSnackEstimate(true);
+      setTotalDuration(value);
     }
   };
 
