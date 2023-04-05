@@ -20,6 +20,8 @@ import {
 } from '../../Components';
 import { Button } from '@mui/material';
 import { useOktaAuth } from '@okta/okta-react';
+import Snackbar from '@mui/material/Snackbar';
+import { Alert, Slide } from '@mui/material';
 
 function InputPage() {
   const { authState } = useOktaAuth();
@@ -47,6 +49,12 @@ function InputPage() {
     setOpen({ bool: false, err: null, success: false });
     navigate('/edit');
   };
+  const [openSnack, setOpenSnack] = React.useState(false);
+  const [snackMessage, setSnackMessage] = React.useState('');
+  const handleCloseSnack = (event, reason) => {
+    setOpenSnack(false);
+  };
+
   const [openValidationModal, setOpenValidationModal] = React.useState({
     bool: false,
     atLeastOneOptionalAvailable: false,
@@ -128,6 +136,42 @@ function InputPage() {
       handleOpenValidationModal(true);
     }
   };
+
+  function SlideTransition(props) {
+    return <Slide {...props} direction="down" />;
+  }
+
+  const handleEstimateDuration = async () => {
+    if (
+      title &&
+      startDate &&
+      sprintDuration &&
+      storyList.length > 0 &&
+      developerList.length > 0
+    ) {
+      const result = await axios.post(
+        'http://localhost:8080/api/projects/calculateDuration',
+        {
+          title: title,
+          sprintDuration: Number(sprintDuration),
+          sprintCapacity: Number(sprintDuration) * 5,
+          stories: updateStories(storyList, developerList),
+          developers: updateDevelopers(developerList),
+        },
+        {
+          headers: {
+            authorization: authState?.accessToken.accessToken,
+          },
+        },
+      );
+
+      const value = result.data.data.estimatedDuration;
+      // console.log(value);
+      setSnackMessage(`Estimated Duration: ${value} week(s)`);
+      setOpenSnack(true);
+    }
+  };
+
   return (
     <div className="home-page-wrapper">
       {open.bool && (
@@ -154,10 +198,15 @@ function InputPage() {
               value={sprintDuration}
               setValue={setSprintDuration}
             />
-            <TotalDurationInput
-              value={totalDuration}
-              setValue={setTotalDuration}
-            />
+            <div className="total-duration-estimate">
+              <TotalDurationInput
+                value={totalDuration}
+                setValue={setTotalDuration}
+              />
+              <Button variant="contained" onClick={handleEstimateDuration}>
+                Estimate Duration
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -178,6 +227,19 @@ function InputPage() {
       >
         Submit
       </Button>
+      {openSnack && (
+        <Snackbar
+          open={openSnack}
+          autoHideDuration={5000}
+          onClose={handleCloseSnack}
+          TransitionComponent={SlideTransition}
+          anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+        >
+          <Alert variant="filled" severity="info" color="warning">
+            {snackMessage}
+          </Alert>
+        </Snackbar>
+      )}
     </div>
   );
 }
