@@ -64,6 +64,8 @@ function EditPage() {
 
   const [openSnack, setOpenSnack] = React.useState(true);
   const [snackMessage, setSnackMessage] = React.useState('');
+  const [openSnackEstimate, setOpenSnackEstimate] = React.useState(false);
+  const [snackMessageEstimate, setSnackMessageEstimate] = React.useState('');
   const [projectStatus, setProjectStatus] = React.useState(undefined);
   const params = useParams();
 
@@ -73,6 +75,10 @@ function EditPage() {
 
   const handleCloseSnack = (event, reason) => {
     setOpenSnack(false);
+  };
+
+  const handleCloseSnackEstimate = (event, reason) => {
+    setOpenSnackEstimate(false);
   };
 
   // const getSprintCapacity = (developers) => {
@@ -150,6 +156,37 @@ function EditPage() {
         });
     } else {
       handleOpenValidationModal(true);
+    }
+  };
+
+  const handleEstimateDuration = async () => {
+    if (
+      title &&
+      startDate &&
+      sprintDuration &&
+      storyList.length > 0 &&
+      developerList.length > 0
+    ) {
+      const result = await axios.post(
+        'http://localhost:8080/api/projects/calculateDuration',
+        {
+          title: title,
+          sprintDuration: Number(sprintDuration),
+          sprintCapacity: Number(sprintDuration) * 5,
+          stories: updateStories(storyList, developerList),
+          developers: updateDevelopers(developerList),
+        },
+        {
+          headers: {
+            authorization: authState?.accessToken.accessToken,
+          },
+        },
+      );
+
+      const value = result.data.data.estimatedDuration;
+      // console.log(value);
+      setSnackMessageEstimate(`Estimated Duration: ${value} week(s)`);
+      setOpenSnackEstimate(true);
     }
   };
 
@@ -273,10 +310,15 @@ function EditPage() {
                 value={sprintDuration}
                 setValue={setSprintDuration}
               />
-              <TotalDurationInput
-                value={totalDuration}
-                setValue={setTotalDuration}
-              />
+              <div className="total-duration-estimate">
+                <TotalDurationInput
+                  value={totalDuration}
+                  setValue={setTotalDuration}
+                />
+                <Button variant="contained" onClick={handleEstimateDuration}>
+                  Estimate Duration
+                </Button>
+              </div>
             </div>
           </div>
         </div>
@@ -293,6 +335,19 @@ function EditPage() {
         >
           Submit
         </Button>
+        {openSnackEstimate && (
+          <Snackbar
+            open={openSnackEstimate}
+            autoHideDuration={5000}
+            onClose={handleCloseSnackEstimate}
+            TransitionComponent={SlideTransition}
+            anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
+          >
+            <Alert variant="filled" severity="info" color="warning">
+              {snackMessageEstimate}
+            </Alert>
+          </Snackbar>
+        )}
       </div>
     );
   } else {
